@@ -1,0 +1,94 @@
+:root{
+    --azul-negro:#050b17;
+    --azul-oscuro:#0a1a33;
+    --azul-acento:#1f4fff;
+    --blanco:rgba(255,255,255,0.85);
+}
+
+/* Fondo */
+body{
+    min-height:100vh;
+    background:
+        linear-gradient(rgba(5,11,23,.75), rgba(5,11,23,.75)),
+        url('../img/img.jpeg');
+    background-size:cover;
+    background-position:center;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-family:"Segoe UI", sans-serif;
+}
+
+/* Card efecto espejo */
+.glass-card{
+    width:100%;
+    max-width:420px;
+    padding:2.2rem;
+    border-radius:18px;
+    background:rgba(255,255,255,0.08);
+    backdrop-filter:blur(14px);
+    -webkit-backdrop-filter:blur(14px);
+    border:1px solid rgba(255,255,255,0.15);
+    box-shadow:0 30px 60px rgba(0,0,0,.45);
+    color:var(--blanco);
+}
+
+/* Títulos */
+.glass-card h4{
+    font-weight:600;
+    color:#ffffff;
+}
+
+.glass-card p{
+    font-size:.95rem;
+    color:rgba(255,255,255,0.7);
+}
+
+/* Inputs */
+.form-control{
+    background:rgba(255,255,255,.12);
+    border:none;
+    border-radius:12px;
+    padding:.75rem;
+    color:#fff;
+}
+
+.form-control::placeholder{
+    color:rgba(255,255,255,.5);
+}
+
+.form-control:focus{
+    background:rgba(255,255,255,.18);
+    box-shadow:none;
+    outline:1px solid var(--azul-acento);
+    color:#fff;
+}
+
+/* Botón */
+.btn-dark-blue{
+    background:linear-gradient(135deg, var(--azul-acento), #142d8f);
+    border:none;
+    border-radius:14px;
+    padding:.75rem;
+    font-weight:600;
+    letter-spacing:.5px;
+    transition:.3s;
+}
+
+.btn-dark-blue:hover{
+    transform:translateY(-2px);
+    box-shadow:0 10px 30px rgba(31,79,255,.45);
+}
+
+/* Icono superior */
+.icon-lock{
+    width:65px;
+    height:65px;
+    border-radius:50%;
+    background:rgba(255,255,255,.12);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    margin:0 auto 1rem;
+    font-size:1.7rem;
+}

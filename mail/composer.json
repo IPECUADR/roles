@@ -1,0 +1,17 @@
+{
+    "name": "ivan-prez/mail_api_kde",
+    "autoload": {
+        "psr-4": {
+            "IvanPrez\\MailApiKde\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Ivan Pérez",
+            "email": "sistemas.ti@kluane-ecuador.ec"
+        }
+    ],
+    "require": {
+        "google/apiclient": "^2.19"
+    }
+}

@@ -1,0 +1,61 @@
+<?php
+session_start();
+
+header('Content-Type: application/json');
+
+// Bloquear acceso directo opcional
+if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+    echo json_encode(['err' => true]);
+    exit;
+}
+
+// lalamamos a la conexion
+require_once '../sys/sys.conf.php';
+$us = $_SESSION['user'] ?? null;
+
+// verficamos
+
+try {
+    $stmt = $pdo->prepare("
+
+
+
+ SELECT 
+
+      COUNT(logs.PK_log) as t
+  
+  FROM 
+  
+        logs
+
+     WHERE 
+     
+      user_log_aut = :us
+
+      and accion_user_log like 'Generación de PDF exitosa%'
+
+      and status_log = 'Exitoso'
+    
+
+
+
+    ");
+
+
+     $stmt->execute([
+
+
+        ':us'    => $us
+       
+
+        
+    ]);
+
+    $data = $stmt->fetchAll();
+
+    echo json_encode($data);
+
+} catch (Exception $e) {
+    error_log($e->getMessage());
+    echo json_encode(['err' => true]);
+}

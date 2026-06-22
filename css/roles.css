@@ -1,0 +1,203 @@
+/* INPUT */
+.input-corporate {
+    background: #1e293b;
+    color: #e5e7eb;
+    border: 1px solid #374151;
+    border-radius: 8px;
+    width: 100%;
+    padding: 10px 12px;
+    font-size: 14px;
+}
+
+
+
+
+
+/* BOTÓN SECUNDARIO */
+.btn-corporate-secondary {
+    background: #b72f2f;
+    color: #fff;
+}
+
+/* TABLET */
+@media (min-width: 768px) {
+    .input-corporate {
+        font-size: 15px;
+    }
+
+    .btn-corporate-primary,
+    .btn-corporate-secondary {
+        width: auto; /* ya no full width */
+        padding: 10px 20px;
+    }
+  
+}
+
+@media (max-width: 576px) {
+    img{
+        display: block;
+        margin: 0 auto;
+        margin-bottom: 10px;
+    }
+}
+/* DESKTOP */
+@media (min-width: 1024px) {
+    .input-corporate {
+        font-size: 16px;
+        padding: 12px 14px;
+    }
+
+    
+    .btn-corporate-primary,
+    .btn-corporate-secondary {
+        font-size: 15px;
+        padding: 12px 24px;
+    }
+}
+
+
+.footer-doc {
+    border-top: 1px solid #e5e7eb;
+}
+
+/* CONTENEDOR FIRMA */
+.firma-box {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    height: 120px;
+}
+
+/* ESPACIO PARA FIRMA (IMAGEN) */
+.firma-imagen {
+    height: 60px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+}
+
+.firma-imagen img {
+    max-height: 60px;
+    object-fit: contain;
+    opacity: 0.9; /* efecto elegante */
+}
+
+/* LINEA DE FIRMA */
+.firma-linea {
+    border-top: 1px solid #374151;
+    margin: 5px 0;
+}
+
+/* TEXTO */
+.footer-doc small {
+    color: #6b7280;
+    font-size: 12px;
+}
+
+.footer-doc strong {
+    font-size: 13px;
+}
+
+td{
+
+    font-size: 12px;
+}
+
+
+.resumen-box {
+    border-color: #dcdfe4;
+}
+
+/* Card interna */
+.resumen-card {
+    background: #ffffff;
+    border: 1px solid #dcdfe4;
+    border-radius: 5px;
+    padding: 8px 10px;
+    height: 100%;
+}
+
+/* título */
+.resumen-title {
+    font-size: 11px;
+    color: #6c757d;
+    margin-bottom: 4px;
+    letter-spacing: .3px;
+}
+
+/* valores en doble columna */
+.resumen-values {
+    display: flex;
+    justify-content: space-between;
+    font-size: 13px;
+}
+
+/* números */
+.resumen-card strong {
+    font-size: 14px;
+    font-weight: 600;
+}
+
+/* cards simples */
+.resumen-card.simple {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+/* TOTAL destacado */
+.resumen-card.total {
+    border-color: #0d6efd;
+    background: #f4f8ff;
+}
+
+.resumen-card.total strong {
+    color: #0d6efd;
+    font-size: 15px;
+}
+
+/* hover sutil corporativo */
+.resumen-card:hover {
+    border-color: #c6cbd1;
+}
+
+
+
+
+
+.badge {
+    font-size: 12px;
+    font-weight: 600;
+    padding: 3px 7px;
+    border-radius: 4px;
+    border: 1px solid transparent;
+}
+
+/* DIA */
+.badge-dia {
+    background-color: #e7f1ff;
+    color: #0d6efd;
+    border-color: #b6d4fe;
+}
+
+/* NOCHE */
+.badge-noche {
+    background-color: #f1f3f5;
+    color: #495057;
+    border-color: #dcdfe4;
+}
+
+/* FESTIVO */
+.badge-festivo {
+    background-color: #fff4e6;
+    color: #fd7e14;
+    border-color: #ffd8a8;
+}
+
+/* TOTAL */
+.badge-total {
+    background-color: #e7f1ff;
+    color: #0d6efd;
+    border-color: #b6d4fe;
+    font-weight: 700;
+}
