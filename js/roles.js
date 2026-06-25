@@ -330,6 +330,10 @@ $.post('../db/cbx_mes.php', function (r) {
                             <td>Total Descuentos</td>
                             <td class="text-end text-danger">$${item.total_descuentos}</td>
                         </tr>
+                          <tr class="table-light fw-bold">
+                            <td>Valor Día</td>
+                            <td class="text-end text-danger">$${item.valor_dia}</td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
