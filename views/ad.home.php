@@ -14,11 +14,11 @@
         <div class="card-pro card-blue"><h6 >Usuarios</h6><h3 id="count_personas">120</h3></div>
         </div>
 
-            <div class="col-md-3">
+            <div class="col-md-3" id="roles_report">
             <div class="card-pro card-green"><h6>Roles Cargados </h6><h3 id="count_roles">80</h3></div>
             </div>
 
-            <div class="col-md-3">
+            <div class="col-md-3" id="user_aceptacion">
             <div class="card-pro card-dark"><h6>Aceptados</h6><h3 id="count_aceptaciones">60</h3></div>
             </div>
 

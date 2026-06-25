@@ -188,6 +188,7 @@ $pdf->fila(10,'Vacaciones',$item['vacaciones']);
 $pdf->fila(10,'Otros Ajustes',$item['ot_ing_ajust_sl']);
 $pdf->fila(10,'Otros Ingresos',$item['ot_ingresos']);
 
+
 $pdf->total(
     10,
     'TOTAL INGRESOS',
@@ -225,6 +226,7 @@ $pdf->total(
     'VALOR DÍA',
     $item['valor_dia']
 );
+
 
 /* ========= BENEFICIOS ========= */
 
@@ -273,52 +275,56 @@ $pdf->SetTextColor(0);
 
 /* ========= FIRMAS ========= */
 
-$pdf->Ln(20);
+$pdf->SetY(170);
 
-$xFirmas = 150;
+$pdf->SetFont('Arial','',8);
 
-$pdf->SetX($xFirmas);
+/* Línea firma Aprobado */
+$pdf->Line(20,185,80,185);
 
-$wFirma = 42;
-$esp    = 2;
-$wImg   = 30;
-$hImg   = 10;
+/* Línea firma Gestión Humana */
+$pdf->Line(118,185,178,185);
 
-$yImg = $pdf->GetY();
+/* Línea firma Colaborador */
+$pdf->Line(216,185,276,185);
 
-$qrPath = '../qr_vt/qr6.png';
+/* Títulos */
+$pdf->SetXY(20,172);
+$pdf->Cell(60,5,t('Aprobado Por'),0,0,'C');
 
-if (file_exists($qrPath)) {
+$pdf->SetXY(118,172);
+$pdf->Cell(60,5,t('Gestión Humana'),0,0,'C');
 
-    $pdf->Image(
-        $qrPath,
-        $xFirmas + $wFirma + $esp + (($wFirma - $wImg) / 2),
-        $yImg,
-        $wImg
-    );
+$pdf->SetXY(216,172);
+$pdf->Cell(60,5,t('Colaborador'),0,0,'C');
 
+/* Títulos */
+$pdf->SetXY(20,184);
+$pdf->Cell(60,5,t($item['nom_firma']),0,0,'C');
+
+$pdf->SetXY(118,184);
+$pdf->Cell(60,5,t($item['nom_firma']),0,0,'C');
+
+$pdf->SetXY(216,184);
+$pdf->Cell(60,5,t($item['nm']),0,0,'C');
+
+
+if(file_exists($item['firma'])){
+    $pdf->Image($item['firma'],25,168,50);
 }
 
-$pdf->Ln($hImg + 4);
+if(file_exists($item['firma'])){
+    $pdf->Image($item['firma'],123,168,50);
+}
 
-$pdf->SetX($xFirmas);
+if(file_exists($item['firm_p'])){
+    $pdf->Image($item['firm_p'],221,168,40);
+}
 
-$pdf->SetFont('Arial','B',7);
 
-$pdf->Cell(
-    $wFirma,
-    6,
-    t(date('d/m/Y H:i')),
-    0,
-    0,
-    'C'
-);
-
-$pdf->Cell($esp,6,'',0,0);
 
 }
 
 /* ========= OUTPUT ========= */
 
 $pdf->Output('I','ROL_PAGOS.pdf');
-?>
