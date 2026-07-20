@@ -37,7 +37,7 @@ if ($FK_ROL == 1) {
    require_once('../tem/footer.php');
 
 
-} else if ($FK_ROL == 3) { // colaborador
+} else if ($FK_ROL == 3  || $FK_ROL == 4 ) { // colaborador
 
     // Variables para colaborador
     $rol = "Colaborador";

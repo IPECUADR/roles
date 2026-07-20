@@ -18,7 +18,7 @@ if (!isset($_SESSION['user'])) {
 // Variables locales
 $USUARIO = $_SESSION['usuario'] ?? 'Invitado';
 $FK_ROL  = $_SESSION['t_user'] ?? 0;
-
+$Mail  = $_SESSION['email'] ?? 0; 
 
 
 
@@ -43,8 +43,26 @@ if ($FK_ROL == 1) {
     // Redirige al módulo de roles para que el colaborador
     // ingrese directamente a su dashboard de role
 
-    header("Location: ../web/rutas.php?ruta=roles");
-    exit;
+
+    
+    $rol = "Colaborador";
+    $js = '<script src="../js/home.clbr.fn.js"></script>';
+    require_once('../tem/header.php');
+    require_once('../views/clbr.home.php');
+    require_once('../tem/footer.php');
+
+   }else if ($FK_ROL == 4){
+
+
+    
+
+    
+    $rol = "Líder Proceso";
+    $js = '<script src="../js/home.ldr.fn.js"></script>';
+    require_once('../tem/header.php');
+    require_once('../views/ldr.home.php');
+    require_once('../tem/footer.php');
+
 
 
    }else{

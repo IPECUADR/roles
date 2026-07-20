@@ -18,6 +18,7 @@ $stmt = $pdo->prepare(
         PK_persona AS id_p,
         user_p, 
         clave_p, 
+        email,
         FK_t_user AS t_user, 
         CONCAT(nom_p, ' ', ap_p) AS nm
      
@@ -43,5 +44,6 @@ $_SESSION['user'] = $row['user_p'];
 $_SESSION['pk_p'] = $row['id_p'];
 $_SESSION['t_user']      = $row['t_user'];
 $_SESSION['usuario']      = $row['nm'];
+$_SESSION['email']      = $row['email'];
 $_SESSION['sesion_activa'] = true;
 echo json_encode(['ok' => true, 'msg' => 'Bienvenido', 'icon'=>'success'] );
