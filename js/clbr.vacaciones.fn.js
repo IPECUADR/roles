@@ -29,7 +29,7 @@ function vacaciones_periodo(){
           $.each(r, function (i, item) {
             if (i !== 'err') {
 
-                let estado = validate_asg(item.t_vc);
+                let estado = validate_asg(item.dp);
 
 
                 $('#secc_per_vac').append(

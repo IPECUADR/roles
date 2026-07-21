@@ -28,30 +28,19 @@ try {
 
 
 
- SELECT 
+SELECT 
 
-  FK_vc as id,
-  ROUND( dias_pendientes, 2 )as dp, 
-  ROUND( dias_gozados, 2) as dg, 
-  ROUND( t_per_v, 2 ) as t_vc, 
-  ob_vc, 
-  periodo as pr
-  
-  FROM 
-  
-       vacaciones, 
-       periodo
-    
-     WHERE 
-     
-  
+    FK_vc AS id,
+    ROUND(dias_pendientes, 2) AS dp,
+    ROUND(dias_gozados, 2) AS dg,
+    ROUND(t_per_v, 2) AS t_vc,
+    ob_vc,
+    periodo AS pr
 
-       FK_persona = :id
-
-       and periodo.PK_pr  = vacaciones.FK_perido  
-    
-    
-
+    FROM vacaciones, periodo
+    WHERE FK_persona = :id
+    AND periodo.PK_pr = vacaciones.FK_perido
+    AND t_per_v > 0;
 
 
     ");
