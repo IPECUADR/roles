@@ -70,31 +70,79 @@ function cargar_proceso_vacaciones(area) {
         $('#secc_per_vac').empty()
         .append( `
             
-      <div class="container mt-4 mb-4 shadow border-0 bg-light p-0 rounded overflow-hidden" id="contenedor">
+   <div class="container mt-4 mb-4 shadow border-0 bg-light p-0 rounded overflow-hidden" id="contenedor">
 
     <!-- Encabezado -->
     <div class="header-gradient p-4">
 
         <div class="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center">
 
-           <div>
-            <h4 class="fw-bold text-white mb-1">
-                <i class="bi bi-calendar2-check-fill me-2"></i>
-                Gestión de Vacaciones
-            </h4>
-            <small class="text-white-50">
-                Colaboradores asignados a su proceso y estado de sus períodos vacacionales.
-            </small>
-        </div>
+            <div>
+                <h4 class="fw-bold text-white mb-1">
+                    <i class="bi bi-calendar2-check-fill me-2"></i>
+                    Gestión de Vacaciones
+                </h4>
 
-         
+                <small class="text-white-50">
+                    Colaboradores asignados a su proceso y estado de sus períodos vacacionales.
+                </small>
+            </div>
 
         </div>
 
     </div>
 
-</div>
-            
+    <!-- Barra de herramientas -->
+    <div class="col-12 p-3 mt-3 mb-3">
+
+        <div class="row align-items-center g-2">
+
+            <!-- Buscador -->
+            <div class="col-md-6 mt-4 mb-4">
+                <div class="input-group">
+                    <span class="input-group-text">
+                        <i class="bi bi-search"></i>
+                    </span>
+
+                    <input
+                        type="text"
+                        class="form-control"
+                        id="buscarPersona"
+                        placeholder="Buscar por nombre o días..."
+                    >
+                </div>
+            </div>
+
+            <!-- Botones -->
+            <div class="col-md-6 col-sm-12">
+
+                <div class="d-flex justify-content-md-end justify-content-start gap-2">
+
+                    <button class="btn btn-success" id="btnExcel">
+                        <i class="bi bi-file-earmark-excel-fill me-1"></i>
+                        Excel
+                    </button>
+
+                    <button class="btn btn-danger" id="btnPDF">
+                        <i class="bi bi-file-earmark-pdf-fill me-1"></i>
+                        PDF
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>  
+
+
+<small class="text-muted">
+    Resultados:
+    <span id="totalResultados">0</span>
+</small>
             
             `);
 
@@ -111,61 +159,65 @@ function cargar_proceso_vacaciones(area) {
 
         $.each(r, function (i, item) {
 
-            $('#secc_per_vac').append(`
-<div class="col-md-4 mb-4"    >
-     <div class="card border-0 shadow rounded-4 h-100 position-relative vac-card  detalle"  id="${item.id}"  names="${item.nom_p} ${item.ap}" title="Ver detalle">
+    $('#secc_per_vac').append(`
+            <div class="col-md-4 mb-4 tarjeta-vac"
+                data-nombre="${item.name}"
+                data-proceso="${item.a}"
+                data-disponibles="${item.dp}"
+                data-total="${item.t_vc}"
+                data-gozados="${item.dg}">
 
-        <!-- Gozados -->
-        <span class="position-absolute top-0 end-0 m-3 badge bg-danger px-3 py-1 fs-9">
-            ${item.dg} Gozados
-        </span>
+                <div class="card border-0 shadow rounded-4 h-100 position-relative vac-card detalle"
+                    id="${item.id}"
+                    title="Ver detalle">
 
-        <div class="card-body">
+                    <!-- Gozados -->
+                    <span class="position-absolute top-0 end-0 m-3 badge bg-danger px-3 py-1 fs-9">
+                        ${item.dg} Gozados
+                    </span>
 
-            <!-- Proceso -->
-            <h6 class="text-uppercase text-secondary fw-bold mb-1">
-                ${item.a}
-            </h6>
+                    <div class="card-body">
 
-            <!-- Colaborador -->
-            <h6 class="fw-bold text-dark mb-4">
-                ${item.nom_p} ${item.ap}
-            </h6>
+                        <h6 class="text-uppercase text-secondary fw-bold mb-1">
+                            ${item.a}
+                        </h6>
 
-            <div class="text-center">
+                        <h6 class="fw-bold text-dark mb-4">
+                            ${item.name}
+                        </h6>
 
-                <div class="display-6 fw-bold text-primary">
-                    ${item.dp}
+                        <div class="text-center">
+
+                            <div class="display-6 fw-bold text-primary">
+                                ${item.dp}
+                            </div>
+
+                            <div class="text-muted fs-5">
+                                Total disponibles
+                            </div>
+
+                        </div>
+
+                        <hr>
+
+                        <div class="d-flex justify-content-between">
+                            <span class="fw-semibold">Total Días</span>
+
+                            <span class="fw-bold text-dark">
+                                ${item.t_vc} días
+                            </span>
+                        </div>
+
+                        <div class="progress mt-2" style="height:12px;">
+                            <div class="progress-bar bg-success"
+                                style="width:${(item.dp/item.t_vc)*100}%">
+                            </div>
+                        </div>
+
+                    </div>
+
                 </div>
-
-                <div class="text-muted fs-5">
-                    Total disponibles
-                </div>
-
             </div>
-
-            <hr>
-
-            <div class="d-flex justify-content-between">
-                <span class="fw-semibold">
-                 Total Dias
-                </span>
-
-                <span class="fw-bold text-dark">
-                    ${item.t_vc} días
-                </span>
-            </div>
-
-            <div class="progress mt-2" style="height:12px;">
-                <div class="progress-bar bg-success"
-                     style="width:${(item.dp/item.t_vc)*100}%">
-                </div>
-            </div>
-
-        </div>
-
-    </div>
-</div>
             `);
 
         });
@@ -215,8 +267,7 @@ function vacaciones_periodo(){
                 $('#secc_per_vac').append(
                     `
                     
-                    
-                      <!-- Periodo -->
+                       <!-- Periodo -->
 
                         <div class="col-lg-6">
 
@@ -280,10 +331,6 @@ function vacaciones_periodo(){
                         </div>
 
     
-
-    
-                    
-                    
                     
                     
                     
@@ -345,14 +392,14 @@ function vacaciones_proceso_persona_detalle(bs){
           $.each(r, function (i, item) {
             if (i !== 'err') {
 
-                let estado = validate_asg(item.t_vc);
+                let estado = validate_asg(item.dp);
 
 
                 $('#respuesta_modal').append(
                     `
                     
                     
-                      <!-- Periodo -->
+                        <!-- Periodo -->
 
                         <div class="col-12 mt-4 mb-4">
 
@@ -363,13 +410,12 @@ function vacaciones_proceso_persona_detalle(bs){
                                         <div>
 
                                                 <small class="text-uppercase text-secondary">
-                                                  Período | ${item.pr}
-                                               
+                                                Período
                                                 </small>
 
-                                                <h6 class="mb-0 text-dark">
-                                                 ${item.name}
-                                                </h6>
+                                                <h4 class="mb-0 text-dark">
+                                               ${item.pr}
+                                                </h4>
 
                                         </div>
 
@@ -386,9 +432,9 @@ function vacaciones_proceso_persona_detalle(bs){
 
                                     <div class="col">
 
-                                        <h2>${item.dp}</h2>
+                                        <h2>${item.t_vc}</h2>
 
-                                        <small>Pendientes</small>
+                                        <small>Total Dias Periodo</small>
 
                                     </div>
 
@@ -402,7 +448,7 @@ function vacaciones_proceso_persona_detalle(bs){
 
                                     <div class="col">
 
-                                        <h2>${item.t_vc}</h2>
+                                        <h2>${item.dp}</h2>
 
                                         <small >Disponibles</small>
 
@@ -415,6 +461,8 @@ function vacaciones_proceso_persona_detalle(bs){
                             </div>
 
                         </div>
+
+    
 
     
                     
@@ -510,3 +558,42 @@ modal_ensamble(title, content, accions );
 $(document).on('click', '#btn_close', function () {
    $('#modal_service').modal('hide'); 
 }); 
+
+
+
+
+$(document).on("keyup", "#buscarPersona", function () {
+
+    let texto = $(this).val().toLowerCase();
+    let total = 0;
+
+    $(".tarjeta-vac").each(function () {
+
+        let nombre      = ($(this).data("nombre") || "").toString().toLowerCase();
+        let proceso     = ($(this).data("proceso") || "").toString().toLowerCase();
+        let disponibles = ($(this).data("disponibles") || "").toString();
+        let totalDias   = ($(this).data("total") || "").toString();
+        let gozados     = ($(this).data("gozados") || "").toString();
+
+        if (
+            nombre.includes(texto) ||
+            proceso.includes(texto) ||
+            disponibles.includes(texto) ||
+            totalDias.includes(texto) ||
+            gozados.includes(texto)
+        ) {
+
+            $(this).show();
+            total++;
+
+        } else {
+
+            $(this).hide();
+
+        }
+
+    });
+
+    $("#totalResultados").text(total);
+
+});

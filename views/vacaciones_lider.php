@@ -12,7 +12,7 @@
 
             <h2>
                 <i class="fas fa-umbrella-beach me-2"></i>
-                Vacaciones| Lider Proceso
+                Vacaciones | Lider Proceso
             </h2>
 
             <p class="mb-0">

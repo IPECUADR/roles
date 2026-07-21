@@ -35,7 +35,7 @@ try {
      ROUND(t_per_v, 2) AS t_vc,
      ob_vc, 
      periodo as pr,
-     CONCAT(persona.nom_p, ' ', persona.ap_p) AS name
+     CONCAT(persona.ap_p, ' ', persona.nom_p) AS name
   
   FROM 
   

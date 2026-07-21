@@ -20,11 +20,10 @@ try {
         SELECT
 
             vacaciones.FK_persona AS id,
-            SUM(vacaciones.t_per_v) AS t_vc,
-            SUM(vacaciones.dias_gozados) AS dg,
-            SUM(vacaciones.dias_pendientes) AS dp,
-            persona.nom_p,
-            persona.ap_p AS ap,
+            ROUND( SUM(vacaciones.t_per_v), 2) AS t_vc,
+            ROUND( SUM(vacaciones.dias_gozados), 2) AS dg,
+            ROUND( SUM(vacaciones.dias_pendientes), 2) AS dp,
+            CONCAT(persona.ap_p, ' ', persona.nom_p) AS name, 
             area.area AS a
 
         FROM vacaciones
@@ -45,7 +44,7 @@ try {
             persona.ap_p,
             area.area
 
-        ORDER BY persona.nom_p ASC
+        ORDER BY dp DESC
     ");
 
     $stmt->execute([
