@@ -352,7 +352,7 @@ function vacaciones_proceso_persona_detalle(bs){
                     
                       <!-- Periodo -->
 
-                        <div class="col-12">
+                        <div class="col-12 mt-4 mb-4">
 
                             <div class="vac-card">
 

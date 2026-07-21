@@ -95,3 +95,10 @@ function roles_p(){
 }
 
 
+/// acciones canales - kde 
+
+$(document).on('click', '#user_denuncia', function () {
+
+
+      location.href = '../web/rutas.php?ruta=Canales';
+})

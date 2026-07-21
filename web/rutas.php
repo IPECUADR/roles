@@ -34,7 +34,8 @@ $rutas = [
     'mostar_vacaciones_proceso' => '../db/cg_vaciones_proceso.php',
     'seleccion'    => '../db/cg_vaciones_clbr_selct.php',
 
-     'Reglamneto'    => '../controller/reglamento.php'
+     'Reglamneto'    => '../controller/reglamento.php',
+     'Canales'    => '../controller/canales.php'
     
 
 

@@ -31,9 +31,9 @@ try {
  SELECT 
 
   FK_vc as id,
-  dias_pendientes as dp, 
-  dias_gozados as dg, 
-  t_per_v as t_vc, 
+  ROUND( dias_pendientes, 2 )as dp, 
+  ROUND( dias_gozados, 2) as dg, 
+  ROUND( t_per_v, 2 ) as t_vc, 
   ob_vc, 
   periodo as pr
   
@@ -49,6 +49,8 @@ try {
        FK_persona = :id
 
        and periodo.PK_pr  = vacaciones.FK_perido  
+    
+       and t_per_v = 15
 
 
 

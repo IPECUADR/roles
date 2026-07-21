@@ -69,9 +69,9 @@ function vacaciones_periodo(){
 
                                     <div class="col">
 
-                                        <h2>${item.dp}</h2>
+                                        <h2>${item.t_vc}</h2>
 
-                                        <small>Pendientes</small>
+                                        <small>Total Dias Periodo</small>
 
                                     </div>
 
@@ -85,7 +85,7 @@ function vacaciones_periodo(){
 
                                     <div class="col">
 
-                                        <h2>${item.t_vc}</h2>
+                                        <h2>${item.dp}</h2>
 
                                         <small >Disponibles</small>
 
