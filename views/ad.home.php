@@ -22,9 +22,13 @@
             <div class="card-pro card-dark"><h6>Aceptados</h6><h3 id="count_aceptaciones">60</h3></div>
             </div>
 
-            <div class="col-md-3" id = "cg_masiva">
+        <div class="col-md-3" id = "cg_masiva">
             <div class="card-pro card-dark"><h6>Subir Roles  </h6><h3><i class="bi bi-cloud-upload-fill"></i></h3></div>
-            </div>
+         </div>
+
+         <div class="col-md-3" id = "btn_subir_vc">
+            <div class="card-pro card-dark"><h6>Subir Vacaciones  </h6><h3><i class="bi bi-cloud-upload-fill"></i></h3></div>
+        </div>
 
             </div>
 

@@ -35,6 +35,16 @@ $(document).on('click', '#user_capacitacion', function () {
 })
 
 
+/// roles 
+$(document).on('click', '#user_reglamento', function () {
+
+
+  location.href = '../web/rutas.php?ruta=Reglamneto';
+
+}); 
+
+
+
 
 // CONTAR dias de vacaciones
 
