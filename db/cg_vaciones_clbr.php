@@ -50,7 +50,7 @@ try {
 
        and periodo.PK_pr  = vacaciones.FK_perido  
     
-       and t_per_v = 15
+    
 
 
 
