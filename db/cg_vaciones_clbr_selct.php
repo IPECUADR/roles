@@ -29,13 +29,13 @@ try {
 
  SELECT 
 
-  FK_vc as id,
-  dias_pendientes as dp, 
-  dias_gozados as dg, 
-  t_per_v as t_vc, 
-  ob_vc, 
-  periodo as pr,
-  CONCAT(persona.nom_p, ' ', persona.ap_p) AS name
+     FK_vc as id,
+     ROUND(dias_pendientes, 2) AS dp,
+     ROUND(dias_gozados, 2) AS dg,
+     ROUND(t_per_v, 2) AS t_vc,
+     ob_vc, 
+     periodo as pr,
+     CONCAT(persona.nom_p, ' ', persona.ap_p) AS name
   
   FROM 
   
@@ -51,6 +51,8 @@ try {
        and  FK_persona = :id
 
        and periodo.PK_pr  = vacaciones.FK_perido  
+       AND t_per_v > 0;
+
 
 
 

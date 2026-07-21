@@ -44,28 +44,15 @@ $(document).on('click', '#user_reglamento', function () {
 }); 
 
 
+/// acciones canales - kde 
+
+$(document).on('click', '#user_denuncia', function () {
 
 
-// CONTAR dias de vacaciones
+      location.href = '../web/rutas.php?ruta=Canales';
+})
 
-function contar_vacaciones(){
 
-    $.post('../web/rutas.php?ruta=total_roles', function (r) {
-
-   
-
-        $('#count_roles').empty()
-           
-        
-
-                $('#count_roles').append(
-                    `${r.t} <i class="bi bi-filetype-pdf"></i>`
-                );
-         
-
-    }, 'json');
-
-}
 
 /// contar roles emitidos 
 

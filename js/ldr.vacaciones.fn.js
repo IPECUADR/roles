@@ -209,7 +209,7 @@ function vacaciones_periodo(){
           $.each(r, function (i, item) {
             if (i !== 'err') {
 
-                let estado = validate_asg(item.t_vc);
+                let estado = validate_asg(item.dp);
 
 
                 $('#secc_per_vac').append(
@@ -249,9 +249,9 @@ function vacaciones_periodo(){
 
                                     <div class="col">
 
-                                        <h2>${item.dp}</h2>
+                                        <h2>${item.t_vc}</h2>
 
-                                        <small>Pendientes</small>
+                                        <small>Total Dias Periodo</small>
 
                                     </div>
 
@@ -265,7 +265,7 @@ function vacaciones_periodo(){
 
                                     <div class="col">
 
-                                        <h2>${item.t_vc}</h2>
+                                        <h2>${item.dp}</h2>
 
                                         <small >Disponibles</small>
 
@@ -278,6 +278,8 @@ function vacaciones_periodo(){
                             </div>
 
                         </div>
+
+    
 
     
                     

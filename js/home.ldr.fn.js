@@ -32,4 +32,21 @@ $(document).on('click', '#user_capacitacion', function () {
 
 
 
+/// roles 
+$(document).on('click', '#user_reglamento', function () {
+
+
+  location.href = '../web/rutas.php?ruta=Reglamneto';
+
+}); 
+
+
+/// acciones canales - kde 
+
+$(document).on('click', '#user_denuncia', function () {
+
+
+      location.href = '../web/rutas.php?ruta=Canales';
+})
+
 

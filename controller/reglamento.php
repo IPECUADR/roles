@@ -46,7 +46,7 @@ if ($FK_ROL == 1) {
 
     
       $rol = "Colaborador";
-      $js = '<script src="../js/clbr.vacaciones.fn.js"></script>';
+     
 
       require_once('../tem/header.php');
       require_once('../views/reglamento.view.php');
@@ -56,7 +56,13 @@ if ($FK_ROL == 1) {
    }else if($FK_ROL == 4){
 
     
-   require_once('../views/404.php');
+       
+      $rol = "Líder Proceso";
+     
+
+      require_once('../tem/header.php');
+      require_once('../views/reglamento.view.php');
+      require_once('../tem/footer.php');
  
    
    

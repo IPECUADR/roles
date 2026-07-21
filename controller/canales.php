@@ -47,7 +47,7 @@ if ($FK_ROL == 1) {
     
       $rol = "Colaborador";
       $js = '<script src="../js/canales.clbr.fn.js"></script>';
-      $css = '<link rel="stylesheet" href="../css/vacaciones.css">';
+  
       require_once('../tem/header.php');
       require_once('../views/canales.view.php');
       require_once('../tem/footer.php');
@@ -56,12 +56,11 @@ if ($FK_ROL == 1) {
    }else if($FK_ROL == 4){
 
       $rol = "Líder Proceso";
-      $js = '<script src="../js/ldr.vacaciones.fn.js"></script>';
-      $css = '<link rel="stylesheet" href="../css/vacaciones.css">';
+      $js = '<script src="../js/canales.clbr.fn.js"></script>';
+  
       require_once('../tem/header.php');
-      require_once('../views/vacaciones_lider.php');
+      require_once('../views/canales.view.php');
       require_once('../tem/footer.php');
-
    
    
    }else{

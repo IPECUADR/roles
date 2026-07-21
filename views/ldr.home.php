@@ -26,6 +26,18 @@
                    <div class="card-clbr card-blue"><h6 >Mis Roles de Pago</h6><h3 id="roles_p"><i class="bi bi-card-text"></i> </h3></div>
                 </div>
 
+
+             
+
+                 <div class="col-md-3" id="user_reglamento">
+                        <div class="card-clbr card-blue"><h6>Reglamento Interno</h6><h3 id="vac_clbr_sec"><i class="bi bi-book-half"></i> </h3></div>
+                </div>
+                
+                   <div class="col-md-3" id="user_denuncia">
+                        <div class="card-clbr card-blue"><h6>Canales de Denuncia</h6><h3 id="vac_clbr_sec"><i class="bi bi-info-circle-fill"></i> </h3></div>
+                </div>
+
+
             
                
 
