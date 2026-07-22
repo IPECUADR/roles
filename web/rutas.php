@@ -35,8 +35,9 @@ $rutas = [
     'seleccion'    => '../db/cg_vaciones_clbr_selct.php',
 
      'Reglamneto'    => '../controller/reglamento.php',
-     'Canales'    => '../controller/canales.php'
-    
+     'Canales'    => '../controller/canales.php', 
+     'KD'    => '../controller/kd_tescucha.php',
+     'areas'    =>'/../../KDE/DATABASE/cargar_areas.php'
 
 
    

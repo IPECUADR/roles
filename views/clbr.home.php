@@ -66,9 +66,9 @@
                 </div>
 
 
-                  <div class="col-md-3" id="user_denuncia">
+              <div class="col-md-3" id="user_kd_escucha">
 
-                  <div class="buzon card-blue"><h6>Buzon de Sugerencias </h6><h3 id="vac_clbr_sec"><i class="bi bi-chat-heart-fill"></i> KD Te escucha </h3></div>
+                  <div class="buzon "><h6>Buzon de Sugerencias </h6><h3 id="vac_clbr_sec"><i class="bi bi-chat-heart-fill"></i> KD Te escucha </h3></div>
 
                    
                 </div>

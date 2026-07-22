@@ -53,6 +53,15 @@ $(document).on('click', '#user_denuncia', function () {
 })
 
 
+$(document).on('click', '#user_kd_escucha', function () {
+
+
+      location.href = '../web/rutas.php?ruta=KD';
+})
+
+
+
+
 
 /// contar roles emitidos 
 
