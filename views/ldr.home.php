@@ -1,4 +1,31 @@
+<style>
 
+    
+
+ .buzon{
+
+    background:linear-gradient(120deg,#0077ff,#00b0ff);
+    border: none;
+  
+    border-radius: 20px;
+    padding: 20px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.5);
+    transition: 0.3s;
+    cursor: pointer;
+    color: white;
+
+}
+.buzon:hover {
+     transform: translateY(-5px);
+     background: linear-gradient(145deg, #053f97, #011532);
+     color: #f1f3f6;
+}
+
+.card-pro:hover {
+    transform: translateY(-5px);
+}
+
+</style>
 
 <!-- CONTENIDO -->
 <div class="container main-content">
@@ -27,6 +54,8 @@
                 </div>
 
 
+
+                  
              
 
                  <div class="col-md-3" id="user_reglamento">
@@ -37,6 +66,18 @@
                         <div class="card-clbr card-blue"><h6>Canales de Denuncia</h6><h3 id="vac_clbr_sec"><i class="bi bi-info-circle-fill"></i> </h3></div>
                 </div>
 
+
+
+                <div class="col-md-3" id="user_denuncia">
+
+                  <div class="buzon "><h6>Buzon de Sugerencias </h6><h3 id="vac_clbr_sec"><i class="bi bi-chat-heart-fill"></i> KD Te escucha </h3></div>
+
+                   
+                </div>
+
+                
+
+                
 
             
                

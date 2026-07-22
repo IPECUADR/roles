@@ -4,6 +4,8 @@
 
 <style>
 
+    
+
  .buzon{
 
     background:linear-gradient(120deg,#0077ff,#00b0ff);
@@ -28,6 +30,7 @@
 }
 
 </style>
+
 <div class="container main-content">
 
 
