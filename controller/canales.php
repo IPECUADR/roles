@@ -47,7 +47,7 @@ if ($FK_ROL == 1) {
     
       $rol = "Colaborador";
       $js = '<script src="../js/canales.clbr.fn.js"></script>';
-  
+      $css = '<link rel="stylesheet" href="../css/canales.css">';
       require_once('../tem/header.php');
       require_once('../views/canales.view.php');
       require_once('../tem/footer.php');
@@ -57,7 +57,7 @@ if ($FK_ROL == 1) {
 
       $rol = "Líder Proceso";
       $js = '<script src="../js/canales.clbr.fn.js"></script>';
-  
+      $css = '<link rel="stylesheet" href="../css/canales.css">';
       require_once('../tem/header.php');
       require_once('../views/canales.view.php');
       require_once('../tem/footer.php');
