@@ -609,7 +609,7 @@ $(document).on('click', '#ver_mas', function () {
                             </div>
 
 
-                            <a href="http://200.105.244.50/ARCHIVO/DOC/CV/cv/${data.cv}"
+                            <a href="http://200.105.244.50/ARCHIVO/DOC/CV/${data.cv}"
                                target="_blank"
                                class="btn btn-danger px-3">
 
