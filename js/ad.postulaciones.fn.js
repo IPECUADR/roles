@@ -77,7 +77,7 @@ function cargar_postulaciones(){
              
                     <td>
                         ${item.cv
-                            ? `<a href="../cv/${item.cv}" 
+                            ? `<a href="http://200.105.244.50/ARCHIVO/DOC/CV/${item.cv}" 
                                   target="_blank"
                                   class="btn btn-outline-danger btn-sm"
                                   title="Ver documento">
@@ -609,7 +609,7 @@ $(document).on('click', '#ver_mas', function () {
                             </div>
 
 
-                            <a href="../cv/${data.cv}"
+                            <a href="http://200.105.244.50/ARCHIVO/DOC/CV/cv/${data.cv}"
                                target="_blank"
                                class="btn btn-danger px-3">
 
