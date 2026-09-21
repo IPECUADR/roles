@@ -939,3 +939,11 @@ $.post('../db/cbx_persona.php', function (r) {
 
 
 }
+
+
+
+$(document).on('click', '#btn_postulaciones', function () {
+
+
+      location.href = '../web/rutas.php?ruta=postulaciones';
+})

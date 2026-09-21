@@ -37,8 +37,15 @@ $rutas = [
      'Reglamneto'    => '../controller/reglamento.php',
      'Canales'    => '../controller/canales.php', 
      'KD'    => '../controller/kd_tescucha.php',
-     'areas'    =>'/../../KDE/DATABASE/cargar_areas.php'
+     'areas'    =>'/../../KDE/DATABASE/cargar_areas.php',
 
+     'postulacion' => '../controller/postulacion.php', 
+
+     'mensaje' => '../controller/msg.postulacion.php', 
+     'postulaciones' => '../controller/postulaciones.php', 
+
+
+      'mostar_postulaciones' => '../db/cg_postulaciones.php'
 
    
   

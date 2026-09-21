@@ -658,6 +658,9 @@ $.post('../db/us_serv_firma.php', function (r) {
         ctx.lineCap = "round";
         ctx.lineJoin = "round";
         ctx.strokeStyle = "#0c0750";
+
+
+        
     }
 
     resizeCanvas();

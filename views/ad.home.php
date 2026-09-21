@@ -30,7 +30,16 @@
             <div class="card-pro card-dark"><h6>Subir Vacaciones  </h6><h3><i class="bi bi-cloud-upload-fill"></i></h3></div>
         </div>
 
-            </div>
+
+        <div class="col-md-3" id = "btn_postulaciones">
+            <div class="card-pro card-blue"><h6> Postulaciones  </h6><h3><i class="bi bi-journal-check"></i></h3></div>
+        </div>
+
+           
+    
+    
+    
+    </div>
 
 
         

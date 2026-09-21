@@ -1,0 +1,98 @@
+:root{
+    --primary:#01183b;
+    --secondary:#01000e;
+    --light:#f8fafc;
+    --dark:#1e293b;
+}
+
+body{
+    min-height:100vh;
+    background:linear-gradient(135deg,var(--primary),var(--secondary));
+    font-family:'Segoe UI',sans-serif;
+}
+
+.form-card{
+    border:none;
+    border-radius:25px;
+    overflow:hidden;
+    box-shadow:0 15px 40px rgba(0,0,0,.15);
+}
+
+.form-title{
+    color:var(--primary);
+    font-weight:700;
+}
+
+.progress{
+    height:10px;
+    border-radius:20px;
+    overflow:hidden;
+}
+
+.progress-bar{
+    transition:all .4s ease;
+}
+
+.step{
+    display:none;
+    animation:fadeIn .4s ease;
+}
+
+.step.active{
+    display:block;
+}
+
+.form-control,
+.form-select{
+    min-height:50px;
+    border-radius:12px;
+    border:1px solid #dbe2ea;
+}
+
+.form-control:focus,
+.form-select:focus{
+    border-color:var(--primary);
+    box-shadow:0 0 15px rgba(13,110,253,.2);
+}
+
+.btn{
+    border-radius:12px;
+    min-width:140px;
+    font-weight:600;
+}
+
+.btn-primary{
+    background:var(--primary);
+}
+
+.step-title{
+    color:var(--dark);
+    font-weight:600;
+    margin-bottom:20px;
+}
+
+label{
+    font-weight:600;
+    margin-bottom:5px;
+}
+
+@keyframes fadeIn{
+    from{
+        opacity:0;
+        transform:translateY(20px);
+    }
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+input{
+
+    text-transform:uppercase;
+
+}
+
+input[type="email"] {
+    text-transform: lowercase;
+}
