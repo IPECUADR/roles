@@ -30,7 +30,7 @@ require_once '../sys/sys.post.php';
 $ftp_server = "200.105.244.50";
 $ftp_user   = "Administrador";
 $ftp_pass   = "@Kde.2024";
-$ftp_ruta   = "/DOC/ACTIVIDADES/";
+$ftp_ruta   = "/DOC/CV/";
 
 // ========================================
 // DATOS DEL FORMULARIO
