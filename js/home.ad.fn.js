@@ -947,3 +947,107 @@ $(document).on('click', '#btn_postulaciones', function () {
 
       location.href = '../web/rutas.php?ruta=postulaciones';
 })
+
+
+/// subir colaboradores sistema
+
+ $('#btn_cargar_usuarios').click(function(){
+
+         title =  `<i class="bi bi-cloud-upload-fill"></i> Carga Masiva de Informacion `;
+                    content =  ` 
+
+                <div class="card shadow-sm border-0">
+                       
+                     <div class="card-body">
+                           
+
+                         
+
+                        <form id="form_import_data" enctype="multipart/form-data" >
+
+                           <label>Subir Archivo .csv </label>
+                            <input type="file" class="form-control" name="archivo"  id="archivo" accept=".csv" required>
+
+                        
+                        </form>
+
+
+
+                        </div>
+                 </div>
+
+
+                    `;
+
+                    accions =  `
+                    
+                <div class="w-100">
+                    <div class="row">
+                        <div class="col-12 col-md-6 mb-2">
+                            <button type="button"
+                                    class="btn btn-success w-100"
+                                    id="btn_import_user">
+                             <i class="bi bi-floppy"></i>    Guardar 
+                            </button>
+                        </div>
+
+                        <div class="col-12 col-md-6 mb-2">
+                            <button type="button"
+                                    class="btn btn-danger w-100"
+                                    id="btn_cancel">
+                              <i class="bi bi-x-circle-fill"></i>  Cerrar 
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                `;
+
+
+     modal_ensamble(title, content, accions )
+  
+  });
+
+
+
+  /// cargar los usuarios al sistemas
+
+  $(document).on('click', '#btn_import_user', function () {
+
+    const form = document.getElementById('form_import_data');
+    if (!form) {
+        alert('Formulario no encontrado');
+        return;
+    }
+
+    const fileInput = document.getElementById('archivo').files[0];
+    if (!fileInput) {
+        alert('Seleccione un archivo CSV');
+        return;
+    }
+
+    if (!fileInput.name.toLowerCase().endsWith('.csv')) {
+        alert('Solo se permiten archivos CSV');
+        return;
+    }
+
+    const formData = new FormData(form);
+
+        $.ajax({
+            url: '../db/import_users.php',
+            type: 'POST',
+            data: formData,
+            contentType: false,
+            processData: false,
+            dataType: 'json',
+            success: function (r) {
+               
+                alert(r.mensaje);
+            },
+            error: function (xhr) {
+                console.error(xhr.responseText);
+                alert('Error al procesar el archivo (ver consola)');
+            }
+        });
+
+});

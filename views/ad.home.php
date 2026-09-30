@@ -35,6 +35,12 @@
             <div class="card-pro card-blue"><h6> Postulaciones  </h6><h3><i class="bi bi-journal-check"></i></h3></div>
         </div>
 
+
+        
+        <div class="col-md-3" id = "btn_cargar_usuarios">
+            <div class="card-pro card-blue"><h6> Ingresar Usuarios  </h6><h3><i class="bi bi-person-fill-up"></i></h3></div>
+        </div>
+
            
     
     
