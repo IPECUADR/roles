@@ -6,7 +6,7 @@ if (basename(__FILE__) === basename($_SERVER['SCRIPT_FILENAME'])) {
 }
 
 $host = 'localhost';
-$db   = 'postulaciones_kde';
+$db   = 'postulacion';
 $user = 'root';
 $pass = '';
 $charset = 'utf8mb4';

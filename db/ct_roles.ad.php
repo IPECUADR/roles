@@ -14,7 +14,7 @@ require_once '../sys/sys.conf.php';
 
 
 
-
+date_default_timezone_set('America/Guayaquil');
 $inicio = date('Y-m-01') . ' 00:00:00';
 $fin = date('Y-m-t') . ' 23:59:59';
 

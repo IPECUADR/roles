@@ -777,3 +777,39 @@ $.post('../db/us_serv_firma.php', function (r) {
         });
     });
 }
+
+
+
+function evaluar_kde (){
+
+  $.post('../db/up_pass_acep_terms.php',{
+
+        email,
+        pass,
+        pk_acp
+
+    }, function (r) {
+           
+        console.log(r);
+
+             if(!r.err){{}
+               
+                 mensaje (r.icon, r.msg);
+
+
+                 $('#modal_service').modal('hide');
+                 roles_p_us_ser();
+
+                 location.reload();
+               
+
+             }else{
+
+                mensaje (r.icon, r.msg);
+             }
+         
+
+
+    }, 'json');
+
+}
