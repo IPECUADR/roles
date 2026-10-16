@@ -782,15 +782,9 @@ $.post('../db/us_serv_firma.php', function (r) {
 
 function evaluar_kde (){
 
-  $.post('../db/up_pass_acep_terms.php',{
-
-        email,
-        pass,
-        pk_acp
-
-    }, function (r) {
+  $.post('../db/up_pass_acep_terms.php', function (r) {
            
-        console.log(r);
+   seccion        = '<div class="evaluar"><h6>Valoración de Desempeño </h6><h3 id="vac_clbr_sec"><i class="bi bi-award"></i> Evaluar KDE  </h3></div>';
 
              if(!r.err){{}
                
