@@ -96,7 +96,6 @@
 
                 <div class="col-md-3" id="evaluar_kde">
 
-                  <div class="evaluar"><h6>Valoración de Desempeño </h6><h3 id="vac_clbr_sec"><i class="bi bi-award"></i> Evaluar KDE  </h3></div>
 
                    
                 </div>
