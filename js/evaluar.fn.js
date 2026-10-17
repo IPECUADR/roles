@@ -892,11 +892,14 @@ function cargar_preguntas_auto_Evaluacion(id){
 
 
 
+ $('#preguntas_respuesta').empty();
+
+ 
+
 $.post('../web/rutas.php?ruta=aut_cg_preguntas', {  id: id }, function (r) {
 
     console.log(r);
 
-    $('#preguntas_respuesta').empty();
 
     if (r.err) {
         console.log(r.msg);
