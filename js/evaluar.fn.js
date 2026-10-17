@@ -1032,7 +1032,7 @@ function save_respuesta_aut_ev(id, valor) {
 
          cargar_preguntas_auto_Evaluacion(id_base_aut);
          cargar_auto_evaluacion(auto_evaluacion);
-         validate_Evaluaciones_Asignadas();
+    
     
 
     }, 'json').fail(function () {
