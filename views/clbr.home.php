@@ -28,7 +28,21 @@
 .card-pro:hover {
     transform: translateY(-5px);
 }
-
+.evaluar:hover {
+     transform: translateY(-5px);
+     background: linear-gradient(145deg, #053f97, #011532);
+     color: #f1f3f6;
+}
+.evaluar{
+    background: linear-gradient(120deg, #198754, #20c997);
+    border: none;
+    border-radius: 20px;
+    padding: 20px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.5);
+    transition: 0.3s;
+    cursor: pointer;
+    color: white;
+}
 </style>
 
 <div class="container main-content">
@@ -73,10 +87,18 @@
                    
                 </div>
 
+                 <div class="col-md-3" id="evaluar_kde">
+
+
+                   
+                </div>
+
                  
 
 
                 </div>
+
+             
 
 
            

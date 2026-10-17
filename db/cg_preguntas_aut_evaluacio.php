@@ -1,0 +1,49 @@
+<?php
+session_start();
+
+header('Content-Type: application/json; charset=utf-8');
+
+if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+    echo json_encode([]);
+    exit;
+}
+
+require_once '../sys/sys.valoracion.php';
+
+$p = $_SESSION['pk_p'] ?? null;
+$b = $_POST['id'] ?? null;
+
+if (!$p || !$b) {
+    echo json_encode([]);
+    exit;
+}
+
+try {
+
+    $stmt = $pdo->prepare("
+        SELECT 
+            ev.PK_aut_ev_v_des AS id,
+            p.pregunta AS p
+        FROM ev_v_des AS ev
+        INNER JOIN preguntas AS p
+            ON p.PK_pregunta = ev.FK_pregunta
+        WHERE ev.ci_colaborador = :p
+          AND ev.FK_base_clf = :id
+          AND ev.FK_est_ev = 2
+    ");
+
+    $stmt->execute([
+        ':p'  => $p,
+        ':id' => $b
+    ]);
+
+    $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+    echo json_encode($data);
+
+} catch (PDOException $e) {
+
+    error_log($e->getMessage());
+
+    echo json_encode([]);
+}
