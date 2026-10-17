@@ -6,9 +6,9 @@ if (basename(__FILE__) === basename($_SERVER['SCRIPT_FILENAME'])) {
 }
 
 $host = 'localhost';
-$db   = 'evaluar_2026';
-$user = 'root';
-$pass = '';
+$db   = 'kluaneitdospunto_v_des_2026';
+$user = 'kluaneitdospunto_v_des';
+$pass = '&$@J7DciqW,Ly3rE';
 $charset = 'utf8mb4';
 
 $dsn = "mysql:host=$host;dbname=$db;charset=$charset";
