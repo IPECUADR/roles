@@ -1,4 +1,5 @@
 /firmas/firma_*.png
 /sys/sys.conf.php
 /sys/sys.post.php
+/sys/sys.valoracion.php
 
