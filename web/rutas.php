@@ -30,6 +30,29 @@ $rutas = [
     'cambio' => '../db/up_pas_rcp.php', 
     'contar_roles' => '../db/ct_roles.php',
     'procesos' => '../db/cg_procesos.php',
+
+    'evaluaciones' => '../db/cg_evaluaciones_asignadas.php',
+    'evaluador' => '../db/cg_evaluados_evaluador.php',
+
+
+
+    'elemntos_valoracion' => '../db/cg_elentos_valoracion.php',
+
+    'preguntas_evaluador' => '../db/cg_preguntas_evaluador.php',
+
+    'up_item_evaluacion_des' => '../db/up_item_val_des.php',
+
+    'aut_ev_elementos' => '../db/cg_elementos_auto_evaluacion.php',
+
+
+    'aut_cg_preguntas' => '../db/cg_preguntas_aut_evaluacio.php',
+
+
+    
+
+    
+
+
     'mostar_vacaciones_periodo' => '../db/cg_vaciones_clbr.php', 
     'mostar_vacaciones_proceso' => '../db/cg_vaciones_proceso.php',
     'seleccion'    => '../db/cg_vaciones_clbr_selct.php',
@@ -40,6 +63,8 @@ $rutas = [
      'areas'    =>'/../../KDE/DATABASE/cargar_areas.php',
 
      'postulacion' => '../controller/postulacion.php', 
+
+     'evaluar' => '../controller/valoracion.php', 
 
      'mensaje' => '../controller/msg.postulacion.php', 
      'postulaciones' => '../controller/postulaciones.php', 
