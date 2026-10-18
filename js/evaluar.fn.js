@@ -1034,7 +1034,7 @@ function save_respuesta_aut_ev(id, valor) {
         mensaje('success', 'Respuesta guardada correctamente.');
 
          cargar_preguntas_auto_Evaluacion(id_base_aut);
-         cargar_auto_evaluacion(auto_evaluacion);
+         
     
     
 
