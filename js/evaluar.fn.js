@@ -585,7 +585,7 @@ function cargar_preguntas_evaluador(p,id){
 
 
 
-$.post('../web/rutas.php?ruta=preguntas_evaluador', { p: p, id: id }, function (r) {
+$.post('../web/rutas.php?ruta=preguntas_evaluador', { p: p, id: id, tp: tipo_evaluacion }, function (r) {
 
     console.log(r);
 

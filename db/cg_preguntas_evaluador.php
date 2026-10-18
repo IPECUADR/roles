@@ -13,6 +13,7 @@ require_once '../sys/sys.conf.php';
 
 $p = $_POST['p'] ?? null;
 $b = $_POST['id'] ?? null;
+$t =  $_POST['tp'] ?? null;
 
 if (!$p || !$b) {
     echo json_encode([]);
@@ -31,11 +32,13 @@ try {
         WHERE ev.ci_colaborador = :p
           AND ev.FK_base_clf = :id
           AND ev.FK_est_ev = 2
+          AND ev.FK_t_evaluacion = :
     ");
 
     $stmt->execute([
         ':p'  => $p,
-        ':id' => $b
+        ':id' => $b, 
+        ':t'  => $t
     ]);
 
     $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
