@@ -21,6 +21,7 @@ if (!$p || !$b) {
 try {
 
     $stmt = $pdo->prepare("
+    
         SELECT 
             ev.PK_aut_ev_v_des AS id,
             p.pregunta AS p
@@ -30,6 +31,8 @@ try {
         WHERE ev.ci_colaborador = :p
           AND ev.FK_base_clf = :id
           AND ev.FK_est_ev = 2
+          AND ev.FK_t_evaluacion = 1
+
     ");
 
     $stmt->execute([
