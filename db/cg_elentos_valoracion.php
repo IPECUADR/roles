@@ -14,6 +14,8 @@ require_once '../sys/sys.conf.php';
 $id = $_SESSION['pk_p'] ?? null;
 $t = $_POST ['persona'] ?? null;
 
+$tipo = $_POST ['tipo_evaluacion'] ?? null;
+
 if (!$id) {
     echo json_encode([]);
     exit;
@@ -33,9 +35,10 @@ try {
 
         INNER JOIN base_clasific AS bc 
             ON bc.PK_base_clf = ev.FK_base_clf
-        WHERE ev.ci_colaborador = :t
+        WHERE ev.ci_colaborador = :p
         AND ev.ci_evaluador = :id
         AND ev.FK_est_ev  = 2
+        AND ev.FK_t_evaluacion = :tp
         GROUP BY
 
         bc.base, 
@@ -45,7 +48,8 @@ try {
 
     $stmt->execute([
         ':id' => $id,
-        ':t' => $t
+         ':p' => $t, 
+         ':tp' => $tipo
   
     ]);
 

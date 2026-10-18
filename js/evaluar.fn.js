@@ -369,7 +369,7 @@ $(document).on('click', '.clbr_evaluar', function () {
 function ensamble_evaludor(persona){
 
 
-    $.post('../web/rutas.php?ruta=elemntos_valoracion',{persona}, function (r) {
+    $.post('../web/rutas.php?ruta=elemntos_valoracion',{persona, tipo_evaluacion}, function (r) {
 
    
 
