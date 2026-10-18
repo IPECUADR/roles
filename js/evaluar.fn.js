@@ -583,7 +583,7 @@ $(document).on('click', '.btn_cargar_preguntas', function () {
 
 function cargar_preguntas_evaluador(p,id){
 
-
+console.log(tipo_evaluacion);
 
 $.post('../web/rutas.php?ruta=preguntas_evaluador', { p: p, id: id, tp: tipo_evaluacion }, function (r) {
 
