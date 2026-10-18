@@ -4,6 +4,7 @@ $(document).ready(function () {
 
      sesion();
      roles_p_us_ser();
+     evaluar_kde();
     
 
 
@@ -782,34 +783,37 @@ $.post('../db/us_serv_firma.php', function (r) {
 
 function evaluar_kde (){
 
-  $.post('../db/up_pass_acep_terms.php',{
 
-        email,
-        pass,
-        pk_acp
-
-    }, function (r) {
-           
-        console.log(r);
-
-             if(!r.err){{}
-               
-                 mensaje (r.icon, r.msg);
+    $('evaluar_kde').empty();
 
 
-                 $('#modal_service').modal('hide');
-                 roles_p_us_ser();
+  $.post('../db/val_evl_kde.php', function (r) {
+  
 
-                 location.reload();
-               
+if (r.id) {
 
-             }else{
+    console.log(r); // Existe evaluación
 
-                mensaje (r.icon, r.msg);
-             }
+
+
+     $('#evaluar_kde').append(
+                `<div class="evaluar"><h6>Valoración de Desempeño </h6><h3 id="vac_clbr_sec"><i class="bi bi-award"></i> Evaluar KDE  </h3></div>`
+            );
+
+} else {
+
+    // No existe evaluación: no hacer nada
+}
          
 
 
     }, 'json');
 
 }
+
+
+$(document).on('click', '#evaluar_kde', function () {
+
+
+      location.href = '../web/rutas.php?ruta=evaluar';
+})
