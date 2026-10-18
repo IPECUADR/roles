@@ -919,7 +919,7 @@ $.post('../web/rutas.php?ruta=aut_cg_preguntas', {  id: id }, function (r) {
             <div class="d-flex justify-content-end mb-2">
                 <span class="badge bg-info-subtle text-info-emphasis">
                     <i class="bi bi-check2-circle"></i>
-                    Preguntas: <span class="contador-preguntas">${item.ct}</span>
+                    Preguntas: <span class="contador-preguntas">${item.contar}</span>
                 </span>
             </div>
 
