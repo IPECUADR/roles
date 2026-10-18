@@ -30,6 +30,7 @@ try {
         WHERE ev.ci_colaborador = :p
           AND ev.FK_base_clf = :id
           AND ev.FK_est_ev = 2
+          AND ev.FK_t_evaluacion = 1
     ");
 
     $stmt->execute([
