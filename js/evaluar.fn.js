@@ -407,9 +407,9 @@ function ensamble_evaludor(persona){
 
                              
 
-                                <span class="badge bg-info-subtle text-info-emphasis">
+                              <span class="badge bg-info-subtle text-info-emphasis">
                                     <i class="bi bi-check2-circle"></i>
-                                   Preguntas:  ${item.ct}
+                                    Preguntas: <span class="contador-preguntas">${item.ct}</span>
                                 </span>
 
                             </div>
@@ -703,6 +703,7 @@ $(document).on('click', '#btn_save_respuesta', function () {
 
 });
 
+
 function save_respuesta(id, valor) {
 
     $.post('../web/rutas.php?ruta=up_item_evaluacion_des', {
@@ -717,7 +718,51 @@ function save_respuesta(id, valor) {
 
         mensaje('success', 'Respuesta guardada correctamente.');
 
-          cargar_preguntas_evaluador(p, id_base);
+        // Buscar la tarjeta de la evaluación seleccionada
+        let tarjeta = $('#elemnto_evaluacion')
+            .find('button[id="' + id_base + '"]');
+
+        // Obtener el contador actual
+        let contador = tarjeta.find('.contador-preguntas');
+        let pendientes = parseInt(contador.text(), 10);
+
+        // Descontar una pregunta
+        pendientes--;
+
+        if (pendientes <= 0) {
+
+            // Eliminar la tarjeta si ya no quedan preguntas
+            tarjeta.remove();
+
+        } else {
+
+            // Actualizar el contador
+            contador.text(pendientes);
+
+        }
+
+        // Eliminar la pregunta que acabamos de responder
+        $('#preguntas_respuesta')
+            .find('[id="' + id + '"]')
+            .closest('.card')
+            .remove();
+
+        // Si no quedan preguntas visibles
+        if ($('#preguntas_respuesta .card').length === 0) {
+
+            $('#preguntas_respuesta').html(`
+                <div class="alert alert-success text-center rounded-4 p-4">
+                    <i class="bi bi-check-circle-fill fs-1"></i>
+                    <h5 class="fw-bold mt-3">
+                        ¡Evaluación completada!
+                    </h5>
+                    <p class="mb-0">
+                        Has respondido todas las preguntas de esta evaluación.
+                    </p>
+                </div>
+            `);
+
+        }
 
     }, 'json').fail(function () {
 
@@ -815,10 +860,10 @@ function cargar_auto_evaluacion(t_evaluacion){
 
                              
 
-                               <span class="badge bg-info-subtle text-info-emphasis">
-                                    <i class="bi bi-check2-circle"></i>
-                                    Preguntas: <span class="contador-preguntas">${item.ct}</span>
-                                </span>
+                             <span class="badge bg-info-subtle text-info-emphasis">
+                                <i class="bi bi-check2-circle"></i>
+                                Preguntas: <span class="contador-preguntas">${item.ct}</span>
+                            </span>
 
                             </div>
 
@@ -1016,6 +1061,7 @@ $(document).on('click', '#btn_save_respuesta_aut', function () {
 
 });
 
+
 function save_respuesta_aut_ev(id, valor) {
 
     $.post('../web/rutas.php?ruta=up_item_evaluacion_des', {
@@ -1030,37 +1076,67 @@ function save_respuesta_aut_ev(id, valor) {
 
         mensaje('success', 'Respuesta guardada correctamente.');
 
-        // Buscar la tarjeta de la evaluación seleccionada
+        // Buscar la tarjeta de autoevaluación seleccionada
         let tarjeta = $('#elemnto_evaluacion')
-            .find('button[id="' + id_base + '"]');
+            .find('.btn_cargar_preguntas_aut')
+            .filter(function () {
+                return this.id == id_base_aut;
+            });
 
-        // Obtener el contador actual
         let contador = tarjeta.find('.contador-preguntas');
-        let pendientes = parseInt(contador.text(), 10);
 
-        // Descontar una pregunta
-        pendientes--;
+        console.log('Evaluación:', id_base_aut);
+        console.log('Tarjeta encontrada:', tarjeta.length);
+        console.log('Contador encontrado:', contador.length);
 
-        if (pendientes <= 0) {
+        // Actualizar contador
+        if (contador.length) {
 
-            // Eliminar la tarjeta si ya no quedan preguntas
-            tarjeta.remove();
+            let pendientes = parseInt(contador.text(), 10);
 
-        } else {
+            if (!Number.isNaN(pendientes)) {
 
-            // Actualizar el contador
-            contador.text(pendientes);
+                pendientes--;
 
+                if (pendientes <= 0) {
+
+                    tarjeta.remove();
+
+                    // Limpiar el panel si no quedan evaluaciones
+                    if ($('#elemnto_evaluacion .btn_cargar_preguntas_aut').length === 0) {
+
+                        $('#preguntas_respuesta').html(`
+                            <div class="alert alert-success text-center rounded-4 p-4">
+                                <i class="bi bi-check-circle-fill fs-1"></i>
+                                <h5 class="fw-bold mt-3">
+                                    ¡Autoevaluación completada!
+                                </h5>
+                                <p class="mb-0">
+                                    Has respondido todas las preguntas pendientes.
+                                </p>
+                            </div>
+                        `);
+
+                    }
+
+                } else {
+
+                    contador.text(pendientes);
+
+                }
+
+            }
         }
 
-        // Eliminar la pregunta que acabamos de responder
+        // Eliminar únicamente la pregunta respondida
         $('#preguntas_respuesta')
-            .find('[id="' + id + '"]')
+            .find('.card-body[id="' + id + '"]')
             .closest('.card')
             .remove();
 
-        // Si no quedan preguntas visibles
-        if ($('#preguntas_respuesta .card').length === 0) {
+        // Mostrar mensaje si ya no quedan preguntas en la evaluación
+        if ($('#preguntas_respuesta .card').length === 0 &&
+            $('#elemnto_evaluacion .btn_cargar_preguntas_aut').length > 0) {
 
             $('#preguntas_respuesta').html(`
                 <div class="alert alert-success text-center rounded-4 p-4">
@@ -1081,7 +1157,6 @@ function save_respuesta_aut_ev(id, valor) {
         mensaje('error', 'No se pudo guardar la respuesta.');
 
     });
-
 
 }
 
