@@ -29,9 +29,9 @@ try {
             COUNT(*) AS total
             
 
-        FROM evaluar_2026.ev_v_des AS ev
+        FROM ev_v_des AS ev
 
-        INNER JOIN roles_pagos.persona AS p
+        INNER JOIN persona AS p
             ON p.PK_persona = ev.ci_colaborador
 
         WHERE
