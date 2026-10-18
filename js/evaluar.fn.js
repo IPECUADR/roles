@@ -743,16 +743,16 @@ function cargar_auto_evaluacion(t_evaluacion){
 
     auto_evaluacion = t_evaluacion;
 
-    console.log(auto_evaluacion);
+
+      $('#seccion_evaluar').empty();
+
 
 
     $.post('../web/rutas.php?ruta=aut_ev_elementos',{t_evaluacion}, function (r) {
 
    
 
-        $('#seccion_evaluar')
-        .empty()
-        .append(
+        $('#seccion_evaluar').append(
 
 
                 `
