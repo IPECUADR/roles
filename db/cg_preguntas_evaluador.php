@@ -8,7 +8,8 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     exit;
 }
 
-require_once '../sys/sys.valoracion.php';
+require_once '../sys/sys.conf.php';
+
 
 $p = $_POST['p'] ?? null;
 $b = $_POST['id'] ?? null;

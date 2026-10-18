@@ -1,5 +1,5 @@
 <?php
-header('Content-Type: application/json');
+
 session_start();
 
 // Bloquear acceso directo
@@ -13,7 +13,8 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 }
 
 // Conexión
-require_once '../sys/sys.valoracion.php';
+require_once '../sys/sys.conf.php';
+
 
 $id  = $_POST['id'] ?? null;
 $res = $_POST['valor'] ?? null;

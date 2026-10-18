@@ -8,7 +8,8 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     exit;
 }
 
-require_once '../sys/sys.valoracion.php';
+require_once '../sys/sys.conf.php';
+
 
 $p = $_SESSION['pk_p'] ?? null;
 $b = $_POST['id'] ?? null;
@@ -21,7 +22,7 @@ if (!$p || !$b) {
 try {
 
     $stmt = $pdo->prepare("
-    
+
         SELECT 
             ev.PK_aut_ev_v_des AS id,
             p.pregunta AS p
