@@ -35,6 +35,9 @@ $rutas = [
     'evaluador' => '../db/cg_evaluados_evaluador.php',
 
 
+    'evaluador_ejecutados' => '../db/cg_evaluados_evaluador_ejecutados.php',
+
+
 
     'elemntos_valoracion' => '../db/cg_elentos_valoracion.php',
 
@@ -44,6 +47,7 @@ $rutas = [
 
     'aut_ev_elementos' => '../db/cg_elementos_auto_evaluacion.php',
 
+    'aut_ev_elements_ejecutados' => '../db/cg_elementos_auto_evaluacion_ejecutados.php',
 
     'aut_cg_preguntas' => '../db/cg_preguntas_aut_evaluacio.php',
 

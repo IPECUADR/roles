@@ -27,12 +27,16 @@ function validate_Evaluaciones_Asignadas(){
 
                     color = 'danger';
 
+                     elemnt_acc = 'elemnt_evaluacion';
+
 
                 }else{
 
 
-                    color = 'success';
+                      color = 'success';
 
+                     elemnt_acc = 'secc_ejecutados';
+                    
 
 
                 }
@@ -43,7 +47,7 @@ function validate_Evaluaciones_Asignadas(){
 
                     `
                          <!-- Evaluación de pares -->
-            <div class="col-md-4 elemnt_evaluacion" id="${item.t_ev}">
+            <div class="col-md-4 ${elemnt_acc}" id="${item.t_ev}">
 
                 <button type="button"
                         class="card-evaluacion w-100 text-start"
@@ -1160,3 +1164,261 @@ function save_respuesta_aut_ev(id, valor) {
 
 }
 
+
+
+/// /ver ejecutados // valordacion desempeño 
+
+
+let ev_tip_ejecutado = 0;
+
+$(document).on('click', '.secc_ejecutados', function () {
+
+
+   
+
+    const t_evaluacion_ej = Number(this.id);
+
+    let ev_tip_ejecutado  = t_evaluacion_ej;
+
+
+    console.log(t_evaluacion_ej);
+
+    switch (t_evaluacion_ej) {
+        case 1:
+           
+              cargar_auto_evaluacion_ejecutados (t_evaluacion_ej);
+
+            break;
+
+        case 2:
+                  
+             cargar_personas_evaluadas(t_evaluacion_ej);
+
+
+            break;
+
+        case 3:
+             
+             
+              //cargar_personas_a_evaluar(t_evaluacion);
+           
+              break;
+
+        default:
+            console.warn('Tipo de evaluación no válido:', t_evaluacion);
+            break;
+    }
+
+});
+
+
+
+
+
+
+function cargar_auto_evaluacion_ejecutados(t_evaluacion){
+
+  
+
+
+      $('#seccion_evaluar').empty();
+
+
+
+    $.post('../web/rutas.php?ruta=aut_ev_elements_ejecutados',{t_evaluacion}, function (r) {
+
+   
+
+        $('#seccion_evaluar').append(
+
+
+                `
+
+                  <div class="container-fluid mt-2">
+
+                    <div class="row align-items-start g-3">
+
+                        <!-- Sección de evaluaciones realizadas -->
+                        <div class="col-12" id="elemnto_evaluacion">
+
+                           
+
+                        </div>
+
+                        <!-- Sección de preguntas y respuestas -->
+                        <div class="col-12" id="preguntas_respuesta">
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                `
+        );
+        
+        ;
+
+        
+         $('#elemnto_evaluacion').empty();
+        
+     console.log(r);
+     
+
+          $.each(r, function (i, item) {
+            if (i !== 'err') {
+
+                
+
+
+                $('#elemnto_evaluacion').append(
+
+
+                    `
+                         
+          
+<button type="button"
+        class="card-evaluacion w-100 text-start mt-2 mb-2 "
+        id="${item.id}">
+
+    <div class="d-flex align-items-center gap-3">
+
+        <div class="evaluacion-icono icono-auto">
+            <i class="bi bi-clipboard2-data-fill"></i>
+        </div>
+
+        <div class="flex-grow-1">
+
+            <h6 class="mb-2">
+                ${item.b}
+            </h6>
+
+            <span class="badge bg-info-subtle text-info-emphasis">
+                <i class="bi bi-list-check me-1"></i>
+                Preguntas: <span class="contador-preguntas">${item.ct}</span>
+            </span>
+
+            <div class="mt-2">
+                <span class="badge bg-primary-subtle text-primary-emphasis border border-success-subtle rounded-pill px-3 py-2">
+                    <i class="bi bi-check-circle-fill me-1"></i>
+                    Autoevaluación completada
+                </span>
+            </div>
+
+        </div>
+
+        <i class="bi bi-arrow-right-circle flecha-evaluacion"></i>
+
+    </div>
+
+</button>
+
+             
+                       
+                    
+                    `
+                );
+         
+            }
+        });
+
+                
+
+    }, 'json');
+
+
+}
+
+
+
+
+///// evaluaciones ejecutadas
+
+
+// evaluador// cargar personas
+function cargar_personas_evaluadas(t_evaluacion_ej){
+
+    console.log(t_evaluacion_ej);
+
+    
+    $.post('../web/rutas.php?ruta=evaluador_ejecutados',{t_evaluacion_ej}, function (r) {
+
+   
+
+        $('#seccion_evaluar').empty();
+        
+         
+        evaluado = r ; 
+         console.log(r);
+
+
+          $.each(r, function (i, item) {
+            if (i !== 'err') {
+
+                
+
+
+                $('#seccion_evaluar').append(
+
+
+                    `
+      
+<!-- Evaluación de pares -->
+<div class="col-md-4 " data-ci="${item.ci}">
+
+    <button type="button"
+            class="card-evaluacion w-100 text-start"
+            id="">
+
+        <div class="d-flex align-items-center gap-3">
+
+            <div class="evaluacion-icono icono-pares">
+                <i class="bi bi-person-fill-check"></i>
+            </div>
+
+            <div class="flex-grow-1">
+
+                <h6 class="mb-1">
+                    ${item.names}
+                </h6>
+
+                <p class="mb-2 text-muted">
+                    ${item.ci}
+                </p>
+
+                <span class="badge bg-info-subtle text-info-emphasis">
+                    <i class="bi bi-list-check me-1"></i>
+                    Preguntas: ${item.total}
+                </span>
+
+                <div class="mt-2">
+                    <span class="badge bg-success-subtle text-success-emphasis border border-success-subtle rounded-pill px-3 py-2">
+                        <i class="bi bi-check-circle-fill me-1"></i>
+                        Proceso completado
+                    </span>
+                </div>
+
+            </div>
+
+            <i class="bi bi-arrow-right-circle flecha-evaluacion"></i>
+
+        </div>
+
+    </button>
+
+</div>
+  
+                    
+                    `
+                );
+         
+            }
+        });
+
+                
+
+    }, 'json');
+
+
+
+}
