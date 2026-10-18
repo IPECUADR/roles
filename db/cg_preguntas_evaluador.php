@@ -11,9 +11,10 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 require_once '../sys/sys.conf.php';
 
 
-$p = $_POST['p'] ?? null;
-$b = $_POST['id'] ?? null;
-$t =  $_POST['tp'] ?? null;
+$p  =  $_POST['p'] ?? null;
+$b  =  $_POST['id'] ?? null;
+$t  =  $_POST['tp'] ?? null;
+$us =  $_SESSION['pk_p']
 
 if (!$p || !$b) {
     echo json_encode([]);
@@ -33,12 +34,14 @@ try {
           AND ev.FK_base_clf = :id
           AND ev.FK_est_ev = 2
           AND ev.FK_t_evaluacion = :t
+          AND ev.ci_evaluador = :us
     ");
 
     $stmt->execute([
         ':p'  => $p,
         ':id' => $b, 
-        ':t'  => $t
+        ':t'  => $t,
+        ':us' => $us
     ]);
 
     $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
