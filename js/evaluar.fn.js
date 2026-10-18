@@ -815,9 +815,9 @@ function cargar_auto_evaluacion(t_evaluacion){
 
                              
 
-                                <span class="badge bg-info-subtle text-info-emphasis">
+                               <span class="badge bg-info-subtle text-info-emphasis">
                                     <i class="bi bi-check2-circle"></i>
-                                   Preguntas:  ${item.ct}
+                                    Preguntas: <span class="contador-preguntas">${item.ct}</span>
                                 </span>
 
                             </div>
@@ -917,9 +917,8 @@ $.post('../web/rutas.php?ruta=aut_cg_preguntas', {  id: id }, function (r) {
         <div class="bg-light rounded-3 p-3 mb-4">
 
             <div class="d-flex justify-content-end mb-2">
-                <span class="badge bg-info-subtle text-info-emphasis">
-                    <i class="bi bi-check2-circle"></i>
-                    Preguntas: <span class="contador-preguntas">${item.ct}</span>
+                <span class="badge bg-primary rounded-pill px-3 py-2">
+                    Pregunta ${contar++}
                 </span>
             </div>
 
