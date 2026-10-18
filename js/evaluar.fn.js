@@ -1200,7 +1200,7 @@ $(document).on('click', '.secc_ejecutados', function () {
         case 3:
              
              
-              //cargar_personas_a_evaluar(t_evaluacion);
+              cargar_personas_evaluadas(t_evaluacion_ej);
            
               break;
 

@@ -624,81 +624,10 @@
 
         <div class="row g-3" id="seccion_evaluaciones">
 
-            <!-- Evaluación de pares -->
-            <div class="col-md-4">
-
-                <button type="button"
-                        class="card-evaluacion w-100 text-start"
-                        id="btn_evaluacion_pares">
-
-                    <div class="d-flex align-items-center gap-3">
-
-                        <div class="evaluacion-icono icono-pares">
-                            <i class="bi bi-people-fill"></i>
-                        </div>
-
-                        <div class="flex-grow-1">
-
-                            <h6 class="mb-1">
-                                Evaluación de pares
-                            </h6>
-
-                            <p class="mb-0">
-                                Valora el desempeño de tus compañeros
-                                de trabajo.
-                            </p>
-
-                            <span class="badge bg-warning-subtle text-warning-emphasis">
-                                <i class="bi bi-clock-history me-1"></i>
-                                Pendiente
-                            </span>
+         
 
 
-
-                        </div>
-
-                        <i class="bi bi-arrow-right-circle flecha-evaluacion"></i>
-
-                    </div>
-
-                </button>
-
-            </div>
-
-
-            <!-- Autoevaluación -->
-            <div class="col-md-4">
-
-                <button type="button"
-                        class="card-evaluacion w-100 text-start"
-                        id="btn_autoevaluacion">
-
-                    <div class="d-flex align-items-center gap-3">
-
-                        <div class="evaluacion-icono icono-auto">
-                            <i class="bi bi-person-check-fill"></i>
-                        </div>
-
-                        <div class="flex-grow-1">
-
-                            <h6 class="mb-1">
-                                Autoevaluación
-                            </h6>
-
-                            <p class="mb-0">
-                                Reflexiona sobre tus resultados,
-                                competencias y objetivos.
-                            </p>
-
-                        </div>
-
-                        <i class="bi bi-arrow-right-circle flecha-evaluacion"></i>
-
-                    </div>
-
-                </button>
-
-            </div>
+         
 
         </div>
 
@@ -716,7 +645,7 @@
 
 
         <!-- Indicaciones -->
-        <div class="col-lg-7">
+        <div class="col-lg-12">
 
             <div class="card tarjeta-informacion h-100">
 
@@ -763,50 +692,7 @@
         </div>
 
 
-        <!-- Excel de respuestas -->
-        <div class="col-lg-5">
-
-            <div class="card tarjeta-excel h-100">
-
-                <div class="card-body p-3 p-md-4">
-
-                    <div class="d-flex align-items-center gap-3 mb-3">
-
-                        <div class="excel-icono">
-                            <i class="bi bi-file-earmark-excel-fill"></i>
-                        </div>
-
-                        <div>
-                            <h6 class="fw-bold mb-1">
-                                Excel de respuestas
-                            </h6>
-
-                            <p class="text-muted small mb-0">
-                                Archivo de apoyo para la valoración.
-                            </p>
-                        </div>
-
-                    </div>
-
-                    <p class="small text-muted mb-3">
-                        Consulta o descarga el archivo de respuestas
-                        correspondiente al proceso de evaluación.
-                    </p>
-
-                    <a href="#"
-                       id="btn_excel_respuestas"
-                       class="btn btn-outline-success btn-sm w-100">
-
-                        <i class="bi bi-download me-2"></i>
-                        Descargar Excel de respuestas
-
-                    </a>
-
-                </div>
-
-            </div>
-
-        </div>
+       
 
     </div>
 
