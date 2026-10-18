@@ -14,7 +14,7 @@ require_once '../sys/sys.conf.php';
 $p  =  $_POST['p'] ?? null;
 $b  =  $_POST['id'] ?? null;
 $t  =  $_POST['tp'] ?? null;
-$us =  $_SESSION['pk_p']
+$us =  $_SESSION['pk_p'];
 
 if (!$p || !$b) {
     echo json_encode([]);
