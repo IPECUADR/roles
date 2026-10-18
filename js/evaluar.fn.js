@@ -717,10 +717,7 @@ function save_respuesta(id, valor) {
 
         mensaje('success', 'Respuesta guardada correctamente.');
 
-        cargar_preguntas_evaluador(p, id_base);
-        ensamble_evaludor(p);
-         cargar_personas_a_evaluar(tipo_evaluacion);
-    
+          cargar_preguntas_evaluador(p, id_base);
 
     }, 'json').fail(function () {
 
