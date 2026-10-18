@@ -917,8 +917,9 @@ $.post('../web/rutas.php?ruta=aut_cg_preguntas', {  id: id }, function (r) {
         <div class="bg-light rounded-3 p-3 mb-4">
 
             <div class="d-flex justify-content-end mb-2">
-                <span class="badge bg-primary rounded-pill px-3 py-2">
-                    Pregunta ${contar++}
+                <span class="badge bg-info-subtle text-info-emphasis">
+                    <i class="bi bi-check2-circle"></i>
+                    Preguntas: <span class="contador-preguntas">${item.ct}</span>
                 </span>
             </div>
 
@@ -1030,16 +1031,58 @@ function save_respuesta_aut_ev(id, valor) {
 
         mensaje('success', 'Respuesta guardada correctamente.');
 
-         cargar_preguntas_auto_Evaluacion(id_base_aut);
-         
-    
-    
+        // Buscar la tarjeta de la evaluación seleccionada
+        let tarjeta = $('#elemnto_evaluacion')
+            .find('button[id="' + id_base + '"]');
+
+        // Obtener el contador actual
+        let contador = tarjeta.find('.contador-preguntas');
+        let pendientes = parseInt(contador.text(), 10);
+
+        // Descontar una pregunta
+        pendientes--;
+
+        if (pendientes <= 0) {
+
+            // Eliminar la tarjeta si ya no quedan preguntas
+            tarjeta.remove();
+
+        } else {
+
+            // Actualizar el contador
+            contador.text(pendientes);
+
+        }
+
+        // Eliminar la pregunta que acabamos de responder
+        $('#preguntas_respuesta')
+            .find('[id="' + id + '"]')
+            .closest('.card')
+            .remove();
+
+        // Si no quedan preguntas visibles
+        if ($('#preguntas_respuesta .card').length === 0) {
+
+            $('#preguntas_respuesta').html(`
+                <div class="alert alert-success text-center rounded-4 p-4">
+                    <i class="bi bi-check-circle-fill fs-1"></i>
+                    <h5 class="fw-bold mt-3">
+                        ¡Evaluación completada!
+                    </h5>
+                    <p class="mb-0">
+                        Has respondido todas las preguntas de esta evaluación.
+                    </p>
+                </div>
+            `);
+
+        }
 
     }, 'json').fail(function () {
 
         mensaje('error', 'No se pudo guardar la respuesta.');
 
     });
+
 
 }
 
