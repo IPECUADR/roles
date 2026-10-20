@@ -28,13 +28,11 @@ if ($FK_ROL == 1) {
      // Admin
 
    $rol = "Administrador";
-   $js = '<script src="../js/home.ad.fn.js"></script>';
-   
+   $js = '<script src="../js/evaluar.fn.js"></script>';
 
-     // Cargar vistas  
-   require_once('../tem/header.php');
-   require_once('../views/ad.home.php');
-   require_once('../tem/footer.php');
+    require_once('../tem/header.php');
+    require_once('../views/valoracion.view.php');
+    require_once('../tem/footer.php');
   
 
 
