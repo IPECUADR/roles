@@ -1051,3 +1051,14 @@ $(document).on('click', '#btn_postulaciones', function () {
         });
 
 });
+
+
+// acciones boton  de vacaciones 
+
+$(document).on('click', '#user_vacaciones', function () {
+
+
+  location.href = '../web/rutas.php?ruta=vacaciones';
+
+})
+/// roles 

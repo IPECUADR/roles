@@ -67,7 +67,9 @@
 
            
     
-    
+     <div class="col-md-3" id="user_vacaciones">
+                        <div class="card-clbr card-blue"><h6>  Vacaciones</h6><h3 id="vac_clbr_sec"><i class=" text-success   bi bi-calendar2-week"></i> </h3></div>
+                </div>
     
     </div>
 
