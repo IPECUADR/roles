@@ -52,6 +52,10 @@
             <div class="card-pro card-blue"><h6> Postulaciones  </h6><h3><i class="bi bi-journal-check"></i></h3></div>
         </div>
 
+        <div class="col-md-3" id = "btn_ejcucion">
+            <div class="card-pro card-blue"><h6> Valoración Ejecución  </h6><h3><i class="bi bi-journal-check"></i></h3></div>
+        </div>
+
 
         
         <div class="col-md-3" id = "btn_cargar_usuarios">

@@ -17,7 +17,7 @@ $rutas = [
     'perfil' => '../controller/perfil.php',
     'configuracion' => '../controller/configuracion.php',
     'recuperar' => '../controller/recuperar-clave.php', 
-
+    'Valoración/Ejecución' => '../controller/ejecucion.php',
 
 
     'verificar' => '../db/recuperar.php',
@@ -32,11 +32,18 @@ $rutas = [
     'procesos' => '../db/cg_procesos.php',
 
     'evaluaciones' => '../db/cg_evaluaciones_asignadas.php',
+
+
+
     'evaluador' => '../db/cg_evaluados_evaluador.php',
 
+/// ejecucion de valoracion
 
-    'evaluador_ejecutados' => '../db/cg_evaluados_evaluador_ejecutados.php',
+     'evaluador_ejecutados' => '../db/cg_evaluados_evaluador_ejecutados.php',
+     'evaluaciones_ejecucion' => '../db/cg_tipos_ev_admin.php',
+     'cargar_ejecucion' => '../db/cg_listado_ejecucion.php',
 
+ //fin ejecucion
 
 
     'elemntos_valoracion' => '../db/cg_elentos_valoracion.php',
@@ -54,7 +61,7 @@ $rutas = [
 
     
 
-    
+
 
 
     'mostar_vacaciones_periodo' => '../db/cg_vaciones_clbr.php', 

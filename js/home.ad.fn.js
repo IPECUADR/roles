@@ -1062,3 +1062,11 @@ $(document).on('click', '#user_vacaciones', function () {
 
 })
 /// roles 
+
+
+$(document).on('click', '#btn_ejcucion', function () {
+
+
+  location.href = '../web/rutas.php?ruta=Valoración/Ejecución';
+
+})
