@@ -143,6 +143,11 @@ function cargar_auto_evaluacion_ejecucion(t_evaluacion) {
         respuesta = r;
 
         $('#seccion_evaluaciones').append(`
+
+
+             
+
+
             <!-- Botón Pendientes -->
             <div class="col-md-6">
                 <button type="button"
@@ -177,10 +182,24 @@ function cargar_auto_evaluacion_ejecucion(t_evaluacion) {
                 </button>
             </div>
 
+            <div class="col-12">
+             <button type="button " id="btn_descargar_excel"
+                class="btn btn-success btn-sm px-3 py-2 shadow-sm col-2">
+                <i class="bi bi-file-earmark-excel-fill me-1"></i>
+                Excel
+            </button>
+              
+            </div>
+           
+
             <!-- Listado -->
             <div class="col-12">
                 <div class="row g-3" id="lista_evaluaciones"></div>
             </div>
+
+            
+       
+
         `);
 
         // Mostrar pendientes por defecto
@@ -272,5 +291,43 @@ $(document).on('click', '.btn_filtrar_evaluacion', function () {
     let estado = $(this).data('estado');
 
     mostrar_evaluaciones(estado);
+
+});
+
+
+$(document).on('click', '#btn_descargar_excel', function () {
+
+    if (!respuesta.length) {
+        alert('No hay datos para exportar.');
+        return;
+    }
+
+    $.ajax({
+        url: '../excel/auto_evaluacion_reporte.php',
+        type: 'POST',
+        data: {
+            respuesta: JSON.stringify(respuesta)
+        },
+        xhrFields: {
+            responseType: 'blob'
+        },
+        success: function (archivo) {
+
+            let url = URL.createObjectURL(archivo);
+            let enlace = document.createElement('a');
+
+            enlace.href = url;
+            enlace.download = 'Reporte_Valoracion_Kluane.xls';
+
+            document.body.appendChild(enlace);
+            enlace.click();
+            enlace.remove();
+
+            URL.revokeObjectURL(url);
+        },
+        error: function () {
+            alert('No se pudo generar el archivo.');
+        }
+    });
 
 });
