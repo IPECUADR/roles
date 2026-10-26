@@ -37,6 +37,10 @@ $rutas = [
     'evaluador_pendientes' => '../db/cg_evaluados_evaluador_pendiente.php',
     'evaluador' => '../db/cg_evaluados_evaluador.php',
 
+    /// reportes 
+
+    'reporte_ejecucion_evaluador' => '../db/cg_reporte_evaluador_ejecucion.php',
+
 
    
 

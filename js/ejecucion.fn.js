@@ -183,6 +183,11 @@ function cargar_auto_evaluacion_ejecucion(t_evaluacion) {
             </div>
 
             <div class="col-12 d-flex gap-2">
+              <button type="button" id="btn_home"
+                    class="btn btn-primary btn-sm px-3 py-2 shadow-sm">
+                    <i class="bi bi-arrow-left-circle-fill me-1"></i>
+                    Ver otras evaluaciones
+                </button>
                 
                 <button type="button" id="btn_descargar_excel"
                     class="btn btn-success btn-sm px-3 py-2 shadow-sm">
@@ -190,11 +195,7 @@ function cargar_auto_evaluacion_ejecucion(t_evaluacion) {
                     Excel
                 </button>
 
-                <button type="button" id="btn_home"
-                    class="btn btn-primary btn-sm px-3 py-2 shadow-sm">
-                    <i class="bi bi-arrow-left-circle-fill me-1"></i>
-                    Ver otras evaluaciones
-                </button>
+              
 
             </div>
 
@@ -214,9 +215,98 @@ function cargar_auto_evaluacion_ejecucion(t_evaluacion) {
     }, 'json');
 }
 
+//
+
+
 
 // Filtrar evaluaciones por estado
 function mostrar_evaluaciones(estado) {
+
+    $('#lista_evaluaciones').empty();
+
+    let filtrados = respuesta.filter(item =>
+        Number(item.is_status) === Number(estado)
+    );
+
+    if (filtrados.length === 0) {
+
+        $('#lista_evaluaciones').html(`
+            <div class="col-12">
+                <div class="alert alert-light border text-center">
+                    <i class="bi bi-inbox me-2"></i>
+                    No hay evaluaciones ${
+                        Number(estado) === 2 ? 'pendientes' : 'ejecutadas'
+                    }.
+                </div>
+            </div>
+        `);
+
+        return;
+    }
+
+    $.each(filtrados, function (i, item) {
+
+        // Estado 2 = Pendiente | Estado 1 = Ejecutado
+        let color = Number(estado) === 2 ? 'danger' : 'success';
+
+        let icon = Number(estado) === 2
+            ? '<i class="bi bi-person-dash"></i>'
+            : '<i class="bi bi-person-check"></i>';
+
+     
+
+        $('#lista_evaluaciones').append(`
+            <div class=" col-md-4  clbr_evaluar" id="${item.id}">
+
+                <button type="button"
+                        class="card-evaluacion w-100 text-start">
+
+                    <div class="d-flex align-items-center gap-3">
+
+                        <div class="evaluacion-icono icono-pares text-${color}">
+                            ${icon}
+                        </div>
+
+                        <div class="flex-grow-1">
+
+                            <h6 class="mb-1">
+                                ${item.nm} ${item.ap}
+                            </h6>
+
+                            <p class="mb-2">
+                                ${item.tipo}
+                            </p>
+
+                            <span class="badge bg-${color}-subtle text-${color}-emphasis">
+                                <i class="bi bi-clock-history me-1"></i>
+                                ${item.estado}
+                            </span>
+
+                        </div>
+
+                        <i class="bi bi-arrow-right-circle flecha-evaluacion"></i>
+
+                    </div>
+
+                </button>
+
+           
+            
+
+
+
+
+            </div>
+        `);
+
+    });
+}
+
+
+
+
+// Filtrar evaluaciones por estado
+function mostrar_evaluaciones_2(estado) {
 
     $('#lista_evaluaciones').empty();
 
@@ -396,12 +486,22 @@ function cargar_ejecuacion_evaluadores(t_evaluacion) {
                 </button>
             </div>
 
-            <div class="col-12">
+         <div class="col-12 d-flex gap-2">
+                
+            
+
                 <button type="button" id="btn_home"
-                        class="btn btn-primary btn-sm px-3 py-2 shadow-sm col-2">
-                 <i class="bi bi-arrow-left-circle-fill"></i>   
-                Ver otras evaluaciones
+                    class="btn btn-primary btn-sm px-3 py-2 shadow-sm">
+                    <i class="bi bi-arrow-left-circle-fill me-1"></i>
+                    Ver otras evaluaciones
                 </button>
+
+               <button type="button" id="btn_excel_evaluadores"
+                    class="btn btn-success btn-sm px-3 py-2 shadow-sm">
+                    <i class="bi bi-file-earmark-excel-fill me-1"></i>
+                    Excel
+                </button>
+
             </div>
 
             <div class="col-12">
@@ -409,7 +509,7 @@ function cargar_ejecuacion_evaluadores(t_evaluacion) {
             </div>
         `);
 
-        mostrar_evaluaciones(2);
+        mostrar_evaluaciones_2(2);
 
     }, 'json').fail(function (xhr, status, error) {
 
@@ -530,3 +630,72 @@ function cargar_personas_a_evaluar(id){
 $(document).on('click', '#btn_home', function () {
     location.reload();
 });
+
+///  genracion de reporte de ejecucion evaluadores
+
+$(document).on('click', '#btn_excel_evaluadores', function () {
+
+
+
+         $.post('../web/rutas.php?ruta=reporte_ejecucion_evaluador', function (r) {
+           
+            genrar_reporte_evaluador(r);
+
+
+            
+
+        
+          }, 'json');
+
+
+});
+
+
+function genrar_reporte_evaluador(r){
+
+
+   if (!r.length) {
+        alert('No hay datos para exportar.');
+        return;
+    }
+
+
+    $.ajax({
+        url: '../excel/reporte_evaluadores_ejecucion.php',
+        type: 'POST',
+        data: {
+            respuesta: JSON.stringify(r)
+        },
+        xhrFields: {
+            responseType: 'blob'
+        },
+        success: function (archivo) {
+
+            let url = URL.createObjectURL(archivo);
+            let enlace = document.createElement('a');
+
+            enlace.href = url;
+            enlace.download = 'Reporte_evaluadores_ejecucion.xls';
+
+            document.body.appendChild(enlace);
+            enlace.click();
+            enlace.remove();
+
+            URL.revokeObjectURL(url);
+        },
+        error: function () {
+            alert('No se pudo generar el archivo.');
+        }
+    });
+
+
+}
+
+
+  
+
+
+
+
+
+
