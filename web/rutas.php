@@ -34,14 +34,18 @@ $rutas = [
     'evaluaciones' => '../db/cg_evaluaciones_asignadas.php',
 
 
-
+    'evaluador_pendientes' => '../db/cg_evaluados_evaluador_pendiente.php',
     'evaluador' => '../db/cg_evaluados_evaluador.php',
+
+
+   
 
 /// ejecucion de valoracion
 
      'evaluador_ejecutados' => '../db/cg_evaluados_evaluador_ejecutados.php',
      'evaluaciones_ejecucion' => '../db/cg_tipos_ev_admin.php',
      'cargar_ejecucion' => '../db/cg_listado_ejecucion.php',
+     'ejecucion_evaluadores' => '../db/cg_listado_ejecucio_evaluadores.php',
 
  //fin ejecucion
 
