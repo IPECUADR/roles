@@ -112,7 +112,7 @@ $(document).on('click', '.btn_resultados', function () {
 
         case 2:
                   
-             cargar_personas_a_evaluar(t_evaluacion);
+             cargar_ejecuacion_evaluadores(t_evaluacion);
 
 
             break;
@@ -182,15 +182,21 @@ function cargar_auto_evaluacion_ejecucion(t_evaluacion) {
                 </button>
             </div>
 
-            <div class="col-12">
-             <button type="button " id="btn_descargar_excel"
-                class="btn btn-success btn-sm px-3 py-2 shadow-sm col-2">
-                <i class="bi bi-file-earmark-excel-fill me-1"></i>
-                Excel
-            </button>
-              
+            <div class="col-12 d-flex gap-2">
+                
+                <button type="button" id="btn_descargar_excel"
+                    class="btn btn-success btn-sm px-3 py-2 shadow-sm">
+                    <i class="bi bi-file-earmark-excel-fill me-1"></i>
+                    Excel
+                </button>
+
+                <button type="button" id="btn_home"
+                    class="btn btn-primary btn-sm px-3 py-2 shadow-sm">
+                    <i class="bi bi-arrow-left-circle-fill me-1"></i>
+                    Ver otras evaluaciones
+                </button>
+
             </div>
-           
 
             <!-- Listado -->
             <div class="col-12">
@@ -243,8 +249,10 @@ function mostrar_evaluaciones(estado) {
             ? '<i class="bi bi-person-dash"></i>'
             : '<i class="bi bi-person-check"></i>';
 
+     
+
         $('#lista_evaluaciones').append(`
-            <div class="col-md-4">
+            <div class=" col-12 clbr_evaluar" id="${item.id}">
 
                 <button type="button"
                         class="card-evaluacion w-100 text-start">
@@ -277,6 +285,18 @@ function mostrar_evaluaciones(estado) {
                     </div>
 
                 </button>
+
+            <div class="content mt-2 mb-2">
+                <div class="row g-3" id="pendientes_${item.id}">
+
+                   
+
+                </div>
+            </div>
+            
+
+
+
 
             </div>
         `);
@@ -330,4 +350,183 @@ $(document).on('click', '#btn_descargar_excel', function () {
         }
     });
 
+});
+
+
+
+
+
+
+function cargar_ejecuacion_evaluadores(t_evaluacion) {
+
+    console.log('Tipo de evaluación:', t_evaluacion);
+
+    $.post('../web/rutas.php?ruta=ejecucion_evaluadores', { t_evaluacion }, function (r) {
+
+        console.log('Respuesta PHP:', r);
+
+        respuesta = r;
+
+        $('#seccion_evaluaciones').empty();
+
+        $('#seccion_evaluaciones').append(`
+            <div class="col-md-6">
+                <button type="button"
+                        class="card-evaluacion w-100 text-start btn_filtrar_evaluacion"
+                        data-estado="2">
+                    <div class="d-flex align-items-center gap-3">
+                        <div class="flex-grow-1">
+                            <h6 class="mb-1">Ver Pendientes</h6>
+                        </div>
+                        <i class="bi bi-arrow-right-circle flecha-evaluacion"></i>
+                    </div>
+                </button>
+            </div>
+
+            <div class="col-md-6">
+                <button type="button"
+                        class="card-evaluacion w-100 text-start btn_filtrar_evaluacion"
+                        data-estado="1">
+                    <div class="d-flex align-items-center gap-3">
+                        <div class="flex-grow-1">
+                            <h6 class="mb-1">Ver Ejecutados</h6>
+                        </div>
+                        <i class="bi bi-arrow-right-circle flecha-evaluacion"></i>
+                    </div>
+                </button>
+            </div>
+
+            <div class="col-12">
+                <button type="button" id="btn_home"
+                        class="btn btn-primary btn-sm px-3 py-2 shadow-sm col-2">
+                 <i class="bi bi-arrow-left-circle-fill"></i>   
+                Ver otras evaluaciones
+                </button>
+            </div>
+
+            <div class="col-12">
+                <div class="row g-3" id="lista_evaluaciones"></div>
+            </div>
+        `);
+
+        mostrar_evaluaciones(2);
+
+    }, 'json').fail(function (xhr, status, error) {
+
+        console.error('Error AJAX:', status);
+        console.error('Detalle:', error);
+        console.error('Respuesta del servidor:', xhr.responseText);
+
+        $('#seccion_evaluaciones').html(`
+            <div class="alert alert-danger">
+                <i class="bi bi-exclamation-triangle me-2"></i>
+                No se pudieron cargar las evaluaciones.
+                Revisa la consola para conocer el error.
+            </div>
+        `);
+
+    });
+}
+
+
+
+let id_Evaludaor  = 0;
+$(document).on('click', '.clbr_evaluar', function () {
+
+    let id = this.id;
+
+
+  cargar_personas_a_evaluar(id);
+  console.log(id);
+
+});
+
+
+///  cargar  personas evaluador 
+
+
+function cargar_personas_a_evaluar(id){
+
+    console.log(id);
+
+    
+    $.post('../web/rutas.php?ruta=evaluador_pendientes',{id}, function (r) {
+
+   
+
+        $('#pendientes_'+id).empty();
+        
+         
+        evaluado = r ; 
+         console.log(r);
+
+
+          $.each(r, function (i, item) {
+            if (i !== 'err') {
+
+                
+
+
+                $('#pendientes_'+id).append(
+
+
+                    `
+                         <!-- Evaluación de pares -->
+            <div class="col-md-4 clbr_evaluar" data-ci="${item.ci}">
+
+                <button type="button"
+                        class="card-evaluacion w-100 text-start"
+                        id="">
+
+                    <div class="d-flex align-items-center gap-3">
+
+                        <div class="evaluacion-icono icono-pares">
+                        <i class="bi bi-person-fill-check"></i>
+                        </div>
+
+                        <div class="flex-grow-1">
+
+                                <h6 class="mb-1">
+                                   ${item.names}
+                                </h6>
+
+                                <p class="mb-2">
+                                    ${item.ci}
+                                </p>
+
+                                <span class="badge bg-info-subtle text-info-emphasis">
+                                    <i class="bi bi-check2-circle"></i>
+                                   Preguntas:  ${item.total}
+                                </span>
+
+                            </div>
+
+                        <i class="bi bi-arrow-right-circle flecha-evaluacion"></i>
+
+                    </div>
+
+                </button>
+
+            </div>
+                       
+                    
+                    `
+                );
+         
+            }
+        });
+
+                
+
+    }, 'json');
+
+
+
+}
+
+
+
+
+$(document).on('click', '#btn_home', function () {
+    location.reload();
 });
