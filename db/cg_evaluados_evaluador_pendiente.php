@@ -12,6 +12,7 @@ require_once '../sys/sys.conf.php';
 
 $id = $_SESSION['pk_p'] ?? null;
 $id_Evaludaor = $_POST ['id'] ?? null;
+$tipo = $_POST ['t_ev'] ?? null;
 
 if (!$id) {
     echo json_encode([]);
@@ -38,7 +39,7 @@ try {
             ev.ci_evaluador = :ci_ev
            
             AND ev.FK_est_ev  = 2
-            AND ev.FK_t_evaluacion = 2
+            AND ev.FK_t_evaluacion = :tipo
 
         GROUP BY
             ev.ci_colaborador,
@@ -49,7 +50,8 @@ try {
 
     $stmt->execute([
      
-        ':ci_ev' => $id_Evaludaor
+        ':ci_ev' => $id_Evaludaor, 
+        ':tipo' => $tipo
   
     ]);
 

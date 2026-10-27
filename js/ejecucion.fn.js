@@ -93,12 +93,18 @@ function validate_Evaluaciones_Asignadas(){
 }
 
 
+
+
+let t_ev = 0;
+
 $(document).on('click', '.btn_resultados', function () {
 
     const t_evaluacion = Number(this.id);
 
     tipo_evaluacion = t_evaluacion;
 
+
+    t_ev = tipo_evaluacion;
 
     console.log(tipo_evaluacion);
 
@@ -120,7 +126,7 @@ $(document).on('click', '.btn_resultados', function () {
         case 3:
              
              
-              cargar_personas_a_evaluar(t_evaluacion);
+              cargar_ejecuacion_evaluadores(t_evaluacion);
            
               break;
 
@@ -550,7 +556,7 @@ function cargar_personas_a_evaluar(id){
     console.log(id);
 
     
-    $.post('../web/rutas.php?ruta=evaluador_pendientes',{id}, function (r) {
+    $.post('../web/rutas.php?ruta=evaluador_pendientes',{id, t_ev}, function (r) {
 
    
 
@@ -637,7 +643,7 @@ $(document).on('click', '#btn_excel_evaluadores', function () {
 
 
 
-         $.post('../web/rutas.php?ruta=reporte_ejecucion_evaluador', function (r) {
+         $.post('../web/rutas.php?ruta=reporte_ejecucion_evaluador',{t_ev}, function (r) {
            
             genrar_reporte_evaluador(r);
 
@@ -653,6 +659,16 @@ $(document).on('click', '#btn_excel_evaluadores', function () {
 
 function genrar_reporte_evaluador(r){
 
+
+    if(t_ev == 2){
+    
+        c = 'evaluador';
+
+    }else{
+
+       c = 'pares';
+
+    }
 
    if (!r.length) {
         alert('No hay datos para exportar.');
@@ -675,7 +691,7 @@ function genrar_reporte_evaluador(r){
             let enlace = document.createElement('a');
 
             enlace.href = url;
-            enlace.download = 'Reporte_evaluadores_ejecucion.xls';
+            enlace.download = 'Reporte_'+c+'_ejecucion.xls';
 
             document.body.appendChild(enlace);
             enlace.click();

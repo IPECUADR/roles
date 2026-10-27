@@ -13,6 +13,8 @@ require_once '../sys/sys.conf.php';
 $id = $_SESSION['pk_p'] ?? null;
 $id_Evaludaor = $_POST ['id'] ?? null;
 
+$tipo = $_POST ['t_ev'] ?? null;
+
 if (!$id) {
     echo json_encode([]);
     exit;
@@ -55,7 +57,7 @@ INNER JOIN persona AS e
 INNER JOIN t_evaluacion AS te
     ON te.PK_t_evaluacion = ev.FK_t_evaluacion
 
-WHERE ev.FK_t_evaluacion = 2
+WHERE ev.FK_t_evaluacion = :tipo
 
 GROUP BY
     ev.ci_colaborador,
@@ -69,7 +71,11 @@ GROUP BY
     
     ");
 
-    $stmt->execute();
+    $stmt->execute([
+
+       ':tipo' => $tipo
+
+    ]);
 
     $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
 

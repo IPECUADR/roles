@@ -27,7 +27,7 @@ try {
             ev.ci_evaluador AS id,
             CONCAT_WS(' ', e.nom_p, e.ap_p) AS nm,
             COUNT(*) AS total_p,
-            ev.FK_t_evaluacion AS is_status,
+            ev.FK_est_ev  AS is_status,
             est.estado_rp_ev AS est,
             t_ev.t_evaluacion AS tipo_ev
 
