@@ -356,16 +356,16 @@ function mostrar_evaluaciones_2(estado) {
                         <div class="flex-grow-1">
 
                             <h6 class="mb-1">
-                                ${item.nm} ${item.ap}
+                                ${item.nm}
                             </h6>
 
                             <p class="mb-2">
-                                ${item.tipo}
+                                ${item.tipo_ev}
                             </p>
 
                             <span class="badge bg-${color}-subtle text-${color}-emphasis">
                                 <i class="bi bi-clock-history me-1"></i>
-                                ${item.estado}
+                                ${item.est}
                             </span>
 
                         </div>
