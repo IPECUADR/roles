@@ -23,36 +23,35 @@ try {
 
     $stmt = $pdo->prepare("
 
- SELECT 
+      SELECT
+            ev.ci_evaluador AS id,
+            CONCAT_WS(' ', e.nom_p, e.ap_p) AS nm,
+            COUNT(*) AS total_p,
+            ev.FK_t_evaluacion AS is_status,
+            est.estado_rp_ev AS est,
+            t_ev.t_evaluacion AS tipo_ev
 
-            persona.PK_persona as id, 
-            persona.nom_p as nm, 
-            persona.ap_p as ap, 
-            t_evaluacion.t_evaluacion as tipo, 
-            estado_rp_ev.estado_rp_ev as estado, 
-            estado_rp_ev.PK_est_rp_ev as is_status,
-            COUNT(ev_v_des.PK_aut_ev_v_des) as total_p
+        FROM ev_v_des AS ev
 
+        INNER JOIN persona AS e
+            ON e.PK_persona = ev.ci_evaluador
 
-        FROM 
+        INNER JOIN estado_rp_ev AS est
+            ON est.PK_est_rp_ev = ev.FK_est_ev
 
-            ev_v_des, persona, 
-            t_evaluacion,
-            estado_rp_ev 
+        INNER JOIN t_evaluacion AS t_ev
+            ON t_ev.PK_t_evaluacion = ev.FK_t_evaluacion
 
-        WHERE 
-
-            persona.ci_p = ev_v_des.ci_evaluador 
-            and t_evaluacion.PK_t_evaluacion = ev_v_des.FK_t_evaluacion 
-            and  estado_rp_ev.PK_est_rp_ev = ev_v_des.FK_est_ev 
-
-            AND FK_t_evaluacion = :tipo
-
+        WHERE ev.FK_t_evaluacion = :tipo
+        AND ev.FK_est_ev = 2
 
         GROUP BY
-            id,
-            nm, 
-            ap
+            ev.ci_evaluador,
+            e.nom_p,
+            e.ap_p,
+            ev.FK_t_evaluacion,
+            est.estado_rp_ev,
+            t_ev.t_evaluacion;
 
     ");
 
