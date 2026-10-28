@@ -19,6 +19,28 @@
     color: white;
 
 }
+
+
+.politicas{
+
+   background: linear-gradient(120deg, #0056A4, #1A1A1A);
+    border: none;
+  
+    border-radius: 20px;
+    padding: 20px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.5);
+    transition: 0.3s;
+    cursor: pointer;
+    color: white;
+
+}
+.politicas:hover {
+     transform: translateY(-5px);
+     background: linear-gradient(145deg, #111111, #011a33);
+     color: #f1f3f6;
+}
+
+
 .buzon:hover {
      transform: translateY(-5px);
      background: linear-gradient(145deg, #053f97, #011532);
@@ -75,9 +97,15 @@
                         <div class="card-clbr card-blue"><h6>Reglamento Interno</h6><h3 id="vac_clbr_sec"><i class="bi bi-book-half"></i> </h3></div>
                 </div>
                 
-                   <div class="col-md-3" id="user_denuncia">
+               <div class="col-md-3" id="user_denuncia">
                         <div class="card-clbr card-blue"><h6>Canales de Denuncia</h6><h3 id="vac_clbr_sec"><i class="bi bi-info-circle-fill"></i> </h3></div>
                 </div>
+
+                     
+               <div class="col-md-3" id="user_denuncia">
+                  <div class="politicas "><h6> KLUANE DRILLING   </h6><h3 id="vac_clbr_sec"><i class="bi bi-shield-check"></i> Politicas </h3></div>
+                </div>
+
 
 
               <div class="col-md-3" id="user_kd_escucha">
