@@ -817,3 +817,8 @@ $(document).on('click', '#evaluar_kde', function () {
 
       location.href = '../web/rutas.php?ruta=evaluar';
 })
+
+
+$('#user_politicas').click(function(){
+    window.location.href = '../web/rutas.php?ruta=Politicas/Kluane';
+  });
