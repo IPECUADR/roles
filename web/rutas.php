@@ -89,7 +89,14 @@ $rutas = [
      'postulaciones' => '../controller/postulaciones.php', 
 
 
-      'mostar_postulaciones' => '../db/cg_postulaciones.php'
+      'mostar_postulaciones' => '../db/cg_postulaciones.php',
+
+
+      /// rutas politicas 
+
+      'Politicas/Kluane'    => '../controller/politicas.php',
+
+      'cargar_politicas' => '../db/cg_politicas_kde.php',
 
    
   
