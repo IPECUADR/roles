@@ -102,7 +102,7 @@
                 </div>
 
                      
-               <div class="col-md-3" id="user_denuncia">
+               <div class="col-md-3" id="user_politicas">
                   <div class="politicas "><h6> KLUANE DRILLING   </h6><h3 id="vac_clbr_sec"><i class="bi bi-shield-check"></i> Politicas </h3></div>
                 </div>
 

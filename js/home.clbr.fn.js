@@ -60,6 +60,9 @@ $(document).on('click', '#user_kd_escucha', function () {
 })
 
 
+ $('#user_politicas').click(function(){
+    window.location.href = '../web/rutas.php?ruta=Politicas/Kluane';
+  });
 
 
 
