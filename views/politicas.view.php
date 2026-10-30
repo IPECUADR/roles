@@ -80,7 +80,7 @@
 
 
     <!-- VISOR PDF -->
-    <div class="card border-0 shadow-sm rounded-4 overflow-hidden">
+    <div id="visor_pdf" class="card border-0 shadow-sm rounded-4 overflow-hidden">
 
         <div class="card-header bg-white p-3 p-md-4">
 

@@ -99,6 +99,11 @@ $(document).ready(function () {
     const titulo = $(this).data('titulo');
     const url = $(this).data('url');
 
+
+        $('html, body').animate({
+           scrollTop: $('#visor_pdf').offset().top - 80
+         }, 600);
+
     if (!url) {
         alert('Este documento todavía no tiene una URL configurada.');
         return;
