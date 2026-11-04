@@ -92,34 +92,87 @@ $(document).ready(function () {
 
 
 
-
-
-    $(document).on('click', '.politica-documento', function () {
+$(document).on('click', '.politica-documento', function () {
 
     const titulo = $(this).data('titulo');
     const url = $(this).data('url');
 
-
-        $('html, body').animate({
-           scrollTop: $('#visor_pdf').offset().top - 80
-         }, 600);
+    console.log(url);
 
     if (!url) {
         alert('Este documento todavía no tiene una URL configurada.');
         return;
     }
 
+    // Activar documento seleccionado
     $('.politica-documento').removeClass('activo');
     $(this).addClass('activo');
 
     $('#titulo_pdf').text(titulo);
-    $('#visor_pdf').attr('src', url);
+
+    // Detectar Google Drive
+    let urlVisor = url;
+
+    if (url.includes('drive.google.com/file/d/')) {
+        urlVisor = url.replace('/view', '/preview');
+    }
+
+    // Mostrar cargando
+    $('#visor_pdf_contenedor').html(`
+        <div id="pdf_loading" class="text-center py-5">
+            <div class="spinner-border text-primary mb-3" role="status"></div>
+            <h6 class="fw-semibold text-dark">Cargando documento...</h6>
+            <small class="text-muted">Por favor espera un momento.</small>
+        </div>
+    `);
+
+    // Actualizar descarga
     $('#descargar_pdf').attr('href', url);
 
+    // Crear visor
+    const iframe = $(`
+        <iframe
+            id="visor_pdf"
+            src="${urlVisor}"
+            width="100%"
+            height="600px"
+            frameborder="0"
+            allowfullscreen
+            style="display:none; border:0; border-radius:12px; background:#fff;">
+        </iframe>
+    `);
+
+    // Cuando termine de cargar
+    iframe.on('load', function () {
+
+        $('#pdf_loading').html(`
+            <div class="text-success mb-2">
+                <i class="bi bi-check-circle-fill fs-3"></i>
+            </div>
+            <h6 class="fw-semibold text-success mb-0">
+                Documento cargado correctamente
+            </h6>
+        `);
+
+        iframe.fadeIn(300);
+
+        setTimeout(() => {
+            $('#pdf_loading').fadeOut(300, function () {
+                $(this).remove();
+            });
+        }, 1000);
+
+    });
+
+    // Agregar iframe
+    $('#visor_pdf_contenedor').append(iframe);
+
+    // Desplazamiento
+    $('html, body').animate({
+        scrollTop: $('#visor_pdf_contenedor').offset().top - 80
+    }, 600);
+
 });
-
-
-
 
 
 function us_serv_politicas() {

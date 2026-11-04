@@ -622,9 +622,17 @@
             Selecciona el tipo de evaluación que deseas realizar.
         </p>
 
-        <div class="row g-3" id="seccion_evaluaciones">
+        <div class="row g-3" >
 
-         
+         <div class="col-12" id="seccion_evaluaciones">
+
+
+         </div>
+
+         <div class ="col-12" id="seccion_Resultados">
+
+
+         </div>
 
 
          

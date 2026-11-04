@@ -98,6 +98,11 @@ $rutas = [
 
       'cargar_politicas' => '../db/cg_politicas_kde.php',
 
+
+      /// seccion  resultados 
+
+      'resultados' => '../db/cg_evaluaciones_asignadas.php',
+
    
   
 ];
