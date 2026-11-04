@@ -1,13 +1,13 @@
  $(document).ready(function () {
 
  validate_Evaluaciones_Asignadas();
- indicaciones_evaluar_kde();
+ 
 
 
    
 });
  
-/// contar roles emitidos 
+/// contarcargar 
 
 function validate_Evaluaciones_Asignadas(){
 
@@ -30,12 +30,17 @@ function validate_Evaluaciones_Asignadas(){
                      elemnt_acc = 'elemnt_evaluacion';
 
 
+                     /// si  tiene evaluaciones pendientes
+                      indicaciones_evaluar_kde();
+
                 }else{
 
 
                       color = 'success';
 
                      elemnt_acc = 'secc_ejecutados';
+
+                   validate_resultados_Evaluaciones();
                     
 
 
@@ -1422,3 +1427,86 @@ function cargar_personas_evaluadas(t_evaluacion_ej){
 
 
 }
+
+
+//accciones de resultados valoracion de desempeño 
+
+
+/// resultados evaluaciones 
+
+function validate_resultados_Evaluaciones(){
+
+    $.post('../web/rutas.php?ruta=resultados', function (r) {
+
+   
+
+        $('#seccion_Resultados').empty();
+        
+           
+         console.log(r);
+
+          $.each(r, function (i, item) {
+            if (i !== 'err') {
+
+            
+
+
+                $('#seccion_Resultados').append(
+
+
+                    `
+       <!-- Evaluación de pares -->
+<div class="col-md-12" id="${item.t_ev}">
+
+    <button type="button"
+            class="card-evaluacion w-100 text-start"
+            id="">
+
+        <div class="d-flex align-items-center gap-3">
+
+            <div class="evaluacion-icono icono-pares">
+                <i class="bi bi-clipboard-data-fill"></i>
+            </div>
+
+            <div class="flex-grow-1">
+
+                <div class="d-flex align-items-center gap-2 flex-wrap">
+                    <h6 class="mb-1 fw-bold">
+                        RESULTADOS DE LA VALORACIÓN DEL DESEMPEÑO
+                    </h6>
+
+                </div>
+
+                <p class="mb-2 text-muted small">
+                    Aquí encontrarás tus fortalezas y oportunidades para seguir creciendo y mejorando profesionalmente.
+                </p>
+
+              
+                    <span class="badge rounded-pill bg-success-subtle text-success">
+                        <i class="bi bi-check-circle-fill me-1"></i>
+                        Disponible
+                    </span>
+
+            </div>
+
+            <i class="bi bi-arrow-right-circle flecha-evaluacion"></i>
+
+        </div>
+
+    </button>
+
+</div>
+                       
+                    
+                    `
+                );
+         
+            }
+        });
+
+                
+
+    }, 'json');
+
+}
+

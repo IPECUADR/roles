@@ -122,18 +122,23 @@
         </div>
 
 
-        <div class="card-body p-2 bg-light">
+        <div id="visor_pdf_contenedor" class="position-relative">
 
-            <iframe
-                id="visor_pdf"
-                src="https://drive.google.com/file/d/1eWKk2_TC8uDpJjwTDQ1HTR72wBIVnyKd/preview"
-                title="Visor de políticas Kluane Drilling"
-                width="100%"
-                height="750"
-                style="border:0; border-radius:12px; background:#fff;">
-            </iframe>
+                <div id="pdf_loading" class="text-center py-5">
 
-        </div>
+                    <div class="spinner-border text-primary mb-3" role="status"></div>
+
+                    <h6 class="fw-semibold text-dark mb-1">
+                        Preparando documento
+                    </h6>
+
+                    <small class="text-muted">
+                        Selecciona una política para visualizarla.
+                    </small>
+
+                </div>
+
+            </div>
 
         <div class="card-footer bg-white text-muted small py-3">
             <i class="bi bi-info-circle me-1"></i>
