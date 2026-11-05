@@ -101,9 +101,13 @@ $rutas = [
 
       /// seccion  resultados 
 
-      'resultados' => '../db/cg_evaluaciones_asignadas.php',
+      'resultados' => '../db/cg_resultados_valoracion.php',
+      'kpi_individual' => '../db/kpi_resultados_individuales.php',
+      'hse_individual' => '../db/hse_resultados_individuales.php', 
+      'competencias_individual' => '../db/competencias_resultados_individuales.php'
 
-   
+
+      
   
 ];
 
