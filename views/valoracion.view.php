@@ -545,6 +545,521 @@
 
 
 
+/* CONTENEDOR GENERAL */
+#valoracion_desempeno {
+    background: #F1F4F8;
+    padding: 25px !important;
+    border-radius: 14px;
+}
+
+/* ENCABEZADO */
+#valoracion_desempeno h4 {
+    color: #172B45;
+    font-weight: 700;
+    letter-spacing: -0.4px;
+}
+
+/* RESULTADO GLOBAL */
+#valoracion_desempeno > .card {
+   background: linear-gradient(135deg, #032c60, #036224);
+    color: #FFFFFF;
+    border: none;
+    overflow: hidden;
+    box-shadow: 0 5px 18px rgba(16, 43, 70, .12) !important;
+}
+
+#valoracion_desempeno > .card .text-muted {
+    color: #C4D0DC !important;
+}
+
+#valoracion_desempeno #total_evaluacion {
+    color: #FFFFFF !important;
+    font-size: 3.5rem;
+    letter-spacing: -2px;
+}
+
+#valoracion_desempeno > .card .progress {
+    background: rgba(255, 255, 255, 0.48);
+    border-radius: 20px;
+}
+
+#valoracion_desempeno #barra_evaluacion {
+    background: #69B77A;
+    border-radius: 20px;
+}
+
+/* TARJETAS DE INDICADORES */
+#valoracion_desempeno .indicador-card {
+    background: #fffffff7;
+    border: 1px solid #E2E8F0 !important;
+    border-radius: 16px !important;
+    box-shadow: 0 3px 12px rgba(16, 43, 70, .06) !important;
+    transition: transform .2s ease, box-shadow .2s ease;
+}
+
+#valoracion_desempeno .indicador-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 7px 18px rgba(16, 43, 70, .10) !important;
+    cursor: pointer;
+}
+
+/* ICONOS */
+#valoracion_desempeno .indicador-icono {
+    width: 52px;
+    height: 52px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+}
+
+/* HSE - AZUL */
+#valoracion_desempeno .indicador-card:nth-child(1) .indicador-icono {
+    background: #E8F0FA !important;
+    color: #1F5B99 !important;
+}
+
+#valoracion_desempeno #barra_hse {
+    background: #1F5B99;
+}
+
+/* COMPETENCIAS - VERDE */
+#valoracion_desempeno .indicador-card:nth-child(2) .indicador-icono {
+    background: #E8F3EC !important;
+    color: #26734D !important;
+}
+
+#valoracion_desempeno #barra_competencias {
+    background: #26734D;
+}
+
+/* KPI - GRIS AZULADO */
+#valoracion_desempeno .indicador-card:nth-child(3) .indicador-icono {
+    background: #0f6de1 !important;
+    color: #455468 !important;
+    
+}
+
+#valoracion_desempeno #barra_kpi {
+    background: #455468;
+}
+
+/* TITULOS Y RESULTADOS */
+#valoracion_desempeno .indicador-card h6 {
+    color: #172B45;
+}
+
+#valoracion_desempeno .indicador-card h2 {
+    color: #172B45;
+    font-size: 2.4rem;
+    font-weight: 750;
+    letter-spacing: -1px;
+}
+
+/* BARRAS */
+#valoracion_desempeno .indicador-card .progress {
+    background: #E9EEF3;
+    border-radius: 20px;
+}
+
+#valoracion_desempeno .indicador-card .progress-bar {
+    border-radius: 20px;
+}
+
+/* PONDERACIONES */
+#valoracion_desempeno .indicador-card .badge {
+    background: #F1F4F8 !important;
+    color: #34465A !important;
+    font-weight: 600;
+    padding: 9px 12px;
+    border-radius: 8px;
+}
+
+/* DETALLE AUTOEVALUACION Y JEFE */
+#valoracion_desempeno .indicador-card .small {
+    color: #64748B;
+}
+
+#valoracion_desempeno .indicador-card .small strong {
+    color: #172B45;
+    font-size: .95rem;
+}
+
+/* RESPONSIVE */
+@media (max-width: 576px) {
+    #valoracion_desempeno {
+        padding: 12px !important;
+    }
+
+    #valoracion_desempeno #total_evaluacion {
+        font-size: 2.7rem;
+    }
+
+    #valoracion_desempeno .indicador-card h2 {
+        font-size: 2rem;
+    }
+}
+
+
+.popup-kde {
+    border-radius: 18px;
+    padding: 25px;
+    max-width: 470px;
+}
+
+.felicitacion-kde {
+    padding: 10px 5px;
+    text-align: center;
+}
+
+.trofeo-kde {
+    width: 95px;
+    height: 95px;
+    background: #F8F3E7;
+    color: #B28A3D;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 22px;
+    font-size: 43px;
+    animation: trofeoKDE 1.8s ease-in-out infinite alternate;
+}
+
+.etiqueta-kde {
+    color: #198754;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 2px;
+}
+
+.felicitacion-kde h2 {
+    color: #17365D;
+    font-weight: 800;
+    margin: 12px 0 5px;
+}
+
+.felicitacion-kde h6 {
+    color: #475569;
+    font-weight: 600;
+}
+
+.felicitacion-kde p {
+    color: #64748B;
+    font-size: 14px;
+    line-height: 1.7;
+    margin-top: 15px;
+}
+
+.resultado-kde {
+    background: #F5F7FA;
+    border: 1px solid #E8EDF3;
+    border-radius: 10px;
+    padding: 16px;
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.resultado-kde strong {
+    color: #17365D;
+    font-size: 14px;
+}
+
+.resultado-kde small {
+    color: #64748B;
+    font-size: 12px;
+}
+
+.btn-kde-resultados,
+.btn-kde-cerrar {
+    border-radius: 8px !important;
+    padding: 11px 18px !important;
+    font-size: 12px !important;
+    font-weight: 700 !important;
+    letter-spacing: .4px;
+}
+
+@keyframes trofeoKDE {
+    from { transform: translateY(0); }
+    to { transform: translateY(-6px); }
+}
+
+/* CONTENEDOR DE CADA PREGUNTA */
+.kpi-pregunta {
+    padding: 22px 20px;
+    margin-bottom: 16px;
+    background: #ffffff;
+    border: 1px solid #e9edf3;
+    border-radius: 12px;
+    box-shadow: 0 3px 12px rgba(15, 23, 42, 0.035);
+    transition: all .25s ease;
+}
+
+.kpi-pregunta:hover {
+    border-color: #d5deea;
+    box-shadow: 0 5px 16px rgba(15, 23, 42, 0.07);
+}
+
+/* TEXTO DE LA PREGUNTA */
+.kpi-pregunta-titulo {
+    color: #26364a;
+    font-size: 14px;
+    font-weight: 650;
+    line-height: 1.5;
+}
+
+/* RESULTADO FINAL */
+.kpi-resultado {
+    color: #172b4d;
+    font-size: 23px;
+    font-weight: 750;
+    letter-spacing: -0.7px;
+}
+
+.kpi-resultado-label {
+    color: #8995a5;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 1.1px;
+}
+
+/* ETIQUETAS */
+.kpi-label {
+    font-size: 10px;
+    font-weight: 750;
+    letter-spacing: .8px;
+}
+
+.kpi-label-auto {
+    color: #3869a8;
+}
+
+.kpi-label-jefe {
+    color: #23836b;
+}
+
+/* VALORES */
+.kpi-valor-auto {
+    color: #315f9c;
+    font-size: 13px;
+    font-weight: 750;
+}
+
+.kpi-valor-jefe {
+    color: #218066;
+    font-size: 13px;
+    font-weight: 750;
+}
+
+/* FONDO DE LAS BARRAS */
+.kpi-barra {
+    height: 9px;
+    background: #edf1f6;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: inset 0 1px 2px rgba(20, 35, 55, .06);
+}
+
+/* BARRA AUTOEVALUACIÓN */
+.kpi-barra-auto {
+    height: 100%;
+    border-radius: 20px;
+    background: linear-gradient(90deg, #315f9c, #6095d1);
+    transition: width .7s ease;
+}
+
+/* BARRA JEFATURA */
+.kpi-barra-jefe {
+    height: 100%;
+    border-radius: 20px;
+    background: linear-gradient(90deg, #218066, #55b99a);
+    transition: width .7s ease;
+}
+
+/* SEPARADOR */
+.kpi-separador {
+    border-bottom: 1px solid #edf0f4;
+    margin-top: 17px;
+    padding-bottom: 17px;
+}
+
+@media (max-width: 576px) {
+    .kpi-pregunta {
+        padding: 17px 14px;
+    }
+
+    .kpi-resultado {
+        font-size: 20px;
+    }
+}
+
+
+/* CONTENEDOR PRINCIPAL */
+.resultado-desempeno {
+    border-radius: 14px;
+    background: #fff;
+    box-shadow: 0 5px 22px rgba(25, 42, 70, .06) !important;
+}
+
+/* ENCABEZADO */
+.titulo-desempeno {
+    color: #20334d;
+    font-size: 18px;
+    font-weight: 750;
+    letter-spacing: -.3px;
+}
+
+.subtitulo-desempeno {
+    color: #8995a5;
+    font-size: 12px;
+}
+
+.periodo-desempeno {
+    background: #edf3fa;
+    color: #315f91;
+    padding: 7px 14px;
+    border-radius: 7px;
+    font-size: 12px;
+    font-weight: 750;
+}
+
+/* INDICADORES */
+.indicador-desempeno {
+    height: 100%;
+    min-height: 125px;
+    padding: 18px;
+    border-radius: 11px;
+    border: 1px solid #e9edf3;
+    background: #fafbfd;
+    transition: .2s ease;
+}
+
+.indicador-desempeno:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 14px rgba(25, 42, 70, .06);
+}
+
+.indicador-auto {
+    border-left: 3px solid #477db8;
+}
+
+.indicador-jefe {
+    border-left: 3px solid #31977a;
+}
+
+.indicador-final {
+    background: #f0f4f9;
+    border: 1px solid #dce5ef;
+}
+
+.indicador-titulo {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    color: #68778a;
+    font-size: 10px;
+    font-weight: 750;
+    letter-spacing: .8px;
+}
+
+.indicador-valor {
+    margin-top: 10px;
+    font-size: 29px;
+    font-weight: 800;
+    line-height: 1.2;
+    letter-spacing: -1px;
+}
+
+.valor-final {
+    color: #203d60;
+}
+
+.indicador-pie {
+    color: #8995a5;
+    font-size: 11px;
+    margin-top: 7px;
+}
+
+.indicador-pie strong {
+    color: #52647a;
+}
+
+/* PUNTOS DE REFERENCIA */
+.indicador-punto {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+.punto-auto {
+    background: #477db8;
+}
+
+.punto-jefe {
+    background: #31977a;
+}
+
+/* SECCIÓN DE COMPETENCIAS */
+.seccion-comparativo {
+    padding-top: 8px;
+}
+
+.titulo-seccion {
+    color: #293d56;
+    font-size: 14px;
+    font-weight: 750;
+}
+
+.referencia-auto {
+    color: #3869a8;
+    font-weight: 600;
+}
+
+.referencia-jefe {
+    color: #23836b;
+    font-weight: 600;
+}
+
+/* RESPONSIVE */
+@media (max-width: 576px) {
+
+    .resultado-desempeno .card-body {
+        padding: 18px !important;
+    }
+
+    .indicador-desempeno {
+        min-height: 110px;
+    }
+
+    .indicador-valor {
+        font-size: 25px;
+    }
+}
+
+/* EVALUACIÓN DE PARES */
+.kpi-label-pares,
+.kpi-valor-pares {
+    color: #8b5cf6;
+}
+
+.kpi-barra-pares {
+    height: 100%;
+    background: #8b5cf6;
+    border-radius: 20px;
+}
+
+.punto-pares {
+    background: #8b5cf6;
+}
+
+.referencia-pares {
+    color: #8b5cf6;
+}
 </style>
 
 <div class="container main-content">
@@ -556,11 +1071,9 @@
 
             <div class="col-lg-9">
 
-              
-
                 <h2>
-                  <i class="bi bi-award"></i>
-                    Valoración del Desempeño 
+                    <i class="bi bi-award"></i>
+                    Valoración del Desempeño
                 </h2>
 
                 <p class="mb-3">
@@ -568,7 +1081,7 @@
                     identifica fortalezas y contribuye a la mejora continua.
                 </p>
 
-               <div class="indicadores">
+                <div class="indicadores">
                     <span class="item-kpi">
                         <i class="bi bi-bar-chart-line-fill"></i>
                         KPI
@@ -584,6 +1097,7 @@
                         COMPETENCIAS
                     </span>
                 </div>
+
             </div>
 
             <div class="col-lg-3 text-lg-end text-center">
@@ -613,46 +1127,35 @@
     <!-- Tarjetas de evaluación -->
     <div class="mb-4">
 
-        <h5 class="titulo-seccion mb-1">
-            <i class="bi bi-ui-checks-grid me-2"></i>
-            Mis evaluaciones
-        </h5>
+        <div class="row g-3">
 
-        <p class="text-muted small mb-3">
-            Selecciona el tipo de evaluación que deseas realizar.
-        </p>
+            <div class="col-12" id="seccion_Resultados">
+            </div>
 
-        <div class="row g-3" >
+            <div class="col-12">
 
-         <div class="col-12" id="seccion_evaluaciones">
+                <h5 class="titulo-seccion mb-1">
+                    <i class="bi bi-ui-checks-grid me-2"></i>
+                    Mis evaluaciones
+                </h5>
 
+                <p class="text-muted small mb-3">
+                    Selecciona el tipo de evaluación que deseas realizar.
+                </p>
 
-         </div>
+            </div>
 
-         <div class ="col-12" id="seccion_Resultados">
-
-
-         </div>
-
-
-         
+            <div class="col-12" id="seccion_evaluaciones">
+            </div>
 
         </div>
 
     </div>
 
 
-    <!-- Indicaciones y archivo de respuestas -->
+    <!-- Indicaciones -->
     <div class="row g-3 mb-4" id="seccion_evaluar">
-     
-    
 
-
-
-
-
-
-        <!-- Indicaciones -->
         <div class="col-lg-12">
 
             <div class="card tarjeta-informacion h-100">
@@ -699,21 +1202,9 @@
 
         </div>
 
-
-       
-
     </div>
 
-
-
-
-
-
 </div>
-
-
-
-
 
 
 
