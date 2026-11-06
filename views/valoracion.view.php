@@ -1145,7 +1145,16 @@
 
             </div>
 
-            <div class="col-12" id="seccion_evaluaciones">
+            <div class="col-12" >
+
+                <div class="content">
+
+                    <div class="row g-3" id="seccion_evaluaciones">
+
+                    </div>
+
+                </div>
+
             </div>
 
         </div>

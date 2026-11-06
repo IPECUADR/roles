@@ -9,101 +9,128 @@
  
 /// contarcargar 
 
-function validate_Evaluaciones_Asignadas(){
+
+function validate_Evaluaciones_Asignadas() {
 
     $.post('../web/rutas.php?ruta=evaluaciones', function (r) {
 
-   
-
         $('#seccion_evaluaciones').empty();
-        
-           
-         console.log(r);
 
-          $.each(r, function (i, item) {
-            if (i !== 'err') {
+        console.log(r);
 
-                if(item.st == 2){
+        if (r.err) {
+            console.log(r.msg);
+            return;
+        }
 
-                    color = 'danger';
+        let tiene_pendientes = false;
+        let tiene_ejecutadas = false;
 
-                     elemnt_acc = 'elemnt_evaluacion';
+        $.each(r, function (i, item) {
 
+            if (item.st == 2) {
 
-                     /// si  tiene evaluaciones pendientes
-                      indicaciones_evaluar_kde();
+                let color = 'danger';
+                let elemnt_acc = 'elemnt_evaluacion';
 
-                }else{
+                tiene_pendientes = true;
 
+                $('#seccion_evaluaciones').append(`
+                    <div class="col-md-4 ${elemnt_acc}" id="${item.t_ev}">
 
-                      color = 'success';
+                        <button type="button"
+                                class="card-evaluacion w-100 text-start">
 
-                     elemnt_acc = 'secc_ejecutados';
+                            <div class="d-flex align-items-center gap-3">
 
-                      validate_resultados_Evaluaciones();
+                                <div class="evaluacion-icono icono-pares">
+                                    <i class="bi bi-clipboard2-check-fill"></i>
+                                </div>
 
-                       $('#seccion_evaluar').empty().append();
-                       $('#seccion_evaluaciones').empty().append();
-                       felicitacionResultados();
+                                <div class="flex-grow-1">
 
+                                    <h6 class="mb-1">${item.tipo}</h6>
 
-                   
-                    
+                                    <p class="mb-2">${item.text}</p>
 
+                                    <span class="badge bg-${color}-subtle text-${color}-emphasis">
+                                        <i class="bi bi-clock-history me-1"></i>
+                                        ${item.stado}
+                                    </span>
 
-                }
+                                </div>
 
-
-                $('#seccion_evaluaciones').append(
-
-
-                    `
-                         <!-- Evaluación de pares -->
-            <div class="col-md-4 ${elemnt_acc}" id="${item.t_ev}">
-
-                <button type="button"
-                        class="card-evaluacion w-100 text-start"
-                        id="">
-
-                    <div class="d-flex align-items-center gap-3">
-
-                        <div class="evaluacion-icono icono-pares">
-                         <i class="bi bi-clipboard2-check-fill"></i>
-                        </div>
-
-                        <div class="flex-grow-1">
-
-                                <h6 class="mb-1">
-                                   ${item.tipo}
-                                </h6>
-
-                                <p class="mb-2">
-                                    ${item.text}
-                                </p>
-
-                                <span class="badge bg-${color}-subtle text-${color}-emphasis">
-                                    <i class="bi bi-clock-history me-1"></i>
-                                    ${item.stado}
-                                </span>
+                                <i class="bi bi-arrow-right-circle flecha-evaluacion"></i>
 
                             </div>
 
-                        <i class="bi bi-arrow-right-circle flecha-evaluacion"></i>
+                        </button>
 
                     </div>
+                `);
 
-                </button>
+            } else {
 
-            </div>
-                       
-                    
-                    `
-                );
-         
+                let color = 'success';
+                let elemnt_acc = 'secc_ejecutados';
+
+                tiene_ejecutadas = true;
+
+                $('#seccion_evaluaciones').append(`
+                    <div class="col-md-4 ${elemnt_acc}" id="${item.t_ev}">
+
+                        <button type="button"
+                                class="card-evaluacion w-100 text-start">
+
+                            <div class="d-flex align-items-center gap-3">
+
+                                <div class="evaluacion-icono icono-pares">
+                                    <i class="bi bi-clipboard2-check-fill"></i>
+                                </div>
+
+                                <div class="flex-grow-1">
+
+                                    <h6 class="mb-1">${item.tipo}</h6>
+
+                                    <p class="mb-2">${item.text}</p>
+
+                                    <span class="badge bg-${color}-subtle text-${color}-emphasis">
+                                        <i class="bi bi-check-circle-fill me-1"></i>
+                                        ${item.stado}
+                                    </span>
+
+                                </div>
+
+                                <i class="bi bi-arrow-right-circle flecha-evaluacion"></i>
+
+                            </div>
+
+                        </button>
+
+                    </div>
+                `);
+
             }
+
         });
 
-                
+        // ACCIONES GENERALES
+
+        if (tiene_pendientes) {
+
+            indicaciones_evaluar_kde();
+
+        }
+
+        if (tiene_ejecutadas && !tiene_pendientes) {
+
+            validate_resultados_Evaluaciones();
+
+            $('#seccion_evaluar').empty();
+
+            felicitacionResultados();
+
+        }
 
     }, 'json');
 
