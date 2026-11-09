@@ -104,8 +104,12 @@ $rutas = [
       'resultados' => '../db/cg_resultados_valoracion.php',
       'kpi_individual' => '../db/kpi_resultados_individuales.php',
       'hse_individual' => '../db/hse_resultados_individuales.php', 
-      'competencias_individual' => '../db/competencias_resultados_individuales.php'
-
+      'competencias_individual' => '../db/competencias_resultados_individuales.php',
+      
+      'resultados_jefe' => '../db/cg_resultados_valoracion_jefatura.php',
+      'hse_individual_jefe' => '../db/hse_resultados_individuales_jefe.php',
+      'kpi_individual_jefe' => '../db/kpi_resultados_individuales_jefe.php',
+      'competencias_individual_jefe' => '../db/competencias_resultados_individuales_jefe.php',
 
       
   

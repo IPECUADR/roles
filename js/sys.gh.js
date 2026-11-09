@@ -5,6 +5,7 @@ $(document).ready(function () {
      sesion();
      roles_p_us_ser();
      evaluar_kde();
+
     
 
 
@@ -802,6 +803,36 @@ if (r.id) {
 
 } else {
 
+         resultados_kde();
+}
+         
+
+
+    }, 'json');
+
+}
+
+function resultados_kde (){
+
+
+    $('evaluar_kde').empty();
+
+
+  $.post('../db/val_resultados_evaluados.php', function (r) {
+  
+
+if (r.id) {
+
+    console.log(r); // Existe evaluación
+
+
+
+     $('#evaluar_kde').append(
+                `<div class="evaluar"><h6>Valoración de Desempeño 2026</h6><h3 id="vac_clbr_sec"><i class="bi bi-award"></i> Resultados </h3></div>`
+            );
+
+} else {
+
     // No existe evaluación: no hacer nada
 }
          
@@ -810,6 +841,7 @@ if (r.id) {
     }, 'json');
 
 }
+
 
 
 $(document).on('click', '#evaluar_kde', function () {
@@ -821,4 +853,4 @@ $(document).on('click', '#evaluar_kde', function () {
 
 $('#user_politicas').click(function(){
     window.location.href = '../web/rutas.php?ruta=Politicas/Kluane';
-  });
+});

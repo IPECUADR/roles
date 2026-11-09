@@ -610,6 +610,35 @@
 
 
     <!-- Tarjetas de evaluación -->
+
+
+<div class="mb-4">
+
+        <h5 class="titulo-seccion mb-1">
+            <i class="bi bi-ui-checks-grid me-2"></i>
+              Resultados Evaluación 
+        </h5>
+
+        <p class="text-muted small mb-3">
+         Ver información detallada de los resultados de la evaluación del desempeño, incluyendo indicadores clave y métricas de desempeño.
+        </p>
+
+        <div class="row g-3" id="">
+
+         
+
+
+         
+
+        </div>
+
+    </div>
+
+
+    
+    
+    
+    
     <div class="mb-4">
 
         <h5 class="titulo-seccion mb-1">
