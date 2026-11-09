@@ -132,6 +132,22 @@ function validate_Evaluaciones_Asignadas() {
 
         }
 
+        if (!tiene_pendientes && !tiene_ejecutadas) {
+
+               
+    
+
+            $('#seccion_evaluar').empty();
+
+            felicitacionResultados();
+            validate_resultados_jefe();
+
+
+
+        }
+
+        
+
     }, 'json');
 
 }
@@ -3402,6 +3418,1439 @@ function cargar_grafica_hse() {
                             },
                             label: function(context) {
                                 return context.dataset.label + ': ' + context.raw + '%';
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+    }, 'json').fail(function(xhr) {
+        console.error('Error al cargar HSE:', xhr.responseText);
+    });
+
+}
+
+
+
+
+
+
+////// resultados solo jefatura 
+
+
+function  validate_resultados_jefe() {
+
+    $.post('../web/rutas.php?ruta=resultados_jefe', function (r) {
+
+        console.log(r);
+
+        if (r.err) {
+            console.log(r.msg);
+            return;
+        }
+
+        $('#seccion_Resultados').html(`
+
+            <div class="container-fluid py-3" id="valoracion_desempeno">
+
+                <!-- ENCABEZADO -->
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <div>
+                        <h4 class="fw-bold mb-1">Resultados </h4>
+                        <small class="text-muted">KLUANE DRILLING ECUADOR · 2026</small>
+                    </div>
+
+                    <span class="badge bg-primary-subtle text-primary px-3 py-2">
+                        <i class="bi bi-clipboard-check me-1"></i>
+                        Evaluación 2026
+                    </span>
+                </div>
+
+                <!-- RESULTADO GLOBAL -->
+                <div class="card border-0 shadow-sm rounded-4 mb-4">
+                    <div class="card-body p-4">
+                        <div class="row align-items-center">
+                            <div class="col-md-8">
+                                <span class="text-muted fw-semibold small">
+                                    RESULTADO GLOBAL
+                                </span>
+
+                                <div class="d-flex align-items-baseline gap-2">
+                                    <h1 class="display-4 fw-bold text-success mb-0"
+                                        id="total_evaluacion">0.00</h1>
+                                    <span class="text-muted">/ 100 puntos</span>
+                                </div>
+
+                                <div class="progress mt-3" style="height: 9px;">
+                                    <div class="progress-bar bg-success"
+                                         id="barra_evaluacion"
+                                         style="width: 0%">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4 text-md-end mt-3 mt-md-0">
+                                <div class="rounded-4 bg-secondary bg-opacity-10 p-3 d-inline-block">
+                                   <i class="bi bi-trophy-fill fs-1 text-warning"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- INDICADORES -->
+                <div class="row g-3">
+
+                    <!-- HSE -->
+                    <div class="col-md-4">
+                        <div class="card indicador-card h-100 border-0 shadow-sm rounded-4" id="secc_hse_jefe">
+                            <div class="card-body p-4">
+
+                                <div class="d-flex justify-content-between mb-3">
+                                    <div class="indicador-icono bg-primary bg-opacity-10 text-primary">
+                                        <i class="bi bi-shield-check"></i>
+                                    </div>
+                                    <span class="badge bg-primary-subtle text-primary">
+                                        Ponderación 30%
+                                    </span>
+                                </div>
+
+                                <h6 class="fw-bold mb-1">HSE</h6>
+                                <small class="text-muted">Seguridad, Salud y Ambiente</small>
+
+                                <h2 class="fw-bold mt-3 mb-2" id="total_hse">0.00</h2>
+
+                                <div class="progress mb-3" style="height: 7px;">
+                                    <div class="progress-bar bg-primary" id="barra_hse"></div>
+                                </div>
+
+
+                                <div class="d-flex justify-content-between small mt-2">
+                                    <span class="text-muted">Evaluación - Jefe</span>
+                                    <strong id="jefe_hse">0.00</strong>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- COMPETENCIAS -->
+                    <div class="col-md-4">
+                        <div class="card indicador-card h-100 border-0 shadow-sm rounded-4" id="secc_competencias_jefe">
+                            <div class="card-body p-4">
+
+                                <div class="d-flex justify-content-between mb-3">
+                                    <div class="indicador-icono bg-success bg-opacity-10 text-success">
+                                        <i class="bi bi-people-fill"></i>
+                                    </div>
+                                    <span class="badge bg-success-subtle text-success">
+                                        Ponderación 30%
+                                    </span>
+                                </div>
+
+                                <h6 class="fw-bold mb-1">Competencias</h6>
+                                <small class="text-muted">Evaluación de competencias</small>
+
+                                <h2 class="fw-bold mt-3 mb-2" id="total_competencias">0.00</h2>
+
+                                <div class="progress mb-3" style="height: 7px;">
+                                    <div class="progress-bar bg-success" id="barra_competencias"></div>
+                                </div>
+
+                              
+
+                                <div class="d-flex justify-content-between small mt-2">
+                                    <span class="text-muted">Evaluación - Jefe</span>
+                                    <strong id="jefe_competencias">0.00</strong>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- KPI -->
+                    <div class="col-md-4">
+                        <div class="card indicador-card h-100 border-0 shadow-sm rounded-4" id="secc_kpi_jefe">
+                            <div class="card-body p-4">
+
+                                <div class="d-flex justify-content-between mb-3">
+                                    <div class="indicador-icono bg-warning bg-opacity-10 text-warning">
+                                        <i class="bi bi-graph-up-arrow"></i>
+                                    </div>
+                                    <span class="badge bg-warning-subtle text-warning">
+                                        Ponderación 40%
+                                    </span>
+                                </div>
+
+                                <h6 class="fw-bold mb-1" >KPI</h6>
+                                <small class="text-muted">Indicadores de desempeño</small>
+
+                                <h2 class="fw-bold mt-3 mb-2" id="total_kpi">0.00</h2>
+
+                                <div class="progress mb-3" style="height: 7px;">
+                                    <div class="progress-bar bg-warning" id="barra_kpi"></div>
+                                </div>
+
+
+                                <div class="d-flex justify-content-between small mt-2">
+                                    <span class="text-muted">Evaluación - Jefe</span>
+                                    <strong id="jefe_kpi">2.00</strong>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+
+<div class="container-fluid py-3" id="resultado_desempeno">
+
+  
+</div>
+
+
+            
+
+        `);
+
+        // AHORA SÍ: LOS ELEMENTOS YA EXISTEN
+        mostrar_valoracion_jefe(r);
+
+    }, 'json');
+
+}
+
+
+
+
+function mostrar_valoracion_jefe(r) {
+
+    console.log(r);
+    console.log(r.TOTAL_EVALUACION);
+
+    // RESULTADO GENERAL
+    $('#total_evaluacion').text(Number(r.TOTAL_EVALUACION || 0).toFixed(2));
+
+    // HSE
+    $('#total_hse').text(Number(r.TOTAL_HSE || 0).toFixed(2));
+    $('#jefe_hse').text(Number(r.JEFE_HSE_100 || 0).toFixed(2));
+
+    // COMPETENCIAS
+    $('#total_competencias').text(Number(r.TOTAL_COMPETENCIAS || 0).toFixed(2));
+    $('#jefe_competencias').text(Number(r.JEFE_COMPETENCIAS_100 || 0).toFixed(2));
+
+    // KPI
+    $('#total_kpi').text(Number(r.TOTAL_KPI || 0).toFixed(2));
+    $('#jefe_kpi').text(Number(r.JEFE_KPI_100 || 0).toFixed(2));
+
+    // BARRAS DE PROGRESO
+    $('#barra_evaluacion').css('width',
+        Math.min(100, Math.max(0, Number(r.TOTAL_EVALUACION) || 0)) + '%'
+    );
+
+    $('#barra_hse').css('width',
+        Math.min(100, Math.max(0, Number(r.TOTAL_HSE) || 0)) + '%'
+    );
+
+    $('#barra_competencias').css('width',
+        Math.min(100, Math.max(0, Number(r.TOTAL_COMPETENCIAS) || 0)) + '%'
+    );
+
+    $('#barra_kpi').css('width',
+        Math.min(100, Math.max(0, Number(r.TOTAL_KPI) || 0)) + '%'
+    );
+}
+
+
+
+//// resutados 90°
+
+$(document).on('click', '#secc_hse_jefe', function () {
+
+   
+
+
+    $.post('../web/rutas.php?ruta=hse_individual_jefe', function (r) {
+
+        cargar_grafica_hse_jefe();
+
+        $('#resultado_desempeno').empty();
+
+        if (r.err) {
+            console.log(r.msg);
+            return;
+        }
+
+        let datos = r.data;
+
+        if (!datos || datos.length === 0) {
+            $('#resultado_desempeno').html(`
+                <div class="alert alert-light text-center">
+                    No existen resultados de evaluación.
+                </div>
+            `);
+            return;
+        }
+
+        // PROMEDIO GENERAL DE JEFATURA
+        let total_jefe = datos.reduce((suma, item) => {
+            return suma + (Number(item.aporte_jefe) || 0);
+        }, 0) / datos.length;
+
+        // RESULTADO FINAL AL 100%
+        let total_general = total_jefe;
+
+        let detalle = '';
+
+        datos.forEach(item => {
+
+            let jefe = Number(item.KPI_JEFE) || 0;
+            let total = Number(item.total_general) || 0;
+
+            detalle += `
+                <div class="kpi-pregunta">
+
+                    <!-- ENCABEZADO -->
+                    <div class="d-flex justify-content-between align-items-start gap-3 mb-4">
+
+                        <div class="flex-grow-1">
+                            <div class="kpi-pregunta-titulo">
+                                <i class="bi bi-chevron-double-right"
+                                style="font-size: 1.5rem; font-weight: 900;"></i>
+                                ${$('<div>').text(item.p).html()}
+                            </div>
+                        </div>
+
+                        <div class="text-end flex-shrink-0">
+                            <div class="kpi-resultado">
+                                ${total.toFixed(2)}
+                            </div>
+                            <div class="kpi-resultado-label">
+                                RESULTADO
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!-- EVALUACIÓN DE JEFATURA -->
+                    <div class="d-flex flex-column gap-3">
+
+                        <div>
+
+                            <div class="d-flex justify-content-between align-items-center mb-2">
+
+                                <span class="kpi-label kpi-label-jefe">
+                                    EVALUACIÓN DE JEFATURA
+                                </span>
+
+                                <span class="kpi-valor-jefe">
+                                    ${jefe.toFixed(2)}%
+                                </span>
+
+                            </div>
+
+                            <div class="kpi-barra">
+                                <div class="kpi-barra-jefe"
+                                    style="width: ${Math.min(Math.max(jefe, 0), 100)}%">
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+            `;
+        });
+
+        // CONSTRUIR VISTA
+        $('#resultado_desempeno').append(`
+
+            <div class="card resultado-desempeno border-0">
+
+                <div class="card-body p-4">
+
+                    <!-- ENCABEZADO -->
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+
+                        <div>
+                            <h5 class="titulo-desempeno mb-1">
+                                Resultados de desempeño - HSE
+                            </h5>
+
+                            <small class="subtitulo-desempeno">
+                                Evaluación de jefatura 2026
+                            </small>
+                        </div>
+
+                        <span class="periodo-desempeno">
+                            2026
+                        </span>
+
+                    </div>
+
+                    <!-- RESUMEN DE RESULTADOS -->
+                    <div class="row g-3 mb-4">
+
+                        <div class="col-md-12">
+                            <div class="indicador-desempeno indicador-jefe">
+
+                                <div class="indicador-titulo">
+                                    <span class="indicador-punto punto-jefe"></span>
+                                    EVALUACIÓN DE JEFATURA
+                                </div>
+
+                                <div class="indicador-valor text-success">
+                                    ${total_jefe.toFixed(2)}
+                                </div>
+
+                                <div class="indicador-pie">
+                                    Ponderación asignada <strong>100%</strong>
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!-- DETALLE -->
+                    <div class="seccion-comparativo">
+
+                        <div class="mb-3">
+                            <h6 class="titulo-seccion mb-1">
+                                Resultados por competencias
+                            </h6>
+
+                            <small class="subtitulo-desempeno">
+                                Valoración individual de cada criterio por parte de jefatura
+                            </small>
+                        </div>
+
+                        <div id="detalle_resultados">
+                            ${detalle}
+                        </div>
+
+                    </div>
+
+                    <!-- REFERENCIA -->
+                    <div class="d-flex flex-wrap gap-4 mt-4 pt-3 border-top">
+
+                        <small class="referencia-jefe">
+                            <span class="indicador-punto punto-jefe"></span>
+                            Evaluación de jefatura
+                        </small>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div id="grafica_hse_reultados"
+                class="mt-4 shadow-sm rounded-4 p-4 border border-light-subtle">
+            </div>
+
+        `);
+
+    }, 'json');
+
+
+});
+
+
+/// seccion kpi 
+
+
+
+$(document).on('click', '#secc_kpi_jefe', function () {
+
+    console.log('Cargando resultados de KPI individuales...');
+
+    $.post('../web/rutas.php?ruta=kpi_individual_jefe', function (r) {
+
+        cargar_grafica_kpi_jefatura();
+
+        $('#resultado_desempeno').empty();
+
+        if (r.err) {
+            console.log(r.msg);
+            return;
+        }
+
+        let datos = r.data;
+
+        if (!datos || datos.length === 0) {
+            $('#resultado_desempeno').html(`
+                <div class="alert alert-light text-center">
+                    No existen resultados de evaluación.
+                </div>
+            `);
+            return;
+        }
+
+        // TOTALES
+        let total_jefe = 0;
+        let total_general = 0;
+
+        let detalle = '';
+
+        datos.forEach(item => {
+
+            let jefe = Number(item.KPI_JEFE) || 0;
+            let aporte_jefe = Number(item.aporte_jefe) || 0;
+            let total = Number(item.total_general) || 0;
+
+            total_jefe += aporte_jefe;
+            total_general += total;
+
+            detalle += `
+                <div class="kpi-pregunta">
+
+                    <!-- ENCABEZADO -->
+                    <div class="d-flex justify-content-between align-items-start gap-3 mb-4">
+
+                        <div class="flex-grow-1">
+                            <div class="kpi-pregunta-titulo">
+                                <i class="bi bi-chevron-double-right"
+                                   style="font-size: 1.5rem; font-weight: 900;"></i>
+                                ${$('<div>').text(item.p).html()}
+                            </div>
+                        </div>
+
+                        <div class="text-end flex-shrink-0">
+                            <div class="kpi-resultado">
+                                ${total.toFixed(2)}
+                            </div>
+                            <div class="kpi-resultado-label">
+                                RESULTADO
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!-- EVALUACIÓN DE JEFATURA -->
+                    <div class="d-flex flex-column gap-3">
+
+                        <div>
+
+                            <div class="d-flex justify-content-between align-items-center mb-2">
+
+                                <span class="kpi-label kpi-label-jefe">
+                                    EVALUACIÓN DE JEFATURA
+                                </span>
+
+                                <span class="kpi-valor-jefe">
+                                    ${jefe.toFixed(2)}%
+                                </span>
+
+                            </div>
+
+                            <div class="kpi-barra">
+                                <div class="kpi-barra-jefe"
+                                     style="width: ${Math.min(Math.max(jefe, 0), 100)}%">
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+            `;
+        });
+
+        // CONSTRUIR VISTA
+        $('#resultado_desempeno').append(`
+
+            <div class="card resultado-desempeno border-0">
+
+                <div class="card-body p-4">
+
+                    <!-- ENCABEZADO -->
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+
+                        <div>
+                            <h5 class="titulo-desempeno mb-1">
+                                Resultados de desempeño - KPI
+                            </h5>
+
+                            <small class="subtitulo-desempeno">
+                                Evaluación de jefatura 2026
+                            </small>
+                        </div>
+
+                        <span class="periodo-desempeno">
+                            2026
+                        </span>
+
+                    </div>
+
+                    <!-- RESUMEN DE RESULTADOS -->
+                    <div class="row g-3 mb-4">
+
+                        <div class="col-md-12">
+                            <div class="indicador-desempeno indicador-jefe">
+
+                                <div class="indicador-titulo">
+                                    <span class="indicador-punto punto-jefe"></span>
+                                    EVALUACIÓN DE JEFATURA
+                                </div>
+
+                                <div class="indicador-valor text-success">
+                                    ${total_jefe.toFixed(2)}
+                                </div>
+
+                                <div class="indicador-pie">
+                                    Ponderación asignada <strong>100%</strong>
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!-- DETALLE -->
+                    <div class="seccion-comparativo">
+
+                        <div class="mb-3">
+                            <h6 class="titulo-seccion mb-1">
+                                Resultados por indicadores
+                            </h6>
+
+                            <small class="subtitulo-desempeno">
+                                Valoración individual de cada KPI por parte de jefatura
+                            </small>
+                        </div>
+
+                        <div id="detalle_resultados">
+                            ${detalle}
+                        </div>
+
+                    </div>
+
+                    <!-- REFERENCIA -->
+                    <div class="d-flex flex-wrap gap-4 mt-4 pt-3 border-top">
+
+                        <small class="referencia-jefe">
+                            <span class="indicador-punto punto-jefe"></span>
+                            Evaluación de jefatura
+                        </small>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div id="grafica_kpi"
+                 class="mt-4 shadow-sm rounded-4 p-4 border border-light-subtle">
+            </div>
+
+        `);
+
+    }, 'json');
+
+});
+
+
+
+
+// competencias individuales de jefatura
+
+$(document).on('click', '#secc_competencias_jefe', function () {
+
+    console.log('Cargando resultados de competencias...');
+
+    $.post('../web/rutas.php?ruta=competencias_individual_jefe', function (r) {
+
+        // CARGAR GRÁFICA
+        cargar_grafica_competencias_jefe();
+
+        $('#resultado_desempeno').empty();
+
+        if (r.err) {
+            console.log(r.msg);
+            return;
+        }
+
+        console.log('DATOS DE COMPETENCIAS:', r.data);
+
+        let datos = r.data;
+
+        if (!datos || datos.length === 0) {
+            $('#resultado_desempeno').html(`
+                <div class="alert alert-light text-center">
+                    No existen resultados de evaluación.
+                </div>
+            `);
+            return;
+        }
+
+        // =====================================
+        // RESULTADO GENERAL DE JEFATURA
+        // =====================================
+
+        let total_jefe = datos.reduce((suma, item) => {
+            return suma + (Number(item.aporte_jefe) || 0);
+        }, 0);
+
+        let total_general = total_jefe;
+
+        console.log('RESULTADOS GENERALES:', {
+            jefatura: total_jefe,
+            resultado_final: total_general
+        });
+
+        let detalle = '';
+
+        // =====================================
+        // DETALLE POR COMPETENCIA
+        // =====================================
+
+        datos.forEach(item => {
+
+            let jefe = Number(item.KPI_JEFE) || 0;
+            let total = Number(item.total_general) || 0;
+
+            detalle += `
+                <div class="kpi-pregunta">
+
+                    <!-- ENCABEZADO -->
+                    <div class="d-flex justify-content-between align-items-start gap-3 mb-4">
+
+                        <div class="flex-grow-1">
+                            <div class="kpi-pregunta-titulo">
+                                <i class="bi bi-chevron-double-right"
+                                   style="font-size: 1.5rem; font-weight: 900;"></i>
+                                ${$('<div>').text(item.p).html()}
+                            </div>
+                        </div>
+
+                        <div class="text-end flex-shrink-0">
+                            <div class="kpi-resultado">
+                                ${total.toFixed(2)}
+                            </div>
+
+                            <div class="kpi-resultado-label">
+                                RESULTADO
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!-- EVALUACIÓN DE JEFATURA -->
+                    <div class="d-flex flex-column gap-3">
+
+                        <div>
+
+                            <div class="d-flex justify-content-between align-items-center mb-2">
+
+                                <span class="kpi-label kpi-label-jefe">
+                                    EVALUACIÓN DE JEFATURA
+                                </span>
+
+                                <span class="kpi-valor-jefe">
+                                    ${jefe.toFixed(2)}%
+                                </span>
+
+                            </div>
+
+                            <div class="kpi-barra">
+                                <div class="kpi-barra-jefe"
+                                     style="width: ${Math.min(Math.max(jefe, 0), 100)}%">
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+            `;
+        });
+
+        // =====================================
+        // CONSTRUIR VISTA
+        // =====================================
+
+        $('#resultado_desempeno').append(`
+
+            <div class="card resultado-desempeno border-0">
+
+                <div class="card-body p-4">
+
+                    <!-- ENCABEZADO -->
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+
+                        <div>
+                            <h5 class="titulo-desempeno mb-1">
+                                Resultados de desempeño - Competencias
+                            </h5>
+
+                            <small class="subtitulo-desempeno">
+                                Evaluación de jefatura 2026
+                            </small>
+                        </div>
+
+                        <span class="periodo-desempeno">2026</span>
+
+                    </div>
+
+                    <!-- RESUMEN DE RESULTADOS -->
+                    <div class="row g-3 mb-4">
+
+                        <div class="col-md-12">
+                            <div class="indicador-desempeno indicador-jefe">
+
+                                <div class="indicador-titulo">
+                                    <span class="indicador-punto punto-jefe"></span>
+                                    EVALUACIÓN DE JEFATURA
+                                </div>
+
+                                <div class="indicador-valor text-success">
+                                    ${total_jefe.toFixed(2)}
+                                </div>
+
+                                <div class="indicador-pie">
+                                    Ponderación asignada <strong>100%</strong>
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!-- DETALLE -->
+                    <div class="seccion-comparativo">
+
+                        <div class="mb-3">
+                            <h6 class="titulo-seccion mb-1">
+                                Resultados por competencias
+                            </h6>
+
+                            <small class="subtitulo-desempeno">
+                                Valoración individual de cada competencia por parte de jefatura
+                            </small>
+                        </div>
+
+                        <div id="detalle_resultados">
+                            ${detalle}
+                        </div>
+
+                    </div>
+
+                    <!-- REFERENCIAS -->
+                    <div class="d-flex flex-wrap gap-4 mt-4 pt-3 border-top">
+
+                        <small class="referencia-jefe">
+                            <span class="indicador-punto punto-jefe"></span>
+                            Evaluación de jefatura
+                        </small>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div id="grafica_competencias"
+                 class="mt-4 shadow-sm rounded-4 p-4 border border-light-subtle">
+            </div>
+
+        `);
+
+    }, 'json');
+
+});
+
+
+//// graficas 
+
+
+
+// GRAFICA KPI - EVALUACION EXCLUSIVA DE JEFATURA
+
+function cargar_grafica_kpi_jefatura() {
+
+    $.post('../web/rutas.php?ruta=kpi_individual_jefe', function (r) {
+
+        $('#grafica_kpi').empty();
+
+        if (r.err) {
+            console.log(r.msg);
+            return;
+        }
+
+        let datos = r.data;
+
+        if (!datos || datos.length === 0) {
+            $('#grafica_kpi').html(`
+                <div class="alert alert-light text-center">
+                    No existen resultados de evaluación.
+                </div>
+            `);
+            return;
+        }
+
+        // TOTAL PONDERADO DE JEFATURA
+        let total_jefe = datos.reduce((suma, item) =>
+            suma + (Number(item.aporte_jefe) || 0), 0
+        );
+
+        // DATOS PARA EL RADAR
+        let etiquetas = [];
+        let valores_jefe = [];
+
+        datos.forEach(item => {
+
+            let jefe = Number(item.KPI_JEFE) || 0;
+
+            etiquetas.push(item.p || 'KPI');
+            valores_jefe.push(jefe);
+
+        });
+
+        // CONTENEDOR
+        $('#grafica_kpi').html(`
+            <div class="card border-0 shadow-sm">
+                <div class="card-body p-4">
+
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+
+                        <div>
+                            <h6 class="fw-bold mb-1">
+                                Evaluación de indicadores KPI
+                            </h6>
+
+                            <small class="text-muted">
+                                Evaluación de jefatura 2026
+                            </small>
+                        </div>
+
+                        <span class="badge bg-light text-secondary">
+                            KPI 2026
+                        </span>
+
+                    </div>
+
+                    <div style="height:380px; position:relative;">
+                        <canvas id="grafica_kpi_individual"></canvas>
+                    </div>
+
+                    <hr class="my-3">
+
+                    <div class="row text-center">
+                        <div class="col-12">
+                            <small class="text-muted d-block">
+                                Resultado de jefatura
+                            </small>
+
+                            <h5 class="fw-bold text-success mb-1">
+                                ${total_jefe.toFixed(2)}%
+                            </h5>
+
+                            <small class="text-muted">
+                                Ponderación asignada <strong>100%</strong>
+                            </small>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        `);
+
+        // DESTRUIR GRAFICA ANTERIOR
+        if (window.graficaKPI) {
+            window.graficaKPI.destroy();
+        }
+
+        // GRAFICAR
+        const ctx = document.getElementById('grafica_kpi_individual');
+
+        window.graficaKPI = new Chart(ctx, {
+
+            type: 'radar',
+
+            data: {
+                labels: etiquetas,
+
+                datasets: [
+                    {
+                        label: 'Evaluación de jefatura',
+                        data: valores_jefe,
+
+                        backgroundColor: 'rgba(22, 163, 74, 0.15)',
+                        borderColor: '#16a34a',
+                        pointBackgroundColor: '#16a34a',
+                        pointBorderColor: '#fff',
+                        pointRadius: 4,
+                        borderWidth: 2
+                    }
+                ]
+            },
+
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+
+                scales: {
+                    r: {
+                        beginAtZero: true,
+                        min: 0,
+                        max: 100,
+
+                        ticks: {
+                            stepSize: 20,
+                            backdropColor: 'transparent'
+                        },
+
+                        pointLabels: {
+                            color: '#475569',
+                            font: {
+                                size: 11,
+                                weight: '500'
+                            }
+                        },
+
+                        grid: {
+                            color: '#e2e8f0'
+                        },
+
+                        angleLines: {
+                            color: '#e2e8f0'
+                        }
+                    }
+                },
+
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+
+                        labels: {
+                            usePointStyle: true,
+                            padding: 20
+                        }
+                    },
+
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                return context.dataset.label + ': ' +
+                                    context.raw + '%';
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+    }, 'json').fail(function(xhr) {
+        console.error('Error al cargar KPI:', xhr.responseText);
+    });
+}
+
+
+// GRAFICA COMPETENCIAS - EVALUACION EXCLUSIVA DE JEFATURA
+
+function cargar_grafica_competencias_jefe() {
+
+    console.log('Cargando resultados de competencias...');
+
+    $.post('../web/rutas.php?ruta=competencias_individual_jefe', function (r) {
+
+        $('#grafica_competencias').empty();
+
+        if (r.err) {
+            console.log(r.msg);
+            return;
+        }
+
+        let datos = r.data;
+
+        if (!datos || datos.length === 0) {
+            $('#grafica_competencias').html(`
+                <div class="alert alert-light text-center">
+                    No existen resultados de evaluación.
+                </div>
+            `);
+            return;
+        }
+
+        // TOTAL PONDERADO DE JEFATURA
+        let total_jefe = datos.reduce((suma, item) =>
+            suma + (Number(item.aporte_jefe) || 0), 0
+        );
+
+        // DATOS PARA EL RADAR
+        let etiquetas = [];
+        let valores_jefe = [];
+
+        datos.forEach(item => {
+
+            let jefe = Number(item.KPI_JEFE) || 0;
+
+            let pregunta = item.p || 'Pregunta de competencia';
+
+            // DIVIDIR TEXTO LARGO
+            let etiqueta = pregunta.match(/.{1,30}(\s|$)/g) || [pregunta];
+
+            etiquetas.push(etiqueta);
+            valores_jefe.push(jefe);
+
+        });
+
+        console.log('RESULTADOS DE COMPETENCIAS:', {
+            jefatura: total_jefe
+        });
+
+        // CONTENEDOR
+        $('#grafica_competencias').html(`
+            <div class="card border-0 shadow-sm">
+                <div class="card-body p-4">
+
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+
+                        <div>
+                            <h6 class="fw-bold mb-1">
+                                Evaluación de competencias
+                            </h6>
+
+                            <small class="text-muted">
+                                Evaluación de jefatura 2026
+                            </small>
+                        </div>
+
+                        <span class="badge bg-light text-secondary">
+                            Competencias
+                        </span>
+
+                    </div>
+
+                    <div style="height:420px; position:relative;">
+                        <canvas id="grafica_resultados_competencias"></canvas>
+                    </div>
+
+                    <hr class="my-3">
+
+                    <div class="row text-center">
+                        <div class="col-12">
+                            <small class="text-muted d-block">
+                                Resultado de jefatura
+                            </small>
+
+                            <h5 class="fw-bold text-success mb-1">
+                                ${total_jefe.toFixed(2)}%
+                            </h5>
+
+                            <small class="text-muted">
+                                Ponderación asignada <strong>100%</strong>
+                            </small>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        `);
+
+        // DESTRUIR GRAFICA ANTERIOR
+        if (window.graficaCompetencias) {
+            window.graficaCompetencias.destroy();
+        }
+
+        // GRAFICAR
+        const ctx = document.getElementById('grafica_resultados_competencias');
+
+        window.graficaCompetencias = new Chart(ctx, {
+
+            type: 'radar',
+
+            data: {
+                labels: etiquetas,
+
+                datasets: [
+                    {
+                        label: 'Evaluación de jefatura',
+                        data: valores_jefe,
+
+                        backgroundColor: 'rgba(22, 163, 74, 0.15)',
+                        borderColor: '#16a34a',
+                        pointBackgroundColor: '#16a34a',
+                        pointBorderColor: '#fff',
+                        pointRadius: 4,
+                        borderWidth: 2
+                    }
+                ]
+            },
+
+            options: {
+
+                responsive: true,
+                maintainAspectRatio: false,
+
+                scales: {
+
+                    r: {
+
+                        beginAtZero: true,
+                        min: 0,
+                        max: 100,
+
+                        ticks: {
+                            stepSize: 20,
+                            backdropColor: 'transparent'
+                        },
+
+                        pointLabels: {
+                            color: '#475569',
+                            padding: 10,
+                            font: {
+                                size: 10,
+                                weight: '500'
+                            }
+                        },
+
+                        grid: {
+                            color: '#e2e8f0'
+                        },
+
+                        angleLines: {
+                            color: '#e2e8f0'
+                        }
+
+                    }
+
+                },
+
+                plugins: {
+
+                    legend: {
+                        position: 'bottom',
+
+                        labels: {
+                            usePointStyle: true,
+                            padding: 20
+                        }
+                    },
+
+                    tooltip: {
+
+                        callbacks: {
+
+                            title: function(context) {
+                                return datos[context[0].dataIndex].p || 'Pregunta de competencia';
+                            },
+
+                            label: function(context) {
+                                return context.dataset.label + ': ' +
+                                    context.raw + '%';
+                            }
+
+                        }
+
+                    }
+
+                }
+
+            }
+
+        });
+
+    }, 'json').fail(function(xhr) {
+
+        console.error(
+            'Error al cargar competencias:',
+            xhr.responseText
+        );
+
+    });
+
+}
+
+
+// GRAFICA HSE - EVALUACION EXCLUSIVA DE JEFATURA
+
+function cargar_grafica_hse_jefe() {
+
+    console.log('Cargando resultados HSE...');
+
+    $.post('../web/rutas.php?ruta=hse_individual_jefe', function (r) {
+
+        $('#grafica_hse_reultados').empty();
+
+        if (r.err) {
+            console.log(r.msg);
+            return;
+        }
+
+        let datos = r.data;
+
+        if (!datos || datos.length === 0) {
+            $('#grafica_hse_reultados').html(`
+                <div class="alert alert-light text-center">
+                    No existen resultados de evaluación.
+                </div>
+            `);
+            return;
+        }
+
+        // TOTAL PONDERADO DE JEFATURA
+        let total_jefe = datos.reduce((suma, item) =>
+            suma + (Number(item.aporte_jefe) || 0), 0
+        );
+
+        // DATOS PARA EL RADAR
+        let etiquetas = [];
+        let valores_jefe = [];
+
+        datos.forEach(item => {
+
+            let jefe = Number(item.KPI_JEFE) || 0;
+
+            let pregunta = item.p || 'Pregunta HSE';
+
+            // DIVIDIR PREGUNTAS LARGAS
+            let etiqueta = pregunta.match(/.{1,30}(\s|$)/g) || [pregunta];
+
+            etiquetas.push(etiqueta);
+            valores_jefe.push(jefe);
+
+        });
+
+        // CONTENEDOR
+        $('#grafica_hse_reultados').html(`
+            <div class="card border-0 shadow-sm">
+                <div class="card-body p-4">
+
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+
+                        <div>
+                            <h6 class="fw-bold mb-1">
+                                Evaluación HSE
+                            </h6>
+
+                            <small class="text-muted">
+                                Evaluación de jefatura 2026
+                            </small>
+                        </div>
+
+                        <span class="badge bg-light text-secondary">
+                            HSE 2026
+                        </span>
+
+                    </div>
+
+                    <div style="height:420px; position:relative;">
+                        <canvas id="grafica_hse_individual"></canvas>
+                    </div>
+
+                    <hr class="my-3">
+
+                    <div class="row text-center">
+                        <div class="col-12">
+                            <small class="text-muted d-block">
+                                Resultado de jefatura
+                            </small>
+
+                            <h5 class="fw-bold text-success mb-1">
+                                ${total_jefe.toFixed(2)}%
+                            </h5>
+
+                            <small class="text-muted">
+                                Ponderación asignada <strong>100%</strong>
+                            </small>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        `);
+
+        // DESTRUIR GRAFICA ANTERIOR
+        if (window.graficaHSE) {
+            window.graficaHSE.destroy();
+        }
+
+        // GRAFICAR
+        const ctx = document.getElementById('grafica_hse_individual');
+
+        window.graficaHSE = new Chart(ctx, {
+
+            type: 'radar',
+
+            data: {
+                labels: etiquetas,
+
+                datasets: [
+                    {
+                        label: 'Evaluación de jefatura',
+                        data: valores_jefe,
+
+                        backgroundColor: 'rgba(22, 163, 74, 0.15)',
+                        borderColor: '#16a34a',
+                        pointBackgroundColor: '#16a34a',
+                        pointBorderColor: '#fff',
+                        pointRadius: 4,
+                        borderWidth: 2
+                    }
+                ]
+            },
+
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+
+                scales: {
+                    r: {
+                        beginAtZero: true,
+                        min: 0,
+                        max: 100,
+
+                        ticks: {
+                            stepSize: 20,
+                            backdropColor: 'transparent'
+                        },
+
+                        pointLabels: {
+                            color: '#475569',
+                            padding: 10,
+                            font: {
+                                size: 10,
+                                weight: '500'
+                            }
+                        },
+
+                        grid: {
+                            color: '#e2e8f0'
+                        },
+
+                        angleLines: {
+                            color: '#e2e8f0'
+                        }
+                    }
+                },
+
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+
+                        labels: {
+                            usePointStyle: true,
+                            padding: 20
+                        }
+                    },
+
+                    tooltip: {
+                        callbacks: {
+                            title: function(context) {
+                                return datos[context[0].dataIndex].p || 'Pregunta HSE';
+                            },
+
+                            label: function(context) {
+                                return context.dataset.label + ': ' +
+                                    context.raw + '%';
                             }
                         }
                     }

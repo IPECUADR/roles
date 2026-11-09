@@ -50,6 +50,9 @@ if ($FK_ROL == 1) {
     require_once('../views/valoracion.view.php');
     require_once('../tem/footer.php');
 
+
+    
+
    }else if ($FK_ROL == 4){
 
 
