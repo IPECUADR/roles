@@ -111,6 +111,10 @@ $rutas = [
       'kpi_individual_jefe' => '../db/kpi_resultados_individuales_jefe.php',
       'competencias_individual_jefe' => '../db/competencias_resultados_individuales_jefe.php',
 
+      'reporte_Admin' => '../db/cg_resultados_valoracion_report.php',
+      'reporte_Admin_90' => '../db/cg_resultados_valoracion_report_90.php',
+
+
       
   
 ];
