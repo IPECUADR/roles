@@ -543,31 +543,432 @@
 }
 
 
+/* CONTENEDOR PRINCIPAL */
+.main-content {
+    padding-top: 20px;
+    padding-bottom: 30px;
+}
 
+/* ENCABEZADOS DE SECCIÓN */
+.titulo-seccion {
+    color: #25364b;
+    font-weight: 700;
+    font-size: 17px;
+}
+
+/* TARJETAS DE RESULTADOS */
+.card-resultados {
+    border: 1px solid #e5e9f0;
+    border-radius: 12px;
+    background: #fff;
+    transition: all .25s ease;
+}
+
+.card-resultados:hover {
+    border-color: #b8c9df;
+    transform: translateY(-3px);
+    box-shadow: 0 6px 18px rgba(0,0,0,.06);
+}
+
+.card-resultados .card-body {
+    padding: 25px;
+}
+
+.resultado-icono {
+    width: 48px;
+    height: 48px;
+    border-radius: 10px;
+    background: #edf3fa;
+    color: #244b78;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 23px;
+    margin-bottom: 18px;
+}
+
+.card-resultados h5 {
+    color: #202b3c;
+    font-size: 17px;
+    font-weight: 700;
+    margin-bottom: 9px;
+}
+
+.card-resultados p {
+    color: #778294;
+    font-size: 13px;
+    line-height: 1.6;
+    margin-bottom: 22px;
+}
+
+/* BOTONES RESULTADOS */
+.btn-ver-resultados {
+    background: #1d3557;
+    color: #fff;
+    border: none;
+    border-radius: 7px;
+    padding: 10px 17px;
+    font-size: 13px;
+    font-weight: 600;
+    transition: all .2s ease;
+}
+
+.btn-ver-resultados:hover {
+    background: #294c78;
+    color: #fff;
+}
+
+/* REPORTE */
+.card-reporte {
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.card-reporte .card-header {
+    border-bottom: 1px solid #edf0f4 !important;
+}
+
+/* EXCEL */
+.btn-excel {
+    background: #198754;
+    color: #fff;
+    border: none;
+    border-radius: 7px;
+    padding: 9px 16px;
+    font-size: 13px;
+    font-weight: 600;
+    transition: .2s ease;
+}
+
+.btn-excel:hover {
+    background: #146c43;
+    color: #fff;
+}
+
+/* TABLA */
+.tabla-resultados {
+    font-size: 13px;
+    margin-bottom: 0;
+}
+
+.tabla-resultados thead th {
+    background: #f5f7fa;
+    color: #536174;
+    font-weight: 700;
+    font-size: 12px;
+    padding: 14px 12px;
+    border-bottom: 1px solid #e5e9f0;
+    white-space: nowrap;
+}
+
+.tabla-resultados tbody td {
+    padding: 14px 12px;
+    color: #465366;
+    border-bottom: 1px solid #edf0f4;
+}
+
+.tabla-resultados tbody tr:last-child td {
+    border-bottom: none;
+}
+
+/* INDICADORES */
+.valor-indicador {
+    font-weight: 600;
+    color: #475569;
+}
+
+.valor-total {
+    display: inline-block;
+    background: #edf3fa;
+    color: #1d3557;
+    font-weight: 700;
+    padding: 6px 10px;
+    border-radius: 6px;
+    min-width: 65px;
+}
+
+/* OPCIONES */
+.tabla-resultados .btn {
+    width: 32px;
+    height: 32px;
+    padding: 0;
+    border-radius: 6px;
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+
+    .main-content {
+        padding-left: 12px;
+        padding-right: 12px;
+    }
+
+    .card-resultados .card-body {
+        padding: 20px;
+    }
+
+    .card-reporte .card-header {
+        padding: 20px !important;
+    }
+
+}
+
+
+.resultados-dashboard {
+    padding: 10px 0;
+}
+
+.resultados-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 22px 25px;
+    margin-bottom: 22px;
+    background: #fff;
+    border: 1px solid #e9edf2;
+    border-left: 5px solid #17365d;
+    border-radius: 10px;
+}
+
+.resultados-empresa {
+    color: #64748b;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2px;
+}
+
+.resultados-header h4 {
+    color: #17365d;
+    font-weight: 800;
+    margin: 5px 0;
+    letter-spacing: .4px;
+}
+
+.resultados-header p {
+    color: #8491a3;
+    font-size: 13px;
+    margin: 0;
+}
+
+.resultados-icon {
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #edf3f9;
+    color: #17365d;
+    border-radius: 10px;
+    font-size: 23px;
+}
+
+.resultado-card {
+    background: #fff;
+    border: 1px solid #e9edf2;
+    border-radius: 10px;
+    padding: 18px;
+    height: 100%;
+    box-shadow: 0 2px 8px rgba(15, 35, 60, .04);
+}
+
+.resultado-card .resultado-titulo {
+    color: #64748b;
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .5px;
+}
+
+.resultado-card .resultado-valor {
+    display: block;
+    color: #172b4d;
+    font-size: 27px;
+    font-weight: 800;
+    margin: 10px 0 12px;
+}
+
+.resultado-card .resultado-escala {
+    color: #94a3b8;
+    font-size: 11px;
+}
+
+.resultado-card .progress {
+    height: 7px;
+    background: #edf1f5;
+    border-radius: 20px;
+    overflow: hidden;
+}
+
+.resultado-card .progress-bar {
+    border-radius: 20px;
+}
+
+.resultado-chart-card {
+    border: 1px solid #e9edf2;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(15, 35, 60, .04);
+}
+
+.grafica-triangular {
+    position: relative;
+    width: 100%;
+    height: 330px;
+}
+
+.resultado-final {
+    border-top: 1px solid #edf0f4;
+    margin-top: 15px;
+    padding-top: 18px;
+    text-align: center;
+}
+
+.resultado-final span,
+.resultado-final small {
+    display: block;
+    color: #8491a3;
+    font-size: 11px;
+    letter-spacing: .7px;
+}
+
+.resultado-final strong {
+    display: block;
+    color: #17365d;
+    font-size: 34px;
+    font-weight: 800;
+    margin: 5px 0;
+}
+
+@media (max-width: 576px) {
+    .resultados-header {
+        padding: 17px;
+    }
+
+    .resultados-header h4 {
+        font-size: 17px;
+    }
+
+    .grafica-triangular {
+        height: 280px;
+    }
+}
+
+
+.percepcion-card {
+    height: 100%;
+    padding: 18px;
+    background: #fff;
+    border: 1px solid #e9edf2;
+    border-radius: 10px;
+    transition: .2s ease;
+}
+
+.percepcion-card:hover {
+    box-shadow: 0 4px 14px rgba(15, 35, 60, .07);
+}
+
+.percepcion-titulo {
+    color: #17365d;
+    font-size: 14px;
+    font-weight: 800;
+    letter-spacing: .5px;
+    margin-bottom: 16px;
+}
+
+.percepcion-item {
+    margin-bottom: 15px;
+}
+
+.percepcion-item:last-child {
+    margin-bottom: 0;
+}
+
+.percepcion-label {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 6px;
+    font-size: 12px;
+    color: #64748b;
+}
+
+.percepcion-valor {
+    color: #172b4d;
+    font-weight: 800;
+    font-size: 14px;
+}
+
+.percepcion-progress {
+    height: 6px;
+    background: #edf1f5;
+    border-radius: 20px;
+    overflow: hidden;
+}
+
+.percepcion-progress-bar {
+    height: 100%;
+    border-radius: 20px;
+}
+
+.percepcion-auto {
+    background: #24476B;
+}
+
+.percepcion-jefe {
+    background: #198754;
+}
+
+.percepcion-pares {
+    background: #D6A84F;
+}
+
+.percepcion-brecha {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid #edf0f4;
+    margin-top: 16px;
+    padding-top: 12px;
+    font-size: 11px;
+    color: #8491a3;
+}
+
+.percepcion-brecha strong {
+    color: #17365d;
+    font-size: 13px;
+}
+
+.percepcion-sin-datos {
+    color: #adb5bd;
+    font-size: 12px;
+    font-style: italic;
+}
 
 </style>
 
+
+
 <div class="container main-content">
 
-    <!-- Encabezado -->
+    <!-- ENCABEZADO -->
     <div class="vacaciones-header mb-4">
 
         <div class="row align-items-center g-3">
 
             <div class="col-lg-9">
 
-              
-
                 <h2>
-                  <i class="bi bi-award"></i>
-                   Ejecución de valoración  desempeño 
+                    <i class="bi bi-award"></i>
+                    Ejecución de valoración de desempeño
                 </h2>
 
                 <p class="mb-3">
-                 Participa en el proceso de evaluación del desempeño, valida las valoraciones registradas y contribuye a la mejora continua del equipo.
+                    Participa en el proceso de evaluación del desempeño,
+                    valida las valoraciones registradas y contribuye
+                    a la mejora continua del equipo.
                 </p>
 
-               <div class="indicadores">
+                <div class="indicadores">
+
                     <span class="item-kpi">
                         <i class="bi bi-bar-chart-line-fill"></i>
                         KPI
@@ -582,7 +983,9 @@
                         <i class="bi bi-graph-up-arrow"></i>
                         COMPETENCIAS
                     </span>
+
                 </div>
+
             </div>
 
             <div class="col-lg-3 text-lg-end text-center">
@@ -609,41 +1012,208 @@
     </div>
 
 
-    <!-- Tarjetas de evaluación -->
-
-
-<div class="mb-4">
+    <!-- RESULTADOS DE EVALUACIÓN -->
+    <div class="mb-4">
 
         <h5 class="titulo-seccion mb-1">
             <i class="bi bi-ui-checks-grid me-2"></i>
-              Resultados Evaluación 
+            Resultados de evaluación
         </h5>
 
         <p class="text-muted small mb-3">
-         Ver información detallada de los resultados de la evaluación del desempeño, incluyendo indicadores clave y métricas de desempeño.
+            Consulta los resultados del proceso de evaluación del desempeño,
+            incluyendo indicadores clave y métricas de valoración.
         </p>
 
-        <div class="row g-3" id="">
+        <div class="row g-3">
 
-         
+            <!-- EVALUACIÓN 180° -->
+            <div class="col-md-6">
+
+                <div class="card card-resultados h-100">
+
+                    <div class="card-body">
+
+                        <div class="resultado-icono">
+                            <i class="bi bi-people"></i>
+                        </div>
+
+                        <h5>Evaluación 180°</h5>
+
+                        <p>
+                            Consulta los resultados de la autoevaluación
+                            y evaluación de jefatura.
+                        </p>
+
+                        <button type="button"
+                                id="btn_resultado_180"
+                                class="btn btn-ver-resultados">
+
+                            Ver resultados
+                            <i class="bi bi-arrow-right ms-2"></i>
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
 
 
-         
+            <!-- EVALUACIÓN 90° -->
+            <div class="col-md-6">
+
+                <div class="card card-resultados h-100">
+
+                    <div class="card-body">
+
+                        <div class="resultado-icono">
+                            <i class="bi bi-person-check"></i>
+                        </div>
+
+                        <h5>Evaluación 90°</h5>
+
+                        <p>
+                            Consulta los resultados de la evaluación
+                            realizada por jefatura.
+                        </p>
+
+                        <button type="button"
+                                id="btn_resultado_90"
+                                class="btn btn-ver-resultados">
+
+                            Ver resultados
+                            <i class="bi bi-arrow-right ms-2"></i>
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
 
         </div>
 
     </div>
 
 
-    
-    
-    
-    
-    <div class="mb-4">
+<div class="row g-3 mb-2 mt-2" id ="graficas_resultados">
+
+
+
+</div>
+
+
+
+
+<div class="card border-0 shadow-sm mb-4" id="percepcion_organizacional">
+
+</div>
+
+
+
+
+    <!-- REPORTE GENERAL -->
+    <div class="card shadow-sm border-0 card-reporte mb-4 mt-4">
+
+        <!-- HEADER -->
+        <div class="card-header bg-white border-0 p-4">
+
+            <div class="d-flex flex-wrap justify-content-between
+                        align-items-center gap-3">
+
+
+                <button type="button"
+                        id="btn_descargar_excel_de_califiaciones"
+                        class="btn btn-excel">
+
+                    <i class="bi bi-file-earmark-excel me-2"></i>
+                    Descargar Excel
+
+                </button>
+
+                
+                <button type="button"
+                        id="btn_pdf_informe_resultados"
+                        class="btn btn-excel">
+
+                     <i class="bi bi-file-earmark-pdf"></i>
+                    Descargar Informe
+
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <!-- BODY -->
+        <div class="card-body pt-0" mt-2 mb-4>
+
+       
+
+
+            <!-- TABLA -->
+            <div class="table-responsive">
+
+            <div class="d-flex justify-content-end mb-3 mt-2">
+                <div class="input-group" style="max-width: 350px;">
+                    <span class="input-group-text bg-white">
+                        <i class="bi bi-search"></i>
+                    </span>
+                    <input 
+                        type="text" 
+                        class="form-control" 
+                        id="buscar_resultado" 
+                        placeholder="Buscar colaborador..."
+                    >
+                    <button class="btn btn-outline-secondary" type="button" id="limpiar_busqueda">
+                        <i class="bi bi-x-lg"></i>
+                    </button>
+                </div>
+            </div>
+
+                <table class="table table-hover align-middle tabla-resultados">
+
+                    <thead>
+
+                        <tr>
+                            <th>#</th>
+                            <th>Nombres</th>
+                            <th>Apellidos</th>
+                            <th>Cargo</th>
+                            <th class="text-center">KPI</th>
+                            <th class="text-center">HSE</th>
+                            <th class="text-center">Competencias</th>
+                            <th class="text-center">Total valoración</th>
+                            <th class="text-center">Opciones</th>
+                        </tr>
+
+                    </thead>
+
+                    <tbody id="tabla_resultados">
+
+                  
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- VERIFICACIÓN DEL PROCESO -->
+    <div class="mb-4 mt-4">
 
         <h5 class="titulo-seccion mb-1">
             <i class="bi bi-ui-checks-grid me-2"></i>
-              Verificación | Proceso de evaluación 
+            Verificación | Proceso de evaluación
         </h5>
 
         <p class="text-muted small mb-3">
@@ -652,23 +1222,15 @@
 
         <div class="row g-3" id="seccion_evaluaciones">
 
-         
-
-
-         
-
         </div>
 
     </div>
 
 
-    
-
-
-
-
-
 </div>
+
+
+
 
 
 

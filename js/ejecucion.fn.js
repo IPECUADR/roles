@@ -711,7 +711,933 @@ function genrar_reporte_evaluador(r){
   
 
 
+$(document).on('click', '#btn_resultado_180', function () {
+
+    console.log('Consultar resultados 180°');
+    cargar_resultados_180();
+
+});
+
+$(document).on('click', '#btn_resultado_90', function () {
+
+    console.log('Consultar resultados 90°');
+    cargar_resultados_90();
+});
+
+
+results = [];
+function cargar_resultados_90(){
+
+   
+
+
+  $.post('../web/rutas.php?ruta=reporte_Admin_90', function (r) {
+           
+            mostar_dato(r);
+
+            results = r;
+            t = '90°';
+            cargar_grafica_general(t);
+            $('#percepcion_organizacional').empty();
+
+
+  }, 'json');
 
 
 
 
+
+    }
+
+
+
+
+///  function  cargar resultados 180 °
+
+results = [];
+function cargar_resultados_180(){
+
+   
+
+
+  $.post('../web/rutas.php?ruta=reporte_Admin', function (r) {
+           
+            mostar_dato(r);
+
+            results = r;
+            t = '180°';
+            cargar_grafica_general(t);
+            cargar_grafica_percepcion();
+
+
+  }, 'json');
+
+
+
+
+
+    }
+
+
+
+function mostar_dato(r) {
+
+    console.log(r);
+
+    $('#tabla_resultados').empty();
+
+    if (!r || r.length === 0) {
+        $('#tabla_resultados').html(`
+            <tr>
+                <td colspan="8" class="text-center text-muted py-4">
+                    No existen resultados de valoración.
+                </td>
+            </tr>
+        `);
+        return;
+    }
+
+    contar = 0;
+    let html = r.map(item => `
+
+        <tr>
+
+             <td>${++contar}</td>
+            <td>${item.nom_p ?? ''}</td>
+            <td>${item.ap_p ?? ''}</td>
+            <td>${item.cargo ?? ''}</td>
+
+            <td class="text-center">
+                <span class="valor-indicador">
+                    ${Number(item.TOTAL_KPI ?? 0).toFixed(2)}
+                </span>
+            </td>
+
+            <td class="text-center">
+                <span class="valor-indicador">
+                    ${Number(item.TOTAL_HSE ?? 0).toFixed(2)}
+                </span>
+            </td>
+
+            <td class="text-center">
+                <span class="valor-indicador">
+                    ${Number(item.TOTAL_COMPETENCIAS ?? 0).toFixed(2)}
+                </span>
+            </td>
+
+            <td class="text-center">
+                <span class="valor-total">
+                    ${Number(item.TOTAL_EVALUACION ?? 0).toFixed(2)}
+                </span>
+            </td>
+
+            <td>
+                <div class="d-flex justify-content-center gap-2">
+
+                    <button type="button"
+                            class="btn btn-sm btn-outline-primary btn_informe_individual"
+                            data-id="${item.PK_persona}"
+                            title="Descargar informe individual">
+
+                        <i class="bi bi-file-earmark-pdf"></i>
+
+                    </button>
+
+                    <button type="button"
+                            class="btn btn-sm btn-outline-secondary btn_ver_mas"
+                            data-id="${item.PK_persona}"
+                            title="Ver más">
+
+                        <i class="bi bi-eye"></i>
+
+                    </button>
+
+                </div>
+            </td>
+
+        </tr>
+
+    `).join('');
+
+    $('#tabla_resultados').html(html);
+
+}
+
+
+// BUSCAR EN LA TABLA
+$(document).on('input', '#buscar_resultado', function () {
+
+    let valor = $(this).val().toLowerCase().trim();
+
+    $('#tabla_resultados tr').each(function () {
+
+        let contenido = $(this).text().toLowerCase();
+
+        $(this).toggle(contenido.includes(valor));
+
+    });
+
+});
+
+// LIMPIAR BÚSQUEDA
+$(document).on('click', '#limpiar_busqueda', function () {
+
+    $('#buscar_resultado').val('');
+    $('#tabla_resultados tr').show();
+
+});
+
+$(document).on('click', '#btn_pdf_informe_resultados', function () {
+
+ generar_informe_desempeno();
+
+
+})
+
+
+
+
+$(document).on('click', '#btn_descargar_excel_de_califiaciones', function () {
+
+    if (!results || results.length === 0) {
+        mensaje('warning', 'No existen registros para exportar.');
+        return;
+    }
+
+    $.ajax({
+        url: '../excel/reporte_180.php',
+        type: 'POST',
+        data: {
+            respuesta: JSON.stringify(results)
+        },
+        xhrFields: {
+            responseType: 'blob'
+        },
+        success: function (respuesta) {
+
+            let blob = new Blob([respuesta], {
+                type: 'application/vnd.ms-excel'
+            });
+
+            let url = window.URL.createObjectURL(blob);
+
+            let enlace = document.createElement('a');
+            enlace.href = url;
+            enlace.download = 'Reporte_Valoracion_Desempeno_2026.xls';
+
+            document.body.appendChild(enlace);
+            enlace.click();
+
+            document.body.removeChild(enlace);
+            window.URL.revokeObjectURL(url);
+
+        },
+        error: function () {
+            mensaje('error', 'No se pudo generar el reporte.');
+        }
+    });
+
+});
+
+
+
+
+function cargar_grafica_general(t){
+
+
+    $('#graficas_resultados').empty().append(`
+
+<div class="resultados-dashboard">
+
+    <div class="resultados-header">
+        <div>
+            <span class="resultados-empresa">KLUANE DRILLING EC</span>
+            <h4>RESULTADOS GENERALES EVALUACIÓN ${t} </h4>
+            <p>Valoración del Desempeño 2026</p>
+        </div>
+        <div class="resultados-icon">
+            <i class="bi bi-graph-up-arrow"></i>
+        </div>
+    </div>
+
+    <div class="row g-3 mb-4" id="resumen_general"></div>
+
+    <div class="card resultados-chart-card">
+        <div class="card-body">
+
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <div>
+                    <h6 class="fw-bold mb-1">Valoración de Desempeño</h6>
+                    <small class="text-muted">Promedio general por componente</small>
+                </div>
+                <span class="badge bg-light text-dark">2026</span>
+            </div>
+
+            <div class="grafica-triangular">
+                <canvas id="grafica_resultados_general"></canvas>
+            </div>
+
+            <div class="resultado-final">
+                <span>VALORACIÓN FINAL PROMEDIO</span>
+                <strong id="promedio_valoracion">0.00</strong>
+                <small>Sobre una escala de 125 puntos</small>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
+
+    `);
+
+    if (!results || results.length === 0) {
+        $('#resumen_general').empty();
+        $('#promedio_valoracion').text('0.00');
+        return;
+    }
+
+    let total = results.length;
+
+    let kpi = 0;
+    let hse = 0;
+    let competencias = 0;
+    let valoracion = 0;
+
+    results.forEach(item => {
+
+        kpi += Number(item.TOTAL_KPI || 0);
+        hse += Number(item.TOTAL_HSE || 0);
+        competencias += Number(item.TOTAL_COMPETENCIAS || 0);
+        valoracion += Number(item.TOTAL_EVALUACION || 0);
+
+    });
+
+    let promedio = {
+        KPI: kpi / total,
+        HSE: hse / total,
+        COMPETENCIAS: competencias / total,
+        VALORACION: valoracion / total
+    };
+
+    $('#promedio_valoracion').text(promedio.VALORACION.toFixed(2));
+
+
+    // TARJETAS DE RESULTADOS
+
+    let tarjetas = [
+        {
+            titulo: 'KPI',
+            valor: promedio.KPI,
+            color: '#24476B',
+            icono: 'bi-speedometer2'
+        },
+        {
+            titulo: 'HSE',
+            valor: promedio.HSE,
+            color: '#198754',
+            icono: 'bi-shield-check'
+        },
+        {
+            titulo: 'COMPETENCIAS',
+            valor: promedio.COMPETENCIAS,
+            color: '#64748b',
+            icono: 'bi-people'
+        },
+        {
+            titulo: 'VALORACIÓN FINAL',
+            valor: promedio.VALORACION,
+            color: '#17365d',
+            icono: 'bi-award'
+        }
+    ];
+
+    let html = '';
+
+    tarjetas.forEach(item => {
+
+        let avance = Math.max(0, Math.min((item.valor / 125) * 100, 100));
+
+        html += `
+            <div class="col-12 col-sm-6 col-xl-3">
+                <div class="resultado-card">
+
+                    <div class="d-flex justify-content-between align-items-center">
+                        <span class="resultado-titulo">${item.titulo}</span>
+                        <i class="bi ${item.icono}" style="color:${item.color};font-size:19px"></i>
+                    </div>
+
+                    <strong class="resultado-valor">
+                        ${item.valor.toFixed(2)}
+                    </strong>
+
+                    <div class="progress mb-2">
+                        <div class="progress-bar"
+                             role="progressbar"
+                             style="width:${avance}%;background:${item.color}">
+                        </div>
+                    </div>
+
+                    <div class="d-flex justify-content-between">
+                        <span class="resultado-escala">Avance</span>
+                        <span class="resultado-escala fw-bold">
+                            ${avance.toFixed(1)}%
+                        </span>
+                    </div>
+
+                </div>
+            </div>
+        `;
+
+    });
+
+    $('#resumen_general').html(html);
+
+
+    // GRÁFICA TRIANGULAR
+
+    let canvas = document.getElementById('grafica_resultados_general');
+
+    if (window.graficaGeneral) {
+        window.graficaGeneral.destroy();
+    }
+
+    window.graficaGeneral = new Chart(canvas, {
+
+        type: 'radar',
+
+        data: {
+            labels: ['KPI', 'HSE', 'COMPETENCIAS'],
+
+            datasets: [{
+                label: 'Promedio general',
+
+                data: [
+                    promedio.KPI,
+                    promedio.HSE,
+                    promedio.COMPETENCIAS
+                ],
+
+                backgroundColor: 'rgba(23, 54, 93, 0.15)',
+                borderColor: '#17365d',
+                borderWidth: 2,
+                pointBackgroundColor: '#17365d',
+                pointBorderColor: '#fff',
+                pointRadius: 5,
+                pointHoverRadius: 7
+            }]
+        },
+
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+
+            plugins: {
+                legend: {
+                    display: false
+                }
+            },
+
+            scales: {
+                r: {
+                    min: 0,
+                    max: 125,
+                    ticks: {
+                        stepSize: 25,
+                        backdropColor: 'transparent'
+                    },
+                    grid: {
+                        color: '#e5eaf0'
+                    },
+                    angleLines: {
+                        color: '#e5eaf0'
+                    },
+                    pointLabels: {
+                        color: '#475569',
+                        font: {
+                            size: 12,
+                            weight: 'bold'
+                        }
+                    }
+                }
+            }
+        }
+
+    });
+
+}
+
+
+
+
+
+
+
+
+function cargar_grafica_percepcion() {
+
+$('#percepcion_organizacional').empty().append(`
+
+
+       <div class="card-body">
+
+        <div class="mb-4">
+            <h6 class="fw-bold mb-1">Análisis de percepción organizacional</h6>
+            <small class="text-muted">
+                Comparativa de resultados entre autoevaluación, jefatura y pares
+            </small>
+        </div>
+
+        <div class="row g-3" id="cuadros_percepcion"></div>
+
+    </div>
+</div>
+
+<div class="card border-0 shadow-sm">
+    <div class="card-body">
+
+        <div class="mb-3">
+            <h6 class="fw-bold mb-1">Gráfica de valoración</h6>
+            <small class="text-muted">
+                Comportamiento comparativo de las percepciones por componente
+            </small>
+        </div>
+
+        <div style="height:370px;">
+            <canvas id="grafica_percepcion"></canvas>
+        </div>
+
+    </div>
+        
+        
+        
+        `);
+
+
+    if (!Array.isArray(results) || results.length === 0) {
+
+        $('#cuadros_percepcion').empty();
+
+        if (window.graficaPercepcion) {
+            window.graficaPercepcion.destroy();
+        }
+
+        return;
+    }
+
+
+    // ACUMULADORES
+    let datos = {
+        auto: {
+            HSE: 0,
+            COMPETENCIAS: 0,
+            KPI: 0
+        },
+        jefe: {
+            HSE: 0,
+            COMPETENCIAS: 0,
+            KPI: 0
+        },
+        pares: {
+            COMPETENCIAS: 0
+        }
+    };
+
+
+    // CONTADORES
+    let conteo = {
+        auto: {
+            HSE: 0,
+            COMPETENCIAS: 0,
+            KPI: 0
+        },
+        jefe: {
+            HSE: 0,
+            COMPETENCIAS: 0,
+            KPI: 0
+        },
+        pares: {
+            COMPETENCIAS: 0
+        }
+    };
+
+
+    // RECORRER RESULTADOS
+    results.forEach(item => {
+
+        // AUTOEVALUACIÓN Y JEFATURA
+        ['HSE', 'COMPETENCIAS', 'KPI'].forEach(tipo => {
+
+            ['auto', 'jefe'].forEach(origen => {
+
+                let campo = origen.toUpperCase() + '_' + tipo;
+                let valor = item[campo];
+
+                if (valor !== null && valor !== undefined && valor !== '') {
+
+                    valor = Number(valor);
+
+                    if (Number.isFinite(valor)) {
+
+                        datos[origen][tipo] += valor;
+                        conteo[origen][tipo]++;
+
+                    }
+
+                }
+
+            });
+
+        });
+
+
+        // EVALUACIÓN DE PARES
+        if (Number(item.EXISTE_PARES) > 0) {
+
+            let valor = Number(item.PARES_COMPETENCIAS);
+
+            if (Number.isFinite(valor)) {
+
+                datos.pares.COMPETENCIAS += valor;
+                conteo.pares.COMPETENCIAS++;
+
+            }
+
+        }
+
+    });
+
+
+    // CALCULAR PROMEDIOS
+    function promedio(origen, tipo) {
+
+        if (conteo[origen][tipo] === 0) {
+            return null;
+        }
+
+        return datos[origen][tipo] / conteo[origen][tipo];
+
+    }
+
+
+    let percepcion = {
+
+        HSE: {
+            auto: promedio('auto', 'HSE'),
+            jefe: promedio('jefe', 'HSE'),
+            pares: null
+        },
+
+        COMPETENCIAS: {
+            auto: promedio('auto', 'COMPETENCIAS'),
+            jefe: promedio('jefe', 'COMPETENCIAS'),
+            pares: promedio('pares', 'COMPETENCIAS')
+        },
+
+        KPI: {
+            auto: promedio('auto', 'KPI'),
+            jefe: promedio('jefe', 'KPI'),
+            pares: null
+        }
+
+    };
+
+
+    // CONSTRUIR CUADROS COMPARATIVOS
+    let componentes = [
+        {
+            nombre: 'HSE',
+            descripcion: 'Seguridad, salud y ambiente',
+            datos: percepcion.HSE
+        },
+        {
+            nombre: 'COMPETENCIAS',
+            descripcion: 'Evaluación de competencias',
+            datos: percepcion.COMPETENCIAS
+        },
+        {
+            nombre: 'KPI',
+            descripcion: 'Indicadores de desempeño',
+            datos: percepcion.KPI
+        }
+    ];
+
+
+    let html = '';
+
+    componentes.forEach(componente => {
+
+        let auto = componente.datos.auto;
+        let jefe = componente.datos.jefe;
+        let pares = componente.datos.pares;
+
+        let diferencia = (auto !== null && jefe !== null)
+            ? Math.abs(auto - jefe)
+            : null;
+
+
+        html += `
+            <div class="col-12 col-md-6 col-xl-4">
+
+                <div class="percepcion-card">
+
+                    <div class="percepcion-titulo">
+                        ${componente.nombre}
+                    </div>
+
+                    <small class="text-muted d-block mb-3">
+                        ${componente.descripcion}
+                    </small>
+
+                    ${crearFilaPercepcion(
+                        'Autoevaluación',
+                        auto,
+                        'percepcion-auto'
+                    )}
+
+                    ${crearFilaPercepcion(
+                        'Jefatura',
+                        jefe,
+                        'percepcion-jefe'
+                    )}
+
+                    ${crearFilaPercepcion(
+                        'Evaluación de pares',
+                        pares,
+                        'percepcion-pares'
+                    )}
+
+                    <div class="percepcion-brecha">
+                        <span>Brecha auto / jefatura</span>
+
+                        <strong>
+                            ${diferencia !== null
+                                ? diferencia.toFixed(2)
+                                : 'N/D'}
+                        </strong>
+                    </div>
+
+                </div>
+
+            </div>
+        `;
+
+    });
+
+
+    $('#cuadros_percepcion').html(html);
+
+
+    // GRÁFICA DE VALORACIÓN
+    let canvas = document.getElementById('grafica_percepcion');
+
+    if (window.graficaPercepcion) {
+        window.graficaPercepcion.destroy();
+    }
+
+
+    window.graficaPercepcion = new Chart(canvas, {
+
+        type: 'radar',
+
+        data: {
+
+            labels: [
+                'HSE',
+                'Competencias',
+                'KPI'
+            ],
+
+            datasets: [
+
+                {
+                    label: 'Autoevaluación',
+
+                    data: [
+                        percepcion.HSE.auto,
+                        percepcion.COMPETENCIAS.auto,
+                        percepcion.KPI.auto
+                    ],
+
+                    backgroundColor: 'rgba(36, 71, 107, 0.12)',
+                    borderColor: '#24476B',
+                    pointBackgroundColor: '#24476B',
+                    borderWidth: 2,
+                    pointRadius: 4
+                },
+
+                {
+                    label: 'Jefatura',
+
+                    data: [
+                        percepcion.HSE.jefe,
+                        percepcion.COMPETENCIAS.jefe,
+                        percepcion.KPI.jefe
+                    ],
+
+                    backgroundColor: 'rgba(25, 135, 84, 0.10)',
+                    borderColor: '#198754',
+                    pointBackgroundColor: '#198754',
+                    borderWidth: 2,
+                    pointRadius: 4
+                },
+
+                {
+                    label: 'Pares',
+
+                    data: [
+                        null,
+                        percepcion.COMPETENCIAS.pares,
+                        null
+                    ],
+
+                    backgroundColor: 'rgba(214, 168, 79, 0.10)',
+                    borderColor: '#D6A84F',
+                    pointBackgroundColor: '#D6A84F',
+                    borderWidth: 2,
+                    pointRadius: 5
+                }
+
+            ]
+
+        },
+
+        options: {
+
+            responsive: true,
+            maintainAspectRatio: false,
+
+            plugins: {
+
+                legend: {
+                    position: 'bottom',
+
+                    labels: {
+                        usePointStyle: true,
+                        padding: 20
+                    }
+                }
+
+            },
+
+            scales: {
+
+                r: {
+
+                    beginAtZero: true,
+                    min: 0,
+                    max: 125,
+
+                    ticks: {
+                        stepSize: 25,
+                        backdropColor: 'transparent'
+                    },
+
+                    grid: {
+                        color: '#e5eaf0'
+                    },
+
+                    angleLines: {
+                        color: '#e5eaf0'
+                    },
+
+                    pointLabels: {
+                        color: '#475569',
+
+                        font: {
+                            size: 12,
+                            weight: 'bold'
+                        }
+                    }
+
+                }
+
+            }
+
+        }
+
+    });
+
+}
+
+
+// FUNCIÓN PARA CONSTRUIR CADA FILA
+function crearFilaPercepcion(titulo, valor, clase) {
+
+    if (valor === null) {
+
+        return `
+            <div class="percepcion-item">
+
+                <div class="percepcion-label">
+                    <span>${titulo}</span>
+                    <span class="percepcion-sin-datos">Sin evaluación</span>
+                </div>
+
+            </div>
+        `;
+
+    }
+
+    let avance = Math.max(0, Math.min((valor / 125) * 100, 100));
+
+    return `
+        <div class="percepcion-item">
+
+            <div class="percepcion-label">
+
+                <span>${titulo}</span>
+
+                <strong class="percepcion-valor">
+                    ${valor.toFixed(2)}
+                </strong>
+
+            </div>
+
+            <div class="percepcion-progress">
+
+                <div class="percepcion-progress-bar ${clase}"
+                     style="width:${avance}%">
+                </div>
+
+            </div>
+
+        </div>
+    `;
+
+}
+
+
+
+function generar_informe_desempeno() {
+
+     if (!results || results.length === 0) {
+        mensaje('warning', 'No existen registros para exportar.');
+        return;
+    }
+
+
+    let ventana = window.open('', '_blank');
+
+    $.ajax({
+        url: '../pdf/informe_general.php',
+        type: 'POST',
+        data: {
+            respuesta: JSON.stringify(results)
+        },
+        xhrFields: {
+            responseType: 'blob'
+        },
+        success: function(blob) {
+
+            let url = URL.createObjectURL(blob);
+            ventana.location.href = url;
+
+            setTimeout(() => URL.revokeObjectURL(url), 60000);
+        },
+        error: function() {
+            ventana.close();
+            mensaje('error', 'Error al generar el informe PDF.');
+        }
+    });
+}
