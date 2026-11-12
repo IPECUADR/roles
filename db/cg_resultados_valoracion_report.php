@@ -18,7 +18,7 @@ try {
 
     $stmt = $pdo->prepare("
 
-  SELECT
+ SELECT
     indicadores.*,
 
     /* VALORACIÓN FINAL 2026 */
@@ -49,89 +49,133 @@ FROM (
     FROM (
 
         SELECT
-            persona.PK_persona,
-            persona.nom_p,
+            ci_colaborador,
+        
+            persona.nom_p, 
+        
             persona.ap_p,
             cargo.cargo_cg as cargo,
 
-            /* HSE */
+            /* ==========================
+               HSE - FK_BASE_CLF = 13
+            ========================== */
+
             COALESCE(AVG(CASE
-                WHEN ev_v_des.FK_base_clf = 13
-                     AND ev_v_des.FK_t_evaluacion = 1
-                THEN ev_v_des.rp_ev_v_ds
+                WHEN FK_base_clf = 13 AND FK_t_evaluacion = 1
+                THEN rp_ev_v_ds
             END), 0) * 0.25 AS AUTO_HSE,
 
             COALESCE(AVG(CASE
-                WHEN ev_v_des.FK_base_clf = 13
-                     AND ev_v_des.FK_t_evaluacion = 2
-                THEN ev_v_des.rp_ev_v_ds
+                WHEN FK_base_clf = 13 AND FK_t_evaluacion = 1
+                THEN rp_ev_v_ds
+            END), 0) AS AUTO_HSE_100,
+
+            COALESCE(AVG(CASE
+                WHEN FK_base_clf = 13 AND FK_t_evaluacion = 2
+                THEN rp_ev_v_ds
             END), 0) * 0.75 AS JEFE_HSE,
 
-            /* COMPETENCIAS */
             COALESCE(AVG(CASE
-                WHEN ev_v_des.FK_base_clf BETWEEN 1 AND 12
-                     AND ev_v_des.FK_t_evaluacion = 1
-                THEN ev_v_des.rp_ev_v_ds
+                WHEN FK_base_clf = 13 AND FK_t_evaluacion = 2
+                THEN rp_ev_v_ds
+            END), 0) AS JEFE_HSE_100,
+
+
+            /* ==========================
+               COMPETENCIAS - 1 AL 12
+            ========================== */
+
+            COALESCE(AVG(CASE
+                WHEN FK_base_clf BETWEEN 1 AND 12
+                     AND FK_t_evaluacion = 1
+                THEN rp_ev_v_ds
             END), 0) * 0.25 AS AUTO_COMPETENCIAS,
 
             COALESCE(AVG(CASE
-                WHEN ev_v_des.FK_base_clf BETWEEN 1 AND 12
-                     AND ev_v_des.FK_t_evaluacion = 2
-                THEN ev_v_des.rp_ev_v_ds
+                WHEN FK_base_clf BETWEEN 1 AND 12
+                     AND FK_t_evaluacion = 1
+                THEN rp_ev_v_ds
+            END), 0) AS AUTO_COMPETENCIAS_100,
+
+            COALESCE(AVG(CASE
+                WHEN FK_base_clf BETWEEN 1 AND 12
+                     AND FK_t_evaluacion = 2
+                THEN rp_ev_v_ds
             END), 0) * 0.75 AS JEFE_COMPETENCIAS,
 
-            /* EVALUACIÓN DE PARES */
             COALESCE(AVG(CASE
-                WHEN ev_v_des.FK_base_clf BETWEEN 1 AND 12
-                     AND ev_v_des.FK_t_evaluacion = 3
-                THEN ev_v_des.rp_ev_v_ds
+                WHEN FK_base_clf BETWEEN 1 AND 12
+                     AND FK_t_evaluacion = 2
+                THEN rp_ev_v_ds
+            END), 0) AS JEFE_COMPETENCIAS_100,
+
+
+            /* ==========================
+               EVALUACIÓN DE PARES - 5%
+            ========================== */
+
+            COALESCE(AVG(CASE
+                WHEN FK_base_clf BETWEEN 1 AND 12
+                     AND FK_t_evaluacion = 3
+                THEN rp_ev_v_ds
             END), 0) * 0.05 AS PARES_COMPETENCIAS,
 
+            COALESCE(AVG(CASE
+                WHEN FK_base_clf BETWEEN 1 AND 12
+                     AND FK_t_evaluacion = 3
+                THEN rp_ev_v_ds
+            END), 0) AS PARES_COMPETENCIAS_100,
+
             COUNT(CASE
-                WHEN ev_v_des.FK_base_clf BETWEEN 1 AND 12
-                     AND ev_v_des.FK_t_evaluacion = 3
+                WHEN FK_base_clf BETWEEN 1 AND 12
+                     AND FK_t_evaluacion = 3
                 THEN 1
             END) AS EXISTE_PARES,
 
-            /* KPI */
+
+            /* ==========================
+               KPI - FK_BASE_CLF = 14
+            ========================== */
+
             COALESCE(SUM(CASE
-                WHEN ev_v_des.FK_base_clf = 14
-                     AND ev_v_des.FK_t_evaluacion = 1
-                THEN ((ev_v_des.rp_ev_v_ds * ev_v_des.pnd_clf_ev) / 100) * 0.20
+                WHEN FK_base_clf = 14 AND FK_t_evaluacion = 1
+                THEN ((rp_ev_v_ds * pnd_clf_ev) / 100) * 0.20
                 ELSE 0
             END), 0) AS AUTO_KPI,
 
             COALESCE(SUM(CASE
-                WHEN ev_v_des.FK_base_clf = 14
-                     AND ev_v_des.FK_t_evaluacion = 2
-                THEN ((ev_v_des.rp_ev_v_ds * ev_v_des.pnd_clf_ev) / 100) * 0.80
+                WHEN FK_base_clf = 14 AND FK_t_evaluacion = 1
+                THEN (rp_ev_v_ds * pnd_clf_ev) / 100
                 ELSE 0
-            END), 0) AS JEFE_KPI
+            END), 0) AS AUTO_KPI_100,
 
-        FROM ev_v_des
+            COALESCE(SUM(CASE
+                WHEN FK_base_clf = 14 AND FK_t_evaluacion = 2
+                THEN ((rp_ev_v_ds * pnd_clf_ev) / 100) * 0.80
+                ELSE 0
+            END), 0) AS JEFE_KPI,
 
-        INNER JOIN persona
-            ON persona.PK_persona = ev_v_des.ci_colaborador
+            COALESCE(SUM(CASE
+                WHEN FK_base_clf = 14 AND FK_t_evaluacion = 2
+                THEN (rp_ev_v_ds * pnd_clf_ev) / 100
+                ELSE 0
+            END), 0) AS JEFE_KPI_100
 
-        INNER JOIN cargo
-            ON cargo.PK_cg = ev_v_des.FK_cg
+        FROM ev_v_des, persona, cargo
 
-        WHERE
-            ev_v_des.FK_base_clf BETWEEN 1 AND 14
-            AND ev_v_des.FK_t_evaluacion IN (1, 2, 3)
+        WHERE FK_base_clf BETWEEN 1 AND 14
+          AND FK_t_evaluacion IN (1, 2, 3)
+          AND persona.PK_persona = ev_v_des.ci_colaborador
+          AND cargo.PK_cg = persona.FK_cg
 
-        GROUP BY
-            persona.PK_persona,
-            persona.nom_p,
-            persona.ap_p
+        GROUP BY ci_colaborador
 
-        HAVING COUNT(DISTINCT ev_v_des.FK_t_evaluacion) > 1
+        /* EXCLUIR QUIENES SOLO TIENEN EVALUACIÓN TIPO 2 */
+        HAVING COUNT(DISTINCT FK_t_evaluacion) > 1
 
     ) AS calculos
 
 ) AS indicadores
-
-ORDER BY indicadores.ap_p
 
     ");
 
