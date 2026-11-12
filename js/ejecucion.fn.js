@@ -800,7 +800,7 @@ function mostar_dato(r) {
     contar = 0;
     let html = r.map(item => `
 
-        <tr>
+        <tr id="${item.PK_persona}">
 
              <td>${++contar}</td>
             <td>${item.nom_p ?? ''}</td>
@@ -1640,4 +1640,26 @@ function generar_informe_desempeno() {
             mensaje('error', 'Error al generar el informe PDF.');
         }
     });
+}
+
+$(document).on('click', '.btn_informe_individual', function () {
+
+    let id_persona = $(this).data('id');
+
+    if (!id_persona) {
+        mensaje('warning', 'No se pudo identificar al evaluado.');
+        return;
+    }
+
+    console.log('Ver más detalles para persona ID:', id_persona);
+
+})
+
+
+///  calculos 180°
+function informe_kpi_180(){
+
+    $.post('../web/rutas.php?ruta=hse_individual', function (r) {
+    }, 'json');
+
 }

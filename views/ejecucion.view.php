@@ -1137,7 +1137,7 @@
                 
                 <button type="button"
                         id="btn_pdf_informe_resultados"
-                        class="btn btn-excel">
+                        class="btn btn-danger text-white">
 
                      <i class="bi bi-file-earmark-pdf"></i>
                     Descargar Informe
