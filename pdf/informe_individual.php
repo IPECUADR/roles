@@ -157,7 +157,7 @@ class InformeDesempeno extends FPDF {
         $this->SetFillColor(23, 54, 93);
         $this->Rect(0, 0, 210, 27, 'F');
 
-        $logo = 'logo.png';
+        $logo == '../img/kde_info.png';
 
         if (file_exists($logo)) {
             $this->Image($logo, 15, 5, 18);
