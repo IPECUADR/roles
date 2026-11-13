@@ -836,21 +836,14 @@ function mostar_dato(r) {
 
                     <button type="button"
                             class="btn btn-sm btn-outline-primary btn_informe_individual"
-                            data-id="${item.PK_persona}"
+                            data-id="${item.ci_colaborador}"
                             title="Descargar informe individual">
 
                         <i class="bi bi-file-earmark-pdf"></i>
 
                     </button>
 
-                    <button type="button"
-                            class="btn btn-sm btn-outline-secondary btn_ver_mas"
-                            data-id="${item.PK_persona}"
-                            title="Ver más">
-
-                        <i class="bi bi-eye"></i>
-
-                    </button>
+                 
 
                 </div>
             </td>
@@ -1646,20 +1639,117 @@ $(document).on('click', '.btn_informe_individual', function () {
 
     let id_persona = $(this).data('id');
 
+    console.log('Generando informe individual para ID:', id_persona);
+
     if (!id_persona) {
         mensaje('warning', 'No se pudo identificar al evaluado.');
         return;
     }
 
-    console.log('Ver más detalles para persona ID:', id_persona);
+    // paso el  id a las consultas de resultados individuales
+    consulta_hse_180_individual(id_persona);
+    consulta_competencias_180_individual(id_persona);
+    consulta_kpi_180_individual(id_persona);
+    resultados_individuales(id_persona);
+
+
+    /// ejecutar la generacion del pdf despues de 1 segundo para asegurar que las consultas hayan terminado
+    
+  setTimeout(() => {
+     generar_informe_desempeno_individual();
+    }, 1000);
 
 })
 
 
 ///  calculos 180°
-function informe_kpi_180(){
 
-    $.post('../web/rutas.php?ruta=hse_individual', function (r) {
+let hse_individual = [];
+let competencias_individual = [];
+let kpi_individual = [];
+let resultados_individual = [];
+
+
+function consulta_hse_180_individual(id_persona){
+
+    $.post('../web/rutas.php?ruta=hse_resultados_individuales_id',{id : id_persona}, function (r) {
+
+        hse_individual = r;
+        console.log('HSE individual:', hse_individual);
+
     }, 'json');
 
+}
+
+function consulta_competencias_180_individual(id_persona){
+
+    $.post('../web/rutas.php?ruta=competencias_resultados_individuales_id',{id : id_persona}, function (r) {
+
+        competencias_individual = r;
+        console.log('Competencias individual:', competencias_individual);
+
+    }, 'json');
+
+}
+
+
+function consulta_kpi_180_individual(id_persona){
+
+    $.post('../web/rutas.php?ruta=kpi_resultados_individuales_id',{id : id_persona}, function (r) {
+        kpi_individual = r;
+        console.log('KPI individual:', kpi_individual);
+    }, 'json');
+
+}
+
+function resultados_individuales(id_persona){
+
+    $.post('../web/rutas.php?ruta=cg_resultados_valoracion_id',{id : id_persona}, function (r) {
+
+        resultados_individual = r;
+        console.log('Resultados individual:', resultados_individual);
+
+    }, 'json');
+
+}
+
+
+
+// genarcion de reporte en pdf 
+
+
+function generar_informe_desempeno_individual() {
+
+ 
+
+    let ventana = window.open('', '_blank');
+
+    $.ajax({
+        url: '../pdf/informe_individual.php',
+        type: 'POST',
+        data: {
+           
+
+            hse: JSON.stringify(hse_individual),
+            competencias: JSON.stringify(competencias_individual),
+            kpi: JSON.stringify(kpi_individual),
+            resultados: JSON.stringify(resultados_individual)
+
+            
+        },
+        xhrFields: {
+            responseType: 'blob'
+        },
+        success: function(blob) {
+
+            let url = URL.createObjectURL(blob);
+            ventana.location.href = url;
+
+            setTimeout(() => URL.revokeObjectURL(url), 60000);
+        },
+        error: function() {
+            ventana.close();
+            mensaje('error', 'Error al generar el informe PDF.');
+        }
+    });
 }

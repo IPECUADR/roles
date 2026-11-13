@@ -115,6 +115,18 @@ $rutas = [
       'reporte_Admin_90' => '../db/cg_resultados_valoracion_report_90.php',
 
 
+
+
+    ////  resultados de valoracion por id de usuario
+
+
+      'cg_resultados_valoracion_id' => '../db/cg_resultados_valoracion_id.php',
+
+      'kpi_resultados_individuales_id' => '../db/kpi_resultados_individuales_id.php',
+      'hse_resultados_individuales_id' => '../db/hse_resultados_individuales_id.php',
+      'competencias_resultados_individuales_id' => '../db/competencias_resultados_individuales_id.php',
+
+
       
   
 ];
